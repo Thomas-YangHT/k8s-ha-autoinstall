@@ -1,0 +1,25 @@
+K8S_VER=v1.12.1
+CIDR_SUBNET=10.244.0.0/16
+KUBECONFIG=/etc/kubernetes/admin.conf
+LOAD_BALANCER_DNS=k8s.yunwei.edu
+LOAD_BALANCER_PORT=8443
+CP1_HOSTNAME=master1.yunwei.edu
+CP2_HOSTNAME=master2.yunwei.edu
+CP3_HOSTNAME=master3.yunwei.edu
+VIP_IP=192.168.31.30
+CP1_IP=192.168.31.31
+CP2_IP=192.168.31.32
+CP3_IP=192.168.31.33
+NODE1_IP=192.168.31.34
+NODE1_HOSTNAME=node1.yunwei.edu
+#
+master="$CP1_IP,$CP2_IP,$CP3_IP"
+node="$NODE1_IP"  # add IP seprate by ','
+net="calico" #calico or flannel
+dashboard=true
+
+#just for coreos machines
+KVM_NAME="master1,master2,master3,node1"
+GATEWAY=192.168.31.253  
+DNS1=192.168.31.140
+DNS2=114.114.114.114  

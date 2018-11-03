@@ -1,0 +1,352 @@
+[192.168.31.31] Executing task 'master1'
+[192.168.31.31] run: export PATH=$PATH:/opt/bin
+[192.168.31.31] run: sudo kubeadm reset -f 
+[192.168.31.31] out: [preflight] running pre-flight checks
+[192.168.31.31] out: [reset] stopping the kubelet service
+[192.168.31.31] out: [reset] unmounting mounted directories in "/var/lib/kubelet"
+[192.168.31.31] out: [reset] no etcd manifest found in "/etc/kubernetes/manifests/etcd.yaml". Assuming external etcd
+[192.168.31.31] out: [reset] please manually reset etcd to prevent further issues
+[192.168.31.31] out: [reset] deleting contents of stateful directories: [/var/lib/kubelet /etc/cni/net.d /var/lib/dockershim /var/run/kubernetes]
+[192.168.31.31] out: [reset] deleting contents of config directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]
+[192.168.31.31] out: [reset] deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]
+[192.168.31.31] out: 
+
+[192.168.31.31] run: sudo kubeadm init  --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.31] out: [init] using Kubernetes version: v1.12.1
+[192.168.31.31] out: [preflight] running pre-flight checks
+[192.168.31.31] out: 	[WARNING Service-Docker]: docker service is not enabled, please run 'systemctl enable docker.service'
+[192.168.31.31] out: [preflight/images] Pulling images required for setting up a Kubernetes cluster
+[192.168.31.31] out: [preflight/images] This might take a minute or two, depending on the speed of your internet connection
+[192.168.31.31] out: [preflight/images] You can also perform this action in beforehand using 'kubeadm config images pull'
+[192.168.31.31] out: [kubelet] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[192.168.31.31] out: [kubelet] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[192.168.31.31] out: [preflight] Activating the kubelet service
+[192.168.31.31] out: [certificates] Generated ca certificate and key.
+[192.168.31.31] out: [certificates] Generated apiserver certificate and key.
+[192.168.31.31] out: [certificates] apiserver serving cert is signed for DNS names [master1 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local k8s.yunwei.edu k8s.yunwei.edu] and IPs [10.96.0.1 192.168.31.31]
+[192.168.31.31] out: [certificates] Generated apiserver-kubelet-client certificate and key.
+[192.168.31.31] out: [certificates] Generated etcd/ca certificate and key.
+[192.168.31.31] out: [certificates] Generated etcd/peer certificate and key.
+[192.168.31.31] out: [certificates] etcd/peer serving cert is signed for DNS names [master1 localhost master1.yunwei.edu] and IPs [192.168.31.31 127.0.0.1 ::1 192.168.31.31]
+[192.168.31.31] out: [certificates] Generated etcd/healthcheck-client certificate and key.
+[192.168.31.31] out: [certificates] Generated apiserver-etcd-client certificate and key.
+[192.168.31.31] out: [certificates] Generated etcd/server certificate and key.
+[192.168.31.31] out: [certificates] etcd/server serving cert is signed for DNS names [master1 localhost master1.yunwei.edu] and IPs [127.0.0.1 ::1 192.168.31.31]
+[192.168.31.31] out: [certificates] Generated front-proxy-ca certificate and key.
+[192.168.31.31] out: [certificates] Generated front-proxy-client certificate and key.
+[192.168.31.31] out: [certificates] valid certificates and keys now exist in "/etc/kubernetes/pki"
+[192.168.31.31] out: [certificates] Generated sa key and public key.
+[192.168.31.31] out: [endpoint] WARNING: port specified in controlPlaneEndpoint overrides bindPort in the controlplane address
+[192.168.31.31] out: [kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/admin.conf"
+[192.168.31.31] out: [kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/kubelet.conf"
+[192.168.31.31] out: [kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/controller-manager.conf"
+[192.168.31.31] out: [kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/scheduler.conf"
+[192.168.31.31] out: [controlplane] wrote Static Pod manifest for component kube-apiserver to "/etc/kubernetes/manifests/kube-apiserver.yaml"
+[192.168.31.31] out: [controlplane] wrote Static Pod manifest for component kube-controller-manager to "/etc/kubernetes/manifests/kube-controller-manager.yaml"
+[192.168.31.31] out: [controlplane] wrote Static Pod manifest for component kube-scheduler to "/etc/kubernetes/manifests/kube-scheduler.yaml"
+[192.168.31.31] out: [etcd] Wrote Static Pod manifest for a local etcd instance to "/etc/kubernetes/manifests/etcd.yaml"
+[192.168.31.31] out: [init] waiting for the kubelet to boot up the control plane as Static Pods from directory "/etc/kubernetes/manifests" 
+[192.168.31.31] out: [init] this might take a minute or longer if the control plane images have to be pulled
+[192.168.31.31] out: [apiclient] All control plane components are healthy after 83.006844 seconds
+[192.168.31.31] out: [uploadconfig] storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[192.168.31.31] out: [kubelet] Creating a ConfigMap "kubelet-config-1.12" in namespace kube-system with the configuration for the kubelets in the cluster
+[192.168.31.31] out: [markmaster] Marking the node master1 as master by adding the label "node-role.kubernetes.io/master=''"
+[192.168.31.31] out: [markmaster] Marking the node master1 as master by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+[192.168.31.31] out: [patchnode] Uploading the CRI Socket information "/var/run/dockershim.sock" to the Node API object "master1" as an annotation
+[192.168.31.31] out: [bootstraptoken] using token: 1vqpgy.tc8klpi3ffjwwoob
+[192.168.31.31] out: [bootstraptoken] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+[192.168.31.31] out: [bootstraptoken] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[192.168.31.31] out: [bootstraptoken] configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
+[192.168.31.31] out: [bootstraptoken] creating the "cluster-info" ConfigMap in the "kube-public" namespace
+[192.168.31.31] out: [addons] Applied essential addon: CoreDNS
+[192.168.31.31] out: [endpoint] WARNING: port specified in controlPlaneEndpoint overrides bindPort in the controlplane address
+[192.168.31.31] out: [addons] Applied essential addon: kube-proxy
+[192.168.31.31] out: 
+[192.168.31.31] out: Your Kubernetes master has initialized successfully!
+[192.168.31.31] out: 
+[192.168.31.31] out: To start using your cluster, you need to run the following as a regular user:
+[192.168.31.31] out: 
+[192.168.31.31] out:   mkdir -p $HOME/.kube
+[192.168.31.31] out:   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+[192.168.31.31] out:   sudo chown $(id -u):$(id -g) $HOME/.kube/config
+[192.168.31.31] out: 
+[192.168.31.31] out: You should now deploy a pod network to the cluster.
+[192.168.31.31] out: Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+[192.168.31.31] out:   https://kubernetes.io/docs/concepts/cluster-administration/addons/
+[192.168.31.31] out: 
+[192.168.31.31] out: You can now join any number of machines by running the following on each node
+[192.168.31.31] out: as root:
+[192.168.31.31] out: 
+[192.168.31.31] out:   kubeadm join k8s.yunwei.edu:8443 --token 1vqpgy.tc8klpi3ffjwwoob --discovery-token-ca-cert-hash sha256:fce59abf4273e4a83491e8dded636054608c7ab2925b744db2fa3aebb73821a8
+[192.168.31.31] out: 
+[192.168.31.31] out: 
+
+[192.168.31.31] run: sudo tar zcvf coreos-k8s/master-conf.tgz -T coreos-k8s/m1_ca_files
+[192.168.31.31] out: tar: Removing leading `/' from member names
+[192.168.31.31] out: /etc/kubernetes/pki/ca.crt
+[192.168.31.31] out: /etc/kubernetes/pki/ca.key
+[192.168.31.31] out: /etc/kubernetes/pki/sa.key
+[192.168.31.31] out: /etc/kubernetes/pki/sa.pub
+[192.168.31.31] out: /etc/kubernetes/pki/front-proxy-ca.crt
+[192.168.31.31] out: /etc/kubernetes/pki/front-proxy-ca.key
+[192.168.31.31] out: /etc/kubernetes/pki/front-proxy-client.crt
+[192.168.31.31] out: /etc/kubernetes/pki/front-proxy-client.key
+[192.168.31.31] out: /etc/kubernetes/pki/etcd/ca.crt
+[192.168.31.31] out: /etc/kubernetes/pki/etcd/ca.key
+[192.168.31.31] out: /etc/kubernetes/admin.conf
+[192.168.31.31] out: 
+
+[192.168.31.31] run: mkdir -p $HOME/.kube
+[192.168.31.31] run: sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config
+[192.168.31.31] run: sudo chown $(id -u):$(id -g) $HOME/.kube/config
+[192.168.31.31] run: sudo cp -r /var/lib/etcd ./etcd`date +%s`
+
+Done.
+Disconnecting from 192.168.31.31... done.
+[192.168.31.33] Executing task 'master2'
+[192.168.31.33] put: master-conf.tgz -> /home/core/master-conf.tgz
+[192.168.31.33] run: sudo rm -rf /etc/kubernetes
+[192.168.31.33] run: sudo tar zxvf master-conf.tgz -C /etc --strip-components 1
+[192.168.31.33] out: etc/kubernetes/pki/ca.crt
+[192.168.31.33] out: etc/kubernetes/pki/ca.key
+[192.168.31.33] out: etc/kubernetes/pki/sa.key
+[192.168.31.33] out: etc/kubernetes/pki/sa.pub
+[192.168.31.33] out: etc/kubernetes/pki/front-proxy-ca.crt
+[192.168.31.33] out: etc/kubernetes/pki/front-proxy-ca.key
+[192.168.31.33] out: etc/kubernetes/pki/front-proxy-client.crt
+[192.168.31.33] out: etc/kubernetes/pki/front-proxy-client.key
+[192.168.31.33] out: etc/kubernetes/pki/etcd/ca.crt
+[192.168.31.33] out: etc/kubernetes/pki/etcd/ca.key
+[192.168.31.33] out: etc/kubernetes/admin.conf
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo kubeadm alpha phase certs all --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.33] out: [certificates] Generated etcd/server certificate and key.
+[192.168.31.33] out: [certificates] etcd/server serving cert is signed for DNS names [master3 localhost master3.yunwei.edu] and IPs [127.0.0.1 ::1 192.168.31.33]
+[192.168.31.33] out: [certificates] Generated etcd/peer certificate and key.
+[192.168.31.33] out: [certificates] etcd/peer serving cert is signed for DNS names [master3 localhost master3.yunwei.edu] and IPs [192.168.31.33 127.0.0.1 ::1 192.168.31.33]
+[192.168.31.33] out: [certificates] Generated etcd/healthcheck-client certificate and key.
+[192.168.31.33] out: [certificates] Generated apiserver-etcd-client certificate and key.
+[192.168.31.33] out: [certificates] Generated apiserver-kubelet-client certificate and key.
+[192.168.31.33] out: [certificates] Generated apiserver certificate and key.
+[192.168.31.33] out: [certificates] apiserver serving cert is signed for DNS names [master3 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local k8s.yunwei.edu k8s.yunwei.edu] and IPs [10.96.0.1 192.168.31.33]
+[192.168.31.33] out: [certificates] Using the existing front-proxy-client certificate and key.
+[192.168.31.33] out: [certificates] valid certificates and keys now exist in "/etc/kubernetes/pki"
+[192.168.31.33] out: [certificates] Using the existing sa key.
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo kubeadm alpha phase kubelet config write-to-disk --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.33] out: [upgrade/versions] kubeadm version: v1.12.1
+[192.168.31.33] out: [kubelet] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo kubeadm alpha phase kubelet write-env-file --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.33] out: [kubelet] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo kubeadm alpha phase kubeconfig kubelet --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.33] out: [endpoint] WARNING: port specified in controlPlaneEndpoint overrides bindPort in the controlplane address
+[192.168.31.33] out: [kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/kubelet.conf"
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo systemctl restart kubelet
+[192.168.31.33] run: mkdir -p $HOME/.kube
+[192.168.31.33] run: sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config
+[192.168.31.33] run: sudo chown $(id -u):$(id -g) $HOME/.kube/config
+[192.168.31.33] run: source coreos-k8s/CONFIG &&  kubectl exec -n kube-system etcd-master1 -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP1_IP}:2379 member add `cat /etc/hosts|grep $(hostname)|awk '{print $3}'` https://`ip a show dev eth0|grep inet|grep brd|grep -Po 'inet \K\d+.\d+.\d+.\d+'`:2380
+[192.168.31.33] out: Added member named master3.yunwei.edu with ID 6cf09f8ff7b64466 to cluster
+[192.168.31.33] out: 
+[192.168.31.33] out: ETCD_NAME="master3.yunwei.edu"
+[192.168.31.33] out: ETCD_INITIAL_CLUSTER="master1.yunwei.edu=https://192.168.31.31:2380,master3.yunwei.edu=https://192.168.31.33:2380"
+[192.168.31.33] out: ETCD_INITIAL_CLUSTER_STATE="existing"
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo kubeadm alpha phase etcd local --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.33] out: [etcd] Wrote Static Pod manifest for a local etcd instance to "/etc/kubernetes/manifests/etcd.yaml"
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo kubeadm alpha phase kubeconfig all --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.33] out: [endpoint] WARNING: port specified in controlPlaneEndpoint overrides bindPort in the controlplane address
+[192.168.31.33] out: [kubeconfig] Using existing up-to-date KubeConfig file: "/etc/kubernetes/admin.conf"
+[192.168.31.33] out: [kubeconfig] Using existing up-to-date KubeConfig file: "/etc/kubernetes/kubelet.conf"
+[192.168.31.33] out: [kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/controller-manager.conf"
+[192.168.31.33] out: [kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/scheduler.conf"
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo kubeadm alpha phase controlplane all --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.33] out: [controlplane] wrote Static Pod manifest for component kube-apiserver to "/etc/kubernetes/manifests/kube-apiserver.yaml"
+[192.168.31.33] out: [controlplane] wrote Static Pod manifest for component kube-controller-manager to "/etc/kubernetes/manifests/kube-controller-manager.yaml"
+[192.168.31.33] out: [controlplane] wrote Static Pod manifest for component kube-scheduler to "/etc/kubernetes/manifests/kube-scheduler.yaml"
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo kubeadm alpha phase kubelet config annotate-cri --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.33] out: [upgrade/versions] kubeadm version: v1.12.1
+[192.168.31.33] out: [patchnode] Uploading the CRI Socket information "/var/run/dockershim.sock" to the Node API object "master3" as an annotation
+[192.168.31.33] out: timed out waiting for the condition
+[192.168.31.33] out: 
+
+[192.168.31.33] Executing task 'master2'
+[192.168.31.33] put: master-conf.tgz -> /home/core/master-conf.tgz
+[192.168.31.33] run: sudo rm -rf /etc/kubernetes
+[192.168.31.33] run: sudo tar zxvf master-conf.tgz -C /etc --strip-components 1
+[192.168.31.33] out: etc/kubernetes/pki/ca.crt
+[192.168.31.33] out: etc/kubernetes/pki/ca.key
+[192.168.31.33] out: etc/kubernetes/pki/sa.key
+[192.168.31.33] out: etc/kubernetes/pki/sa.pub
+[192.168.31.33] out: etc/kubernetes/pki/front-proxy-ca.crt
+[192.168.31.33] out: etc/kubernetes/pki/front-proxy-ca.key
+[192.168.31.33] out: etc/kubernetes/pki/front-proxy-client.crt
+[192.168.31.33] out: etc/kubernetes/pki/front-proxy-client.key
+[192.168.31.33] out: etc/kubernetes/pki/etcd/ca.crt
+[192.168.31.33] out: etc/kubernetes/pki/etcd/ca.key
+[192.168.31.33] out: etc/kubernetes/admin.conf
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo kubeadm alpha phase certs all --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.33] out: [certificates] Generated apiserver certificate and key.
+[192.168.31.33] out: [certificates] apiserver serving cert is signed for DNS names [master3 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local k8s.yunwei.edu k8s.yunwei.edu] and IPs [10.96.0.1 192.168.31.33]
+[192.168.31.33] out: [certificates] Generated apiserver-kubelet-client certificate and key.
+[192.168.31.33] out: [certificates] Using the existing front-proxy-client certificate and key.
+[192.168.31.33] out: [certificates] Generated etcd/healthcheck-client certificate and key.
+[192.168.31.33] out: [certificates] Generated apiserver-etcd-client certificate and key.
+[192.168.31.33] out: [certificates] Generated etcd/server certificate and key.
+[192.168.31.33] out: [certificates] etcd/server serving cert is signed for DNS names [master3 localhost master3.yunwei.edu] and IPs [127.0.0.1 ::1 192.168.31.33]
+[192.168.31.33] out: [certificates] Generated etcd/peer certificate and key.
+[192.168.31.33] out: [certificates] etcd/peer serving cert is signed for DNS names [master3 localhost master3.yunwei.edu] and IPs [192.168.31.33 127.0.0.1 ::1 192.168.31.33]
+[192.168.31.33] out: [certificates] valid certificates and keys now exist in "/etc/kubernetes/pki"
+[192.168.31.33] out: [certificates] Using the existing sa key.
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo kubeadm alpha phase kubelet config write-to-disk --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.33] out: [upgrade/versions] kubeadm version: v1.12.1
+[192.168.31.33] out: [kubelet] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo kubeadm alpha phase kubelet write-env-file --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.33] out: [kubelet] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo kubeadm alpha phase kubeconfig kubelet --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.33] out: [endpoint] WARNING: port specified in controlPlaneEndpoint overrides bindPort in the controlplane address
+[192.168.31.33] out: [kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/kubelet.conf"
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo systemctl restart kubelet
+[192.168.31.33] run: mkdir -p $HOME/.kube
+[192.168.31.33] run: sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config
+[192.168.31.33] run: sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Done.
+[192.168.31.32] Executing task 'master2'
+[192.168.31.33] Executing task 'master2'
+[192.168.31.33] put: master-conf.tgz -> /home/core/master-conf.tgz
+[192.168.31.33] run: sudo rm -rf /etc/kubernetes
+[192.168.31.33] run: sudo tar zxvf master-conf.tgz -C /etc --strip-components 1
+[192.168.31.33] out: etc/kubernetes/pki/ca.crt
+[192.168.31.33] out: etc/kubernetes/pki/ca.key
+[192.168.31.33] out: etc/kubernetes/pki/sa.key
+[192.168.31.33] out: etc/kubernetes/pki/sa.pub
+[192.168.31.33] out: etc/kubernetes/pki/front-proxy-ca.crt
+[192.168.31.33] out: etc/kubernetes/pki/front-proxy-ca.key
+[192.168.31.33] out: etc/kubernetes/pki/front-proxy-client.crt
+[192.168.31.33] out: etc/kubernetes/pki/front-proxy-client.key
+[192.168.31.33] out: etc/kubernetes/pki/etcd/ca.crt
+[192.168.31.33] out: etc/kubernetes/pki/etcd/ca.key
+[192.168.31.33] out: etc/kubernetes/admin.conf
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo kubeadm alpha phase certs all --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.33] out: [certificates] Generated apiserver-kubelet-client certificate and key.
+[192.168.31.33] out: [certificates] Generated apiserver certificate and key.
+[192.168.31.33] out: [certificates] apiserver serving cert is signed for DNS names [master3 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local k8s.yunwei.edu k8s.yunwei.edu] and IPs [10.96.0.1 192.168.31.33]
+[192.168.31.33] out: [certificates] Using the existing front-proxy-client certificate and key.
+[192.168.31.33] out: [certificates] Generated etcd/server certificate and key.
+[192.168.31.33] out: [certificates] etcd/server serving cert is signed for DNS names [master3 localhost master3.yunwei.edu] and IPs [127.0.0.1 ::1 192.168.31.33]
+[192.168.31.33] out: [certificates] Generated etcd/healthcheck-client certificate and key.
+[192.168.31.33] out: [certificates] Generated apiserver-etcd-client certificate and key.
+[192.168.31.33] out: [certificates] Generated etcd/peer certificate and key.
+[192.168.31.33] out: [certificates] etcd/peer serving cert is signed for DNS names [master3 localhost master3.yunwei.edu] and IPs [192.168.31.33 127.0.0.1 ::1 192.168.31.33]
+[192.168.31.33] out: [certificates] valid certificates and keys now exist in "/etc/kubernetes/pki"
+[192.168.31.33] out: [certificates] Using the existing sa key.
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo kubeadm alpha phase kubelet config write-to-disk --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.33] out: [upgrade/versions] kubeadm version: v1.12.1
+[192.168.31.33] out: [kubelet] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo kubeadm alpha phase kubelet write-env-file --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.33] out: [kubelet] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo kubeadm alpha phase kubeconfig kubelet --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.33] out: [endpoint] WARNING: port specified in controlPlaneEndpoint overrides bindPort in the controlplane address
+[192.168.31.33] out: [kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/kubelet.conf"
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo systemctl restart kubelet
+[192.168.31.33] run: mkdir -p $HOME/.kube
+[192.168.31.33] run: sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config
+[192.168.31.33] run: sudo chown $(id -u):$(id -g) $HOME/.kube/config
+[192.168.31.32] put: master-conf.tgz -> /home/core/master-conf.tgz
+[192.168.31.32] run: sudo rm -rf /etc/kubernetes
+[192.168.31.32] run: sudo tar zxvf master-conf.tgz -C /etc --strip-components 1
+[192.168.31.32] out: etc/kubernetes/pki/ca.crt
+[192.168.31.32] out: etc/kubernetes/pki/ca.key
+[192.168.31.32] out: etc/kubernetes/pki/sa.key
+[192.168.31.32] out: etc/kubernetes/pki/sa.pub
+[192.168.31.32] out: etc/kubernetes/pki/front-proxy-ca.crt
+[192.168.31.32] out: etc/kubernetes/pki/front-proxy-ca.key
+[192.168.31.32] out: etc/kubernetes/pki/front-proxy-client.crt
+[192.168.31.32] out: etc/kubernetes/pki/front-proxy-client.key
+[192.168.31.32] out: etc/kubernetes/pki/etcd/ca.crt
+[192.168.31.32] out: etc/kubernetes/pki/etcd/ca.key
+[192.168.31.32] out: etc/kubernetes/admin.conf
+[192.168.31.32] out: 
+
+[192.168.31.32] run: sudo kubeadm alpha phase certs all --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.32] out: [certificates] Generated apiserver certificate and key.
+[192.168.31.32] out: [certificates] apiserver serving cert is signed for DNS names [master2 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local k8s.yunwei.edu k8s.yunwei.edu] and IPs [10.96.0.1 192.168.31.32]
+[192.168.31.32] out: [certificates] Generated apiserver-kubelet-client certificate and key.
+[192.168.31.32] out: [certificates] Using the existing front-proxy-client certificate and key.
+[192.168.31.32] out: [certificates] Generated etcd/healthcheck-client certificate and key.
+[192.168.31.32] out: [certificates] Generated apiserver-etcd-client certificate and key.
+[192.168.31.32] out: [certificates] Generated etcd/server certificate and key.
+[192.168.31.32] out: [certificates] etcd/server serving cert is signed for DNS names [master2 localhost master2.yunwei.edu] and IPs [127.0.0.1 ::1 192.168.31.32]
+[192.168.31.32] out: [certificates] Generated etcd/peer certificate and key.
+[192.168.31.32] out: [certificates] etcd/peer serving cert is signed for DNS names [master2 localhost master2.yunwei.edu] and IPs [192.168.31.32 127.0.0.1 ::1 192.168.31.32]
+[192.168.31.32] out: [certificates] valid certificates and keys now exist in "/etc/kubernetes/pki"
+[192.168.31.32] out: [certificates] Using the existing sa key.
+[192.168.31.32] out: 
+
+[192.168.31.32] run: sudo kubeadm alpha phase kubelet config write-to-disk --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.32] out: [upgrade/versions] kubeadm version: v1.12.1
+[192.168.31.32] out: [kubelet] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[192.168.31.32] out: 
+
+[192.168.31.32] run: sudo kubeadm alpha phase kubelet write-env-file --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.32] out: [kubelet] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[192.168.31.32] out: 
+
+[192.168.31.32] run: sudo kubeadm alpha phase kubeconfig kubelet --config coreos-k8s/kubeadm-config.yaml.`hostname`
+[192.168.31.32] out: [endpoint] WARNING: port specified in controlPlaneEndpoint overrides bindPort in the controlplane address
+[192.168.31.32] out: [kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/kubelet.conf"
+[192.168.31.32] out: 
+
+[192.168.31.32] run: sudo systemctl restart kubelet
+[192.168.31.32] run: mkdir -p $HOME/.kube
+[192.168.31.32] run: sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config
+[192.168.31.32] run: sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Done.
+[192.168.31.31] Executing task 'reboot'
+[192.168.31.31] run: sudo reboot
+Disconnecting from 192.168.31.31... done.
+[192.168.31.31] Executing task 'reboot'
+[192.168.31.32] Executing task 'reboot'
+[192.168.31.33] Executing task 'reboot'
+[192.168.31.34] Executing task 'reboot'
+[192.168.31.31] run: sudo reboot
+[192.168.31.32] run: sudo reboot
+[192.168.31.34] run: sudo reboot
+[192.168.31.33] run: sudo reboot

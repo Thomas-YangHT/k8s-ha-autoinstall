@@ -1,0 +1,5 @@
+192.168.31.30 k8s k8s.yunwei.edu
+192.168.31.31 master1 master1.yunwei.edu
+192.168.31.32 master2 master2.yunwei.edu
+192.168.31.33 master3 master3.yunwei.edu
+192.168.31.34 node1 node1.yunwei.edu
