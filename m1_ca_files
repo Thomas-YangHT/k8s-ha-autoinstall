@@ -6,6 +6,4 @@
 /etc/kubernetes/pki/front-proxy-ca.key
 /etc/kubernetes/pki/front-proxy-client.crt
 /etc/kubernetes/pki/front-proxy-client.key
-/etc/kubernetes/pki/etcd/ca.crt
-/etc/kubernetes/pki/etcd/ca.key
 /etc/kubernetes/admin.conf

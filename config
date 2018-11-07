@@ -6,20 +6,25 @@ LOAD_BALANCER_PORT=8443
 CP1_HOSTNAME=master1.yunwei.edu
 CP2_HOSTNAME=master2.yunwei.edu
 CP3_HOSTNAME=master3.yunwei.edu
-VIP_IP=192.168.31.30
-CP1_IP=192.168.31.31
-CP2_IP=192.168.31.32
-CP3_IP=192.168.31.33
-NODE1_IP=192.168.31.34
+VIP_IP=192.168.253.30
+CP1_IP=192.168.253.31
+CP2_IP=192.168.253.32
+CP3_IP=192.168.253.33
+NODE1_IP=192.168.253.34
 NODE1_HOSTNAME=node1.yunwei.edu
 #
 master="$CP1_IP,$CP2_IP,$CP3_IP"
 node="$NODE1_IP"  # add IP seprate by ','
 net="calico" #calico or flannel
 dashboard=true
+helm=true
+ingress=true
+prometheus=true
+efk=true
+istio=true
 
 #just for coreos machines
 KVM_NAME="master1,master2,master3,node1"
-GATEWAY=192.168.31.253  
-DNS1=192.168.31.140
+GATEWAY=192.168.253.3  
+DNS1=192.168.253.110
 DNS2=114.114.114.114  

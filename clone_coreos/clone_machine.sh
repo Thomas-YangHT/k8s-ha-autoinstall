@@ -1,13 +1,13 @@
-source ./CONFIG
+source ../CONFIG
 sh user_data.sh
 
 BASE_IMAGE_NAME=coreosbase2
-BASE_IP=192.168.31.23
+BASE_IP=192.168.253.23
 
 for i in `echo $KVM_NAME|sed 's/,/ /g'`
 do 
-#  virt-clone -o $BASE_IMAGE_NAME -n ha-$i -f /mnt/kvm/ha-$i.img
-   :
+  virt-clone -o $BASE_IMAGE_NAME -n ha-$i -f /export/kvm/ha-$i.img
+#   :
 done
 
 for i in `echo $KVM_NAME|sed 's/,/ /g'`

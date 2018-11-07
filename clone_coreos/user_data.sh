@@ -1,4 +1,4 @@
-source ./CONFIG
+source ../CONFIG
 ips=(`echo $master,$node|sed 's/,/ /g'`)
 #names=(`echo $KVM_NAME|sed 's/,/ /g'`)
 

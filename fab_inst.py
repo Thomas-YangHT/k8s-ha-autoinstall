@@ -1,8 +1,9 @@
 from fabric.api import *
 
-def test():
-    with cd("/home/core/coreos-k8s"):
-        run("ls")
+def reset():
+   # with cd("/home/core/coreos-k8s"):
+   #     run("ls")
+    run('sudo kubeadm reset -f ')
 
 def prepare():
   #  run('export PATH=$PATH:/opt/bin')
@@ -23,70 +24,94 @@ def prepare():
     run('sudo cp  coreos-k8s/10-kubeadm.conf  /etc/systemd/system/kubelet.service.d/10-kubeadm.conf')
     run('sudo systemctl enable kubelet && sudo systemctl start kubelet')
 
+#for ha
 def prepare_ha():
     local('sh haproxy_conf.sh')
     local('sh hosts_conf.sh')
     local('sh keepalive_conf.sh')
     local('sh kubeadm_config.sh')
-    local('ls *.master? hosts haproxy.cfg m1_ca_files docker*.sh keep.sh CONFIG etcdjoin.sh|xargs tar zcvf config.tgz')
+    local('tar zcvf config.tgz  *.master? hosts haproxy.cfg m1_ca_files docker*.sh keep.sh CONFIG etcdjoin.sh ssl kubeadm-config.yaml calico')
     put('config.tgz','')
     put('ha.tgz', '')
     run('ls ha.tgz config.tgz|xargs -n 1 tar -C coreos-k8s -zxvf')
-    run('ls coreos-k8s/haproxy.tar coreos-k8s/keepalived.tar |awk \'{print "docker load <"$1}\'|sh')
+    run('echo -e "haproxy.tar\n keepalived.tar\n etcd.tar"|awk \'{print "docker load <coreos-k8s/"$1}\'|sh')
     run('[ -f hosts.bak ] || cp /etc/hosts hosts.bak;cat hosts.bak coreos-k8s/hosts >hosts.tmp;sudo cp hosts.tmp /etc/hosts')
+   # run('sudo mkdir /etc/kubernetes;sudo cp -r coreos-k8s/ssl /etc/kubernetes/')
+    run('sudo mkdir /etc/etcd;sudo cp -r coreos-k8s/ssl /etc/etcd/')
 
+#for ha
 def keepalived():
     run('docker rm keepalived -f;pwd')
-    run('modprobe ip_vs')
-    run('export KEEPCONF=keepalived.conf.`hostname`;sh coreos-k8s/docker-keepalived.sh')
+    run('sudo modprobe ip_vs ip_vs_rr ip_vs_wrr ip_vs_sh')
+    run('cd coreos-k8s;sh docker-keepalived.sh')
 
+#for ha
 def haproxy():
     run('docker rm haproxy -f;pwd')
     run('sh coreos-k8s/docker-haproxy.sh')
 
+#for ha
+def etcd():
+    run('docker rm etcd-${HOSTNAME} -f;pwd')
+    run('sudo rm -rf /var/lib/etcd')
+    run('sh coreos-k8s/docker-etcd.sh')
+
+def master():
+    run('export PATH=$PATH:/opt/bin')
+    run('sudo kubeadm reset -f ')
+    run('sudo kubeadm init --kubernetes-version=v1.12.1 --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=0.0.0.0')
+    run('mkdir -p $HOME/.kube')
+    run('sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config')
+    run('sudo chown $(id -u):$(id -g) $HOME/.kube/config')
+
+#for HA master1
 def master1():
     run('export PATH=$PATH:/opt/bin')
     run('sudo kubeadm reset -f ')
-    #run('sudo kubeadm init --kubernetes-version=v1.12.1 --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=0.0.0.0')
-    run('sudo kubeadm init  --config coreos-k8s/kubeadm-config.yaml.`hostname`')
+    run('sudo kubeadm init  --config coreos-k8s/kubeadm-config.yaml')
     run('sudo tar zcvf coreos-k8s/master-conf.tgz -T coreos-k8s/m1_ca_files')
     run('mkdir -p $HOME/.kube')
     run('sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config')
     run('sudo chown $(id -u):$(id -g) $HOME/.kube/config')
-    run('sudo cp -r /var/lib/etcd ./etcd`date +%s`')
+   # run('sudo cp -r /var/lib/etcd ./etcd`date +%s`')
 
+#for HA master2&3
 def master2():
+    run('export PATH=$PATH:/opt/bin')
+    run('sudo kubeadm reset -f ')
     put('master-conf.tgz','')
     run('sudo rm -rf /etc/kubernetes')
     run('sudo tar zxvf master-conf.tgz -C /etc --strip-components 1')
-    run('sudo kubeadm alpha phase certs all --config coreos-k8s/kubeadm-config.yaml.`hostname`')
-    run('sudo kubeadm alpha phase kubelet config write-to-disk --config coreos-k8s/kubeadm-config.yaml.`hostname`')
-    run('sudo kubeadm alpha phase kubelet write-env-file --config coreos-k8s/kubeadm-config.yaml.`hostname`')
-    run('sudo kubeadm alpha phase kubeconfig kubelet --config coreos-k8s/kubeadm-config.yaml.`hostname`')
-    run('sudo systemctl restart kubelet')
+    run('sudo kubeadm init  --config coreos-k8s/kubeadm-config.yaml')
     run('mkdir -p $HOME/.kube')
     run('sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config')
     run('sudo chown $(id -u):$(id -g) $HOME/.kube/config')
-    run('sudo mkdir /root/.kube')
+    run('sudo mkdir /root/.kube;sudo ls /root/.kube')
     run('sudo cp /etc/kubernetes/admin.conf /root/.kube/config')
     run('echo "export PATH=$PATH:/opt/bin">bashrc')
     run('sudo cp bashrc /root/.bashrc')
-    run('export PATH=$PATH:/opt/bin')
-    run('sh coreos-k8s/etcdjoin.sh')
-    run('sudo kubeadm alpha phase etcd local --config coreos-k8s/kubeadm-config.yaml.`hostname`')
-    run('sudo kubeadm alpha phase kubeconfig all --config coreos-k8s/kubeadm-config.yaml.`hostname`')
-    run('sudo kubeadm alpha phase controlplane all --config coreos-k8s/kubeadm-config.yaml.`hostname`')
-    run('sudo kubeadm alpha phase mark-master --config coreos-k8s/kubeadm-config.yaml.`hostname`')
-    run('sudo kubeadm alpha phase kubelet config annotate-cri --config coreos-k8s/kubeadm-config.yaml.`hostname`')
+   # run('sudo kubeadm alpha phase certs all --config coreos-k8s/kubeadm-config.yaml.`hostname`')
+   # run('sudo kubeadm alpha phase kubelet config write-to-disk --config coreos-k8s/kubeadm-config.yaml.`hostname`')
+   # run('sudo kubeadm alpha phase kubelet write-env-file --config coreos-k8s/kubeadm-config.yaml.`hostname`')
+   # run('sudo kubeadm alpha phase kubeconfig kubelet --config coreos-k8s/kubeadm-config.yaml.`hostname`')
+   # run('sudo systemctl restart kubelet')
+   # run('sleep 30;sh coreos-k8s/etcdjoin.sh')
+   # run('sudo kubeadm alpha phase etcd local --config coreos-k8s/kubeadm-config.yaml.`hostname`')
+   # run('sudo kubeadm alpha phase kubeconfig all --config coreos-k8s/kubeadm-config.yaml.`hostname`')
+   # run('sudo kubeadm alpha phase controlplane all --config coreos-k8s/kubeadm-config.yaml.`hostname`')
+   # run('sudo kubeadm alpha phase mark-master --config coreos-k8s/kubeadm-config.yaml.`hostname`')
+   # run('sudo kubeadm alpha phase kubelet config annotate-cri --config coreos-k8s/kubeadm-config.yaml.`hostname`')
 
 def flannel():
+    run('kubectl taint nodes --all  node-role.kubernetes.io/master-')
     run('kubectl apply -f coreos-k8s/kube-flannel.yml')
 
 def calico():
-    run('kubectl apply -f  coreos-k8s/etcd.yaml')
-    run('kubectl apply -f  coreos-k8s/rbac.yaml')
-    run('kubectl apply -f  coreos-k8s/calico.yaml')
-    run('kubectl delete -f coreos-k8s/kube-flannel.yml')
+    run('kubectl taint nodes --all  node-role.kubernetes.io/master-;ls')
+    run('kubectl apply -f  coreos-k8s/calico/etcd-calico-deploy.yaml')
+    run('kubectl apply -f  coreos-k8s/calico/rbac.yaml')
+    run('kubectl apply -f  coreos-k8s/calico/calico.yaml')
+    run('kubectl delete -f coreos-k8s/kube-flannel.yml;ls')
 
 def dashboard():
     run('sed -i "/^\  ports:/i \  type: NodePort"  coreos-k8s/kubernetes-dashboard.yaml')
@@ -101,7 +126,7 @@ def node():
     put('join.sh','')
     run('sudo chmod +x ./join.sh')
     run('sudo kubeadm reset -f')
-    run('sudo modprobe ip_vs')
+    run('sudo modprobe ip_vs ip_vs_rr ip_vs_wrr ip_vs_sh')
     run('./join.sh')
 
 def rejoin():
@@ -173,16 +198,13 @@ def finish():
 def reboot():
     run('sudo reboot')
 
+#for ha
 def etcdcheck():
     run('source coreos-k8s/CONFIG && \
-docker run --rm -it \
---net host \
--e ETCDCTL_API=3 \
--v /etc/kubernetes:/etc/kubernetes k8s.gcr.io/etcd:3.2.24 \
-etcdctl \
---cert-file /etc/kubernetes/pki/etcd/peer.crt \
---key-file /etc/kubernetes/pki/etcd/peer.key \
---ca-file /etc/kubernetes/pki/etcd/ca.crt \
+sudo etcdctl \
+--cert-file /etc/etcd/ssl/etcd.pem \
+--key-file /etc/etcd/ssl/etcd-key.pem \
+--ca-file /etc/etcd/ssl/ca.pem \
 --endpoints https://$CP1_IP:2379 cluster-health')
 
 def getpods():

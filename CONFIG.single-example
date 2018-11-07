@@ -1,0 +1,13 @@
+#CONFIG file for k8s1.12.1 
+master="192.168.253.31"
+node="192.168.253.32" #node can multi IP, use ',' to seprate
+net="calico" #calico or flannel
+CP1_IP=$master
+
+#set if install addon plugin:
+dashboard=true
+helm=true
+ingress=true
+prometheus=true
+efk=true
+istio=true

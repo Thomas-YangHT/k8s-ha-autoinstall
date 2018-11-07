@@ -1,0 +1,28 @@
+apiVersion: kubeadm.k8s.io/v1alpha3
+kind: ClusterConfiguration
+kubernetesVersion: v1.12.1
+networking:
+  podSubnet: 10.244.0.0/16
+apiServerCertSANs:
+- "k8s.yunwei.edu"
+- "192.168.253.30"
+- "192.168.253.31"
+- "192.168.253.32"
+- "192.168.253.33"
+- "master1.yunwei.edu"
+- "master2.yunwei.edu"
+- "master3.yunwei.edu"
+- 127.0.0.1
+controlPlaneEndpoint: "k8s.yunwei.edu:8443"
+etcd:
+  external:
+    endpoints:
+    - https://192.168.253.31:2379
+    - https://192.168.253.32:2379
+    - https://192.168.253.33:2379
+    caFile: /etc/etcd/ssl/ca.pem
+    certFile: /etc/etcd/ssl/etcd.pem
+    keyFile: /etc/etcd/ssl/etcd-key.pem
+  #  dataDir: /var/lib/etcd
+token: 547df0.182e9215291ff27f
+tokenTTL: "0"

@@ -11,12 +11,12 @@
 
 #base prepare
 func_base_prepare(){
-	fab -H $master,$node -f fab_inst.py prepare -u core -P --colorize-errors
+	fab -H $CP1_IP,$node -f fab_inst.py prepare -u core -P --colorize-errors
 }
 
 #ha prepare
 func_ha_prepare(){
-	fab -H $master -f fab_inst.py prepare_ha -u core -P --colorize-errors
+	fab -H $master,$node -f fab_inst.py prepare_ha -u core -P --colorize-errors
 }
 
 #addon prepare
@@ -41,38 +41,45 @@ func_haproxy(){
 	fab -H $master -f fab_inst.py haproxy -u core -P --colorize-errors
 }
 
+#etcd
+func_etcd(){
+	fab -H $master -f fab_inst.py etcd -u core -P --colorize-errors
+}
+
+#master
+func_master(){
+        fab -H $master -f fab_inst.py master -u core --colorize-errors |tee log
+}
+
 #master1
 func_master1(){
 	fab -H $CP1_IP -f fab_inst.py master1 -u core --colorize-errors |tee log
-}
-
-#scp master1 conf
-func_scp_master1_conf(){
-	 scp core@$CP1_IP:coreos-k8s/master-conf.tgz .
+	scp core@$CP1_IP:coreos-k8s/master-conf.tgz . 
 }
 
 #master2
 func_master2(){
-	fab -H $CP2_IP,$CP3_IP -f fab_inst.py master2 -u core -P --colorize-errors |tee -a log
+	fab -H $CP2_IP,$CP3_IP -f fab_inst.py master2 -u core  --colorize-errors |tee -a log
+#	fab -H $CP3_IP -f fab_inst.py master2 -u core  --colorize-errors |tee -a log
 }
 
 #network
 func_network(){
 [ $net = "calico" ] && echo "install calico" && \
-fab -H $master1 -f fab_inst.py calico -u core --colorize-errors 
+fab -H $CP1_IP -f fab_inst.py calico -u core --colorize-errors 
 [ $net = "flannel" ] && echo "install flannel" && \
-fab -H $master1 -f fab_inst.py flannel -u core --colorize-errors 
+fab -H $CP1_IP -f fab_inst.py flannel -u core --colorize-errors 
 }
 
 #find join command
 func_nodejoin(){
-cat log |grep kubeadm|grep join |awk -F'out:' '{print "sudo "$2}' >join.sh
+cat log |grep kubeadm|grep join |tail -1 |awk -F'out:' '{print "sudo "$2}' >join.sh
 fab -H $node -f fab_inst.py node -u core -P --colorize-errors 
 }
 
 #node rejoin
 func_noderejoin(){
-fab -H $master -f fab_inst.py rejoin -u core --colorize-errors |tee rejoin
+fab -H $CP1_IP -f fab_inst.py rejoin -u core --colorize-errors |tee rejoin
 cat rejoin |grep kubeadm|grep join |awk -F'out:' '{print "sudo "$2}' >join.sh
 fab -H $node -f fab_inst.py node -u core -P --colorize-errors 
 }
@@ -80,53 +87,64 @@ fab -H $node -f fab_inst.py node -u core -P --colorize-errors
 #dashboard
 func_dashboard(){
 [ $dashboard = true ] && echo "install dashboard" && \
-fab -H $master -f fab_inst.py dashboard -u core --colorize-errors|tee -a log 
+fab -H $CP1_IP -f fab_inst.py dashboard -u core --colorize-errors|tee -a log 
 }
 
 #ingress
 func_ingress(){
 [ $ingress = true ] && echo "install ingress" && \
-fab -H $master -f fab_inst.py ingress -u core --colorize-errors 
+fab -H $CP1_IP -f fab_inst.py ingress -u core --colorize-errors 
 }
 
 #helm
 func_helm(){
 [ $helm = true ] && echo "install helm" && \
-fab -H $master -f fab_inst.py helm -u core --colorize-errors
+fab -H $CP1_IP -f fab_inst.py helm -u core --colorize-errors
 }
 
 #prometheus
 func_prometheus(){
 [ $prometheus = true ] && echo "install prometheus" && \
-fab -H $master -f fab_inst.py prometheus -u core --colorize-errors
+fab -H $CP1_IP -f fab_inst.py prometheus -u core --colorize-errors
 }
 
 #efk
 func_efk(){
 [ $efk = true ] && echo "install efk" && \
-fab -H $master -f fab_inst.py efk -u core --colorize-errors
+fab -H $CP1_IP -f fab_inst.py efk -u core --colorize-errors
 }
 
 #istio
 func_istio(){
 [ $istio = true ] && echo "install istio" && \
-fab -H $master -f fab_inst.py istio -u core --colorize-errors
+fab -H $CP1_IP -f fab_inst.py istio -u core --colorize-errors
 }
 
-#test
-func_test(){
-	fab -H $master,$node -f fab_inst.py test -u core --colorize-errors |tee -a log
+#reset
+func_reset(){
+	fab -H $master,$node -f fab_inst.py reset -u core -P --colorize-errors |tee -a log
 }
 
 #finish 
 func_finish(){
-	fab -H $master -f fab_inst.py finish -u core --colorize-errors |tee -a log
+	fab -H $CP1_IP -f fab_inst.py finish -u core --colorize-errors |tee -a log
+}
+
+#etcdcheck
+func_etcdcheck(){
+	fab -H $CP1_IP -f fab_inst.py etcdcheck -u core --colorize-errors |tee -a log
 }
 
 #reboot
 func_reboot(){
 	fab -H $master,$node -f fab_inst.py reboot -u core -P --colorize-errors |tee -a log
 }
+
+#getpods
+func_getpods(){
+	fab -H $CP1_IP -f fab_inst.py getpods -u core  --colorize-errors |tee -a log
+}
+
 
 #start timestamp
 D1=`date +%s`
@@ -144,8 +162,8 @@ case $1 in
 #  func_base_prepare
   func_master
   func_network
-  func_nodejoin
   func_dashboard
+  func_nodejoin
   func_finish     
 ;;
 2|addon)
@@ -156,6 +174,16 @@ case $1 in
   func_prometheus
   func_efk
   func_finish   
+;;
+3|ha)
+  echo "start HA install..."
+  func_master1
+  sleep 30; #wait master1's pods start
+  func_master2
+  func_network
+  func_dashboard
+  func_nodejoin
+  func_finish     
 ;;
 p|prepare)
   echo "start prepare all..."
@@ -179,6 +207,13 @@ p4|haprepare)
   echo "start ha prepare..."
   func_ha_prepare
 ;;
+p5|phek)
+  echo "start ha&keepalived&etcd&haproxy prepare..."
+  func_ha_prepare
+  func_keepalived
+  func_haproxy
+  func_etcd
+;;
 keepalived)
   echo "start keepalived..."
   func_keepalived
@@ -187,10 +222,17 @@ haproxy)
   echo "start haproxy..."
   func_haproxy
 ;;
+etcd)
+  echo "start etcd..."
+  func_etcd
+;;
+master)
+  echo "start master..."
+  func_master
+;;
 master1)
   echo "start master1..."
   func_master1
-  func_scp_master1_conf
 ;;
 master2)
   echo "start master2..."
@@ -232,37 +274,28 @@ istio)
   echo "start istio"
   func_istio
 ;;
-test)
-  echo "test"
-  func_test
+reset)
+  echo "reset"
+  func_reset
 ;;
 finish)
   echo "services message:"
   func_finish
 ;;
+etcdcheck)
+  echo "services etcd:"
+  func_etcdcheck
+;;
 reboot)
-  echo "services message:"
+  echo "reboot:"
   func_reboot
 ;;
-help|*)
-  echo "usage: $0 [prepare|p]|p1|p2|p3|[1|base]|[2|addon]|dashboard|network|node|rejoin|ingress|helm|prometheus|efk|istio|finish|default|help"
-  echo -e "\
-        prepare|p      :cp&load all tgz&images.\n\
-        p1             :cp&load base tgz&image only.\n\
-        p2             :cp&load addon tgz&image only.\n\
-        p3             :cp&load istio tgz&image only,join node.\n\
-        1|base         :install k8s base component&calico&dashboard.\n\
-        2|addon        :install k8s addon component:helm,ingress,efk,prometheus.\n\
-        node           :only join node.\n\
-        rejoin         :need join other node after 24h.\n\
-        istio          :install istio component.\n\
-        default        :install all configured in CONFIG file.\n\
-        finish         :when need check login token or service status.\n\
-        reboot         :reboot all\n\
-  "
+getpods)
+  echo "services getpods:"
+  func_getpods
 ;;
 default|all)
-  echo "start all install..."
+  echo "start all install k8s with single master..."
   func_base_prepare
   func_addon_prepare
   func_istio_prepare
@@ -276,6 +309,50 @@ default|all)
   func_efk
   func_istio
   func_finish
+;;
+allha)
+  echo "start HA install k8s with multi master..."
+  echo "start base&ha&keepalived&etcd&haproxy prepare..."
+  func_base_prepare
+  func_ha_prepare
+  func_keepalived
+  func_haproxy
+  func_etcd
+  func_master1
+  echo "start HA install..."
+  sleep 30; #wait master1's pods start
+  func_master2
+  func_network
+  func_dashboard
+  func_nodejoin
+  func_finish
+;;
+help|*)
+  echo "usage: $0 [prepare|p]|p1|p2|p3|p4|[1|base]|[2|addon]|[3|ha]|dashboard|network|node|rejoin|ingress|helm|prometheus|efk|istio|finish|default|help|..."
+  echo -e "\
+        p|prepare      :cp&load all tgz&images.\n\
+        p1             :cp&load base tgz&images.\n\
+        p2             :cp&load addon tgz&images.\n\
+        p3             :cp&load istio tgz&images.\n\
+        p4             :cp&load HA tgz&images.\n\
+        1|base         :install k8s base component&calico&dashboard.\n\
+        2|addon        :install k8s addon component:helm,ingress,efk,prometheus.\n\
+        3|ha           :install HA cluster of k8s.\n\
+        node           :only join node.\n\
+        all|default    :install all configured in CONFIG file with single master.\n\
+        allha          :install all configured in CONFIG file with HA three master.\n\
+        finish         :get login token&svc.\n\
+        rejoin         :need join other node after 24h.\n\
+        ingress        :install ingress.\n\
+        helm           :install helm.\n\
+        efk            :install efk.\n\
+        prometheus     :install prometheus.\n\
+        istio          :install istio component.\n\
+        reboot         :reboot all\n\
+        reset          :kubeadm reset all\n\
+        etcdcheck      :check etcd cluster\n\
+        getpods        :get pods -o wide\n\
+  "
 ;;
 esac
 
