@@ -15,13 +15,16 @@ vi CONFIG  #just need modify node&master's IP
    coreosbase2.tgz       #kvm's img for CoreOS 1855.4
 
 #Install for single master:
-sh -x installv2.sh all
+sh -x install.sh all
 
 #Install for multi master:
-sh -x installha.sh allha
+sh -x install.sh allha
+
+#Reset when reinstall:
+sh -x install.sh reset
 
 #HELP
-usage: installha.sh [prepare|p]|p1|p2|p3|p4|[1|base]|[2|addon]|[3|ha]|dashboard|network|node|rejoin|ingress|helm|prometheus|efk|istio|finish|default|help|...
+usage: install.sh [prepare|p]|p1|p2|p3|p4|[1|base]|[2|addon]|[3|ha]|dashboard|network|node|rejoin|ingress|helm|prometheus|efk|istio|finish|default|help|...
         p|prepare      :cp&load all tgz&images.
         p1             :cp&load base tgz&images.
         p2             :cp&load addon tgz&images.

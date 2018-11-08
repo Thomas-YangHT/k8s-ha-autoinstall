@@ -127,7 +127,9 @@ func_reset(){
 
 #finish 
 func_finish(){
-	fab -H $CP1_IP -f fab_inst.py finish -u core --colorize-errors |tee -a log
+  fab -H $CP1_IP -f fab_inst.py finish -u core --colorize-errors |tee finish 
+  str=`cat finish|sed -n -e '/get svc/,/^$/ p' -e '/token:  / p'|awk -F'out:' '{print $2}'`
+  echo -e "\033[45;42m $str \033[0m"
 }
 
 #etcdcheck
@@ -137,12 +139,13 @@ func_etcdcheck(){
 
 #reboot
 func_reboot(){
-	fab -H $master,$node -f fab_inst.py reboot -u core -P --colorize-errors |tee -a log
+	fab -H $master,$node -f fab_inst.py reboot -u core -P --colorize-errors
 }
 
 #getpods
 func_getpods(){
-	fab -H $CP1_IP -f fab_inst.py getpods -u core  --colorize-errors |tee -a log
+	fab -H $CP1_IP -f fab_inst.py getpods -u core  --colorize-errors|tee runpods
+        PodsRun=`cat runpods|grep Running|wc -l`
 }
 
 
@@ -178,7 +181,13 @@ case $1 in
 3|ha)
   echo "start HA install..."
   func_master1
-  sleep 30; #wait master1's pods start
+  PodsRun=0
+  for ((i=1;i<60;i++));
+  do
+      echo "wait master1's pods start...."
+      func_getpods
+      [ $PodsRun -ge 3 ] && break
+  done
   func_master2
   func_network
   func_dashboard
@@ -318,9 +327,15 @@ allha)
   func_keepalived
   func_haproxy
   func_etcd
-  func_master1
   echo "start HA install..."
-  sleep 30; #wait master1's pods start
+  func_master1
+  PodsRun=0
+  for ((i=1;i<60;i++));
+  do
+      echo "wait master1's pods start...."
+      func_getpods
+      [ $PodsRun -ge 3 ] && break
+  done
   func_master2
   func_network
   func_dashboard
