@@ -128,7 +128,7 @@ func_reset(){
 #finish 
 func_finish(){
   fab -H $CP1_IP -f fab_inst.py finish -u core --colorize-errors |tee finish 
-  str=`cat README.md |head -7|tail -n +2|sed 's/#/ /g'`
+  str="\n"`cat README.md |head -7|tail -n +2|sed 's/#/ /g'`
   str+=`cat finish|sed -n -e '/get svc/,/^$/ p' -e '/token:  / p'|awk -F'out:' '{print $2}'`
   echo -e "\033[45;42m $str \033[0m"
 }
