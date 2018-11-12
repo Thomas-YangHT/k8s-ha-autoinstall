@@ -195,8 +195,14 @@ def finish():
     run('kubectl get svc --all-namespaces -o wide')
     run('kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk \'{print $1}\')')
 
+def getsvc():
+    run('kubectl get svc --all-namespaces -o wide')
+
+def gettoken():
+    run('kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk \'{print $1}\')')
+
 def reboot():
-    run('sudo reboot')
+    run('echo "reboot $HOSTNAME";sudo reboot;:')
 
 #for ha
 def etcdcheck():
@@ -209,3 +215,13 @@ sudo etcdctl \
 
 def getpods():
     run('kubectl get pods --all-namespaces -o wide')
+
+def calicocheck():
+    run('sudo coreos-k8s/calico/calicoctl node status')
+
+def clusterinfo():
+    run('kubectl cluster-info')
+
+def timezone8():
+    run('sudo timedatectl set-timezone Asia/Shanghai')
+    run('date')

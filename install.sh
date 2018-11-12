@@ -9,147 +9,6 @@
 #                                                             
 #
 
-#base prepare
-func_base_prepare(){
-	fab -H $CP1_IP,$node -f fab_inst.py prepare -u core -P --colorize-errors
-}
-
-#ha prepare
-func_ha_prepare(){
-	fab -H $master,$node -f fab_inst.py prepare_ha -u core -P --colorize-errors
-}
-
-#addon prepare
-func_addon_prepare(){
-( [ $ingress = true ] || [ $helm = true ] || [ $prometheus = true ] || [ $efk = true ] ) && \
-fab -H $master,$node -f fab_inst.py addon -u core -P --colorize-errors 
-}
-
-#istio prepare
-func_istio_prepare(){
-[ $istio = true ] && \
-fab -H $master,$node -f fab_inst.py istio_prepare -u core -P --colorize-errors 
-}
-
-#keepalived
-func_keepalived(){
-	fab -H $master -f fab_inst.py keepalived -u core -P --colorize-errors
-}
-
-#haproxy
-func_haproxy(){
-	fab -H $master -f fab_inst.py haproxy -u core -P --colorize-errors
-}
-
-#etcd
-func_etcd(){
-	fab -H $master -f fab_inst.py etcd -u core -P --colorize-errors
-}
-
-#master
-func_master(){
-        fab -H $master -f fab_inst.py master -u core --colorize-errors |tee log
-}
-
-#master1
-func_master1(){
-	fab -H $CP1_IP -f fab_inst.py master1 -u core --colorize-errors |tee log
-	scp core@$CP1_IP:coreos-k8s/master-conf.tgz . 
-}
-
-#master2
-func_master2(){
-	fab -H $CP2_IP,$CP3_IP -f fab_inst.py master2 -u core  --colorize-errors |tee -a log
-#	fab -H $CP3_IP -f fab_inst.py master2 -u core  --colorize-errors |tee -a log
-}
-
-#network
-func_network(){
-[ $net = "calico" ] && echo "install calico" && \
-fab -H $CP1_IP -f fab_inst.py calico -u core --colorize-errors 
-[ $net = "flannel" ] && echo "install flannel" && \
-fab -H $CP1_IP -f fab_inst.py flannel -u core --colorize-errors 
-}
-
-#find join command
-func_nodejoin(){
-cat log |grep kubeadm|grep join |tail -1 |awk -F'out:' '{print "sudo "$2}' >join.sh
-fab -H $node -f fab_inst.py node -u core -P --colorize-errors 
-}
-
-#node rejoin
-func_noderejoin(){
-fab -H $CP1_IP -f fab_inst.py rejoin -u core --colorize-errors |tee rejoin
-cat rejoin |grep kubeadm|grep join |awk -F'out:' '{print "sudo "$2}' >join.sh
-fab -H $node -f fab_inst.py node -u core -P --colorize-errors 
-}
-
-#dashboard
-func_dashboard(){
-[ $dashboard = true ] && echo "install dashboard" && \
-fab -H $CP1_IP -f fab_inst.py dashboard -u core --colorize-errors|tee -a log 
-}
-
-#ingress
-func_ingress(){
-[ $ingress = true ] && echo "install ingress" && \
-fab -H $CP1_IP -f fab_inst.py ingress -u core --colorize-errors 
-}
-
-#helm
-func_helm(){
-[ $helm = true ] && echo "install helm" && \
-fab -H $CP1_IP -f fab_inst.py helm -u core --colorize-errors
-}
-
-#prometheus
-func_prometheus(){
-[ $prometheus = true ] && echo "install prometheus" && \
-fab -H $CP1_IP -f fab_inst.py prometheus -u core --colorize-errors
-}
-
-#efk
-func_efk(){
-[ $efk = true ] && echo "install efk" && \
-fab -H $CP1_IP -f fab_inst.py efk -u core --colorize-errors
-}
-
-#istio
-func_istio(){
-[ $istio = true ] && echo "install istio" && \
-fab -H $CP1_IP -f fab_inst.py istio -u core --colorize-errors
-}
-
-#reset
-func_reset(){
-	fab -H $master,$node -f fab_inst.py reset -u core -P --colorize-errors |tee -a log
-}
-
-#finish 
-func_finish(){
-  fab -H $CP1_IP -f fab_inst.py finish -u core --colorize-errors |tee finish 
-  str="\n"`cat README.md |head -7|tail -n +2|sed 's/#/ /g'`
-  str+=`cat finish|sed -n -e '/get svc/,/^$/ p' -e '/token:  / p'|awk -F'out:' '{print $2}'`
-  echo -e "\033[45;42m $str \033[0m"
-}
-
-#etcdcheck
-func_etcdcheck(){
-	fab -H $CP1_IP -f fab_inst.py etcdcheck -u core --colorize-errors |tee -a log
-}
-
-#reboot
-func_reboot(){
-	fab -H $master,$node -f fab_inst.py reboot -u core -P --colorize-errors
-}
-
-#getpods
-func_getpods(){
-	fab -H $CP1_IP -f fab_inst.py getpods -u core  --colorize-errors|tee runpods
-        PodsRun=`cat runpods|grep Running|wc -l`
-}
-
-
 #start timestamp
 D1=`date +%s`
 
@@ -158,7 +17,10 @@ which fab;[ $? -eq 1 ] && echo "install fabric" && yum install -y fabric
 #or: pip install fabric==1.14.0
 
 #import config
-source ./CONFIG
+[ -n "$2" ] && ([ "$2" = "-c" ] || [ "$2" = "--config" ]) && [ -f $3 ] && echo "use config file:$3" && source $3 \
+|| echo "use default configfile" && source ./CONFIG
+#import FUNC
+source ./FUNCTION
 #
 case $1 in
 1|base)
@@ -293,16 +155,43 @@ finish)
   func_finish
 ;;
 etcdcheck)
-  echo "services etcd:"
+  echo "check etcd:"
   func_etcdcheck
 ;;
 reboot)
   echo "reboot:"
   func_reboot
 ;;
+getsvc)
+  echo "get svc:"
+  func_getsvc
+;;
+genindex)
+  echo "gen index svc.html:"
+  func_genindex
+;;
 getpods)
-  echo "services getpods:"
+  echo "get pods:"
   func_getpods
+;;
+calicocheck)
+  echo "check calico :"
+  func_calicocheck
+;;
+clusterinfo)
+  echo "cluster info:"
+  func_clusterinfo
+;;
+timezone8)
+  echo "timezone8:"
+  func_timezone8
+;;
+status)
+  echo "cluster status:"
+  func_etcdcheck
+  func_calicocheck
+  func_getpods
+  func_clusterinfo
 ;;
 default|all)
   echo "start all install k8s with single master..."
@@ -331,10 +220,10 @@ allha)
   echo "start HA install..."
   func_master1
   PodsRun=0
-  for ((i=1;i<60;i++));
+  for ((i=0;i<15;i++));
   do
       echo "wait master1's pods start...."
-      func_getpods
+      func_getpods;sleep 2
       [ $PodsRun -ge 3 ] && break
   done
   func_master2
@@ -344,7 +233,7 @@ allha)
   func_finish
 ;;
 help|*)
-  echo "usage: $0 [prepare|p]|p1|p2|p3|p4|[1|base]|[2|addon]|[3|ha]|dashboard|network|node|rejoin|ingress|helm|prometheus|efk|istio|finish|default|help|..."
+  echo "usage: $0 [prepare|p]|p1|p2|p3|p4|[1|base]|[2|addon]|[3|ha]|dashboard|network|node|rejoin|ingress|helm|prometheus|efk|istio|finish|default|help|...   [-c|--config  /path/to/config/config.filename]"
   echo -e "\
         p|prepare      :cp&load all tgz&images.\n\
         p1             :cp&load base tgz&images.\n\
@@ -367,7 +256,11 @@ help|*)
         reboot         :reboot all\n\
         reset          :kubeadm reset all\n\
         etcdcheck      :check etcd cluster\n\
+        calicocheck    :check calico status\n\
         getpods        :get pods -o wide\n\
+        getsvc         :get svc -o wide\n\
+        genindex       :gen index svc.html\n\
+        status         :get etcd&calico&pods\n\
   "
 ;;
 esac

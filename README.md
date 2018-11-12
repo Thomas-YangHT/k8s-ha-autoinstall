@@ -1,4 +1,4 @@
-#To install k8s-1.12.1 on coreos
+#To install k8s-1.12.1 on coreos                            
 #  _       _                          __  __                 
 # | |     (_)  _ __    _   _  __  __ |  \/  |   __ _   _ __  
 # | |     | | | '_ \  | | | | \ \/ / | |\/| |  / _` | | '_ \ 
@@ -24,7 +24,7 @@ sh -x install.sh allha
 sh -x install.sh reset
 
 #HELP
-usage: install.sh [prepare|p]|p1|p2|p3|p4|[1|base]|[2|addon]|[3|ha]|dashboard|network|node|rejoin|ingress|helm|prometheus|efk|istio|finish|default|help|...
+usage: install.sh [prepare|p]|p1|p2|p3|p4|[1|base]|[2|addon]|[3|ha]|dashboard|network|node|rejoin|ingress|helm|prometheus|efk|istio|finish|default|help|...   [-c|--config  /path/to/config/config.filename]
         p|prepare      :cp&load all tgz&images.
         p1             :cp&load base tgz&images.
         p2             :cp&load addon tgz&images.
@@ -46,7 +46,12 @@ usage: install.sh [prepare|p]|p1|p2|p3|p4|[1|base]|[2|addon]|[3|ha]|dashboard|ne
         reboot         :reboot all
         reset          :kubeadm reset all
         etcdcheck      :check etcd cluster
+        calicocheck    :check calico status
         getpods        :get pods -o wide
+        getsvc         :get svc -o wide
+        genindex       :gen index svc.html
+        status         :get etcd&calico&pods
+
 
 #All files in this project:
 .
