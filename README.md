@@ -16,7 +16,7 @@
    * k8s-addon.tgz: https://pan.baidu.com/s/16Ag7L_mWFyMkgoMs8tXWzA
 * CONFIG
    * cp [CONFIG.single-example|CONFIG.multi-example] CONFIG
-   * vi CONFIG  #just need modify node&master's IP
+   * vi CONFIG  -----just need modify node&master's IP
 * clone
    * clone or install CoreOS machines
 
