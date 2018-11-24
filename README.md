@@ -1,29 +1,32 @@
-#To install k8s-1.12.1 on coreos                            
-#  _       _                          __  __                 
-# | |     (_)  _ __    _   _  __  __ |  \/  |   __ _   _ __  
-# | |     | | | '_ \  | | | | \ \/ / | |\/| |  / _` | | '_ \ 
-# | |___  | | | | | | | |_| |  >  <  | |  | | | (_| | | | | |
-# |_____| |_| |_| |_|  \__,_| /_/\_\ |_|  |_|  \__,_| |_| |_|
-#                                                             
-#Prepare:
+```
+  _       _                          __  __                 
+ | |     (_)  _ __    _   _  __  __ |  \/  |   __ _   _ __  
+ | |     | | | '_ \  | | | | \ \/ / | |\/| |  / _` | | '_ \ 
+ | |___  | | | | | | | |_| |  >  <  | |  | | | (_| | | | | |
+ |_____| |_| |_| |_|  \__,_| /_/\_\ |_|  |_|  \__,_| |_| |_|
+```
+# To install k8s-1.12.1 on coreos                            
+
+# Prepare:
 cp [CONFIG.single-example|CONFIG.multi-example] CONFIG
 vi CONFIG  #just need modify node&master's IP
 
-#download:
+# download:
    coreos-k8s.tgz        #k8s 1.12.1's docker image&kubelet/kubeadm/kubectl
    ha.tgz                #docker image: keepalived.tar/haproxy.tar/etcd.tar
    coreosbase2.tgz       #kvm's img for CoreOS 1855.4
 
-#Install for single master:
+# Install for single master:
 sh -x install.sh all
 
-#Install for multi master:
+# Install for multi master:
 sh -x install.sh allha
 
-#Reset when reinstall:
+#  when reinstall:
 sh -x install.sh reset
 
-#HELP
+# HELP
+```
 usage: install.sh [prepare|p]|p1|p2|p3|p4|[1|base]|[2|addon]|[3|ha]|dashboard|network|node|rejoin|ingress|helm|prometheus|efk|istio|finish|default|help|...   [-c|--config  /path/to/config/config.filename]
         p|prepare      :cp&load all tgz&images.
         p1             :cp&load base tgz&images.
@@ -51,74 +54,6 @@ usage: install.sh [prepare|p]|p1|p2|p3|p4|[1|base]|[2|addon]|[3|ha]|dashboard|ne
         getsvc         :get svc -o wide
         genindex       :gen index svc.html
         status         :get etcd&calico&pods
-
-
-#All files in this project:
-.
-├── calico
-│   ├── calico-etcd.yaml
-│   ├── calico.yaml
-│   ├── etcd-calico-deploy.yaml
-│   ├── etcd.yaml
-│   └── rbac.yaml
-├── clone_coreos
-│   ├── clone_machine.sh
-│   ├── user_data.base
-│   ├── user_data.master1
-│   ├── user_data.master2
-│   ├── user_data.master3
-│   ├── user_data.node1
-│   └── user_data.sh
-├── CONFIG
-├── CONFIG.multi-example
-├── CONFIG.single-example
-├── config.tgz
-├── coreosbase2.tgz
-├── coreos-k8s.tgz
-├── docker-etcd.sh
-├── docker-haproxy.sh
-├── docker-keepalived.sh
-├── etcdssl.sh
-├── fab_inst.py
-├── fab_inst.pyc
-├── haproxy.cfg
-├── haproxy_conf.sh
-├── ha.tgz
-├── hosts
-├── hosts_conf.sh
-├── installha.sh
-├── installv2.sh
-├── join.sh
-├── kubeadm_config.sh
-├── kubeadm-config.yaml
-├── log
-├── m1_ca_files
-├── master-conf.tgz
-├── old
-│   ├── docker-etcd-test.sh
-│   ├── etcdconf.sh
-│   ├── etcdjoin.sh
-│   ├── keepalive_conf.sh
-│   ├── keep.sh
-│   ├── kubeadm_config.1.sh
-│   ├── kubeadm_config.sh.bak
-│   ├── m1_ca_files.old
-│   └── socat_test_port.sh
-├── README.md
-├── ssl
-│   ├── ca-config.json
-│   ├── ca.csr
-│   ├── ca-csr.json
-│   ├── ca-key.pem
-│   ├── ca.pem
-│   ├── etcd.csr
-│   ├── etcd-csr.json
-│   ├── etcd-key.pem
-│   ├── etcd.pem
-│   └── etcdssl.sh
-└── tools
-    ├── harun.sh
-    ├── recover-master1.sh
-    └── route.sh
-
-5 directories, 60 files
+        timezone8      :set timezone CST-8
+        route          :add route temporally
+```
