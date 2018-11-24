@@ -12,6 +12,8 @@
    * coreos-k8s.tgz https://pan.baidu.com/s/1KT6ZzDic3sAfaY0QlQZbTw ----- k8s 1.12.1's docker image&kubelet/kubeadm/kubectl
    * ha.tgz https://pan.baidu.com/s/1Cj_BAiohKnZOi2MKCEX10g  ----- docker image: keepalived.tar/haproxy.tar/etcd.tar
    * coreosbase2.tgz https://pan.baidu.com/s/141I6ctxuGtFfiD8tRHfz_g ----- kvm's img for CoreOS 1855.4
+   * 1.0  istio.tgz : https://pan.baidu.com/s/1jaQbXqHP6pzeqPDGlI1t6Q
+   * k8s-addon.tgz: https://pan.baidu.com/s/16Ag7L_mWFyMkgoMs8tXWzA
 * cp [CONFIG.single-example|CONFIG.multi-example] CONFIG
 * vi CONFIG  #just need modify node&master's IP
 * clone or install CoreOS machines
