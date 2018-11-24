@@ -1,0 +1,11 @@
+bind:
+  image: 192.168.254.211:5000/sameersbn/bind
+  volumes:
+    - /opt/bind:/data
+    - /opt/bind/entrypoint.sh:/sbin/entrypoint.sh
+  ports:
+    - "53:53/udp"
+    - "53:53/tcp"
+  environment:
+    - WEBMIN_ENABLED=false
+  restart: always

@@ -186,6 +186,10 @@ timezone8)
   echo "timezone8:"
   func_timezone8
 ;;
+route)
+  echo "route:"
+  func_route
+;;
 status)
   echo "cluster status:"
   func_etcdcheck
@@ -261,6 +265,8 @@ help|*)
         getsvc         :get svc -o wide\n\
         genindex       :gen index svc.html\n\
         status         :get etcd&calico&pods\n\
+        timezone8      :set timezone CST-8\n\
+        route          :add route temporally\n\
   "
 ;;
 esac

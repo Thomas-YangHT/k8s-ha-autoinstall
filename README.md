@@ -13,9 +13,7 @@ vi CONFIG  #just need modify node&master's IP
    coreos-k8s.tgz        #k8s 1.12.1's docker image&kubelet/kubeadm/kubectl
    ha.tgz                #docker image: keepalived.tar/haproxy.tar/etcd.tar
    coreosbase2.tgz       #kvm's img for CoreOS 1855.4
-   *add-on.tgz           #optional addon:ingress/helm/efk/prometheus 
-   *istio.tgz            #optional istio
-   
+
 #Install for single master:
 sh -x install.sh all
 

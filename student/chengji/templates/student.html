@@ -1,0 +1,114 @@
+
+<!-- saved from url=(0040)http://192.168.31.253:8101/student/query -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CHENGJI Query</title>
+
+  <link rel="stylesheet" href="./student_files/jquery-ui.css">
+  <link rel="stylesheet" href="./student_files/style.css">
+  <script src="./student_files/jquery-1.12.4.js"></script>
+  <script src="./student_files/jquery-ui.js"></script>
+
+ <script type="text/javascript"> 
+ function altRows(id){           
+    if(document.getElementsByTagName){          
+        var table = document.getElementById(id);  
+        var rows = table.getElementsByTagName("tr");       
+        for(i = 0; i < rows.length; i++){          
+            if(i % 2 == 0){                        
+                rows[i].className = 'evenrowcolor';
+            }else{                                 
+                rows[i].className = 'oddrowcolor'; 
+            }      
+        }          
+    }              
+ }               
+
+ window.onload=function(){ 
+    altRows('alternatecolor');
+ } 
+ </script>
+
+
+<!-- CSS goes in the document HEAD or added to your external stylesheet --> 
+ <style type="text/css"> 
+ table.altrowstable {
+    font-family: verdana,arial,sans-serif;
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #a9c6c9;
+    border-collapse: collapse;
+ }
+ table.altrowstable th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+    background-color:#ccd4d4;
+ }
+ table.altrowstable td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+ }
+ .oddrowcolor{
+    background-color:#d4e3e5;
+ }
+ .evenrowcolor{
+ /* background-color:#c3dde0; */
+ background-color:#ffffff;
+ }
+ .shiny-blue {
+   background-color: #759ae9;
+   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #759ae9), color-stop(50%, #376fe0), color-stop(50%, #1a5ad9), color-stop(100%, #2463de));
+   background-image: -webkit-linear-gradient(top, #759ae9 0%, #376fe0 50%, #1a5ad9 50%, #2463de 100%);
+   background-image: -moz-linear-gradient(top, #759ae9 0%, #376fe0 50%, #1a5ad9 50%, #2463de 100%);
+   background-image: -ms-linear-gradient(top, #759ae9 0%, #376fe0 50%, #1a5ad9 50%, #2463de 100%); 
+   background-image: -o-linear-gradient(top, #759ae9 0%, #376fe0 50%, #1a5ad9 50%, #2463de 100%);
+   background-image: linear-gradient(top, #759ae9 0%, #376fe0 50%, #1a5ad9 50%, #2463de 100%);
+   border-top: 1px solid #1f58cc;
+   border-right: 1px solid #1b4db3;
+   border-bottom: 1px solid #174299; 
+   border-left: 1px solid #1b4db3; 
+   border-radius: 4px; 
+   -webkit-box-shadow: inset 0 0 2px 0 rgba(57, 140, 255, 0.8);
+   box-shadow: inset 0 0 2px 0 rgba(57, 140, 255, 0.8); 
+   color: #fff; 
+   font: bold 12px/1 'helvetica neue', helvetica, arial, sans-serif;
+   padding: 7px 0; 
+   text-shadow: 0 -1px 1px #1a5ad9;
+   width:50px;
+    }
+ </style>
+ <link type="text/css" rel="stylesheet" href="chrome-extension://pioclpoplcdbaefihamjohnefbikjilc/content.css"></head>
+<body style="margin:0 auto;text-align:center;">
+<br>
+ <form id="form" name="form" method="post" action="http://192.168.31.253:8101/student/query">
+ 班级: <input type="text" name="ClassName" id="ClassName" value="1807">
+ 项目: <input type="text" name="TestLevel" id="TestLevel" value="1">
+ 0-学生基本信息；1-计算机基础成绩；
+   <input class="shiny-blue" type="submit" name="Submit" value="提交">
+ </form>
+{{  sql }} </br>
+</br><div style='margin:0 auto;text-align:center;font-size:22px;font-family:SimHei;'>欢迎您
+使用数据查询，数据如下：(共计{{ count }}行{{  index|length }}列)</div></br>
+<table class='altrowstable' id='alternatecolor' style='margin:0 auto;align:center;'> 
+<tr>
+{%  for i in range(index|length) %} 
+        <th>{{ index[i][0]|title }}</th>
+{%  endfor %}
+</tr>
+
+{%  for res in result  %}
+        <tr>
+        {% for i in res %}
+            <td>{{ i }}</td>
+		{% endfor %}
+        </tr>
+{%  endfor %}
+</table>
+
+</body></html>

@@ -1,0 +1,13 @@
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+
+    location ~ \.php$ {
+        root           /search/php;
+        fastcgi_buffers 32 32k;
+        fastcgi_buffer_size 128k;
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  /search/php$fastcgi_script_name;
+        fastcgi_param  PATH_INFO $fastcgi_script_name;
+        include        fastcgi_params;
+    }
+

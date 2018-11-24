@@ -1,0 +1,47 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.7.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: nfs4
+  name: nfs4
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: nfs4
+    spec:
+      containers:
+      - env:
+        - name: SHARED_DIRECTORY
+          value: /nfsshare
+        image: itsthenetwork/nfs-server-alpine
+        name: nfs4
+        ports:
+        - containerPort: 2049
+        - containerPort: 2049
+          protocol: UDP
+        resources: {}
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /etc/confd/templates/exports.tmpl
+          name: nfs4-claim0
+        - mountPath: /nfsshare
+          name: nfs4-claim1
+      restartPolicy: Always
+      volumes:
+      - name: nfs4-claim0
+        hostpath:
+          path: /opt/cmp2_nfs/exports.tmpl
+      - name: nfs4-claim1
+        hostpath:
+          path: /opt
+status: {}

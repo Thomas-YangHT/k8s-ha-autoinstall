@@ -1,0 +1,27 @@
+#python-nginx-uwsgi
+#docker build --rm -t python:latest -f ./dockfile.python .
+#USAGE:   
+#   docker run --name py -it -d python:latest
+#   docker exec -it py bash
+#
+#FROM centos:latest
+FROM 192.168.100.222:5000/centos
+MAINTAINER Thomas.Yang
+#RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-11.noarch.rpm && \
+RUN curl https://raw.githubusercontent.com/Thomas-YangHT/shell/master/yum-repo2.sh |sh && \
+#RUN yum -y install epel-release && \
+ yum -y install git wget net-tools nginx python-flask uwsgi uwsgi-plugin-python2 MySQL-python python2-PyMySQL && \
+#修改时区 
+ rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+#安装中文支持 
+ yum -y install kde-l10n-Chinese glibc-common && \
+#清yum cache
+ yum clean all && \
+#配置显示中文 
+ localedef -c -f UTF-8 -i zh_CN zh_CN.utf8 
+#设置环境变量
+ENV LC_ALL zh_CN.utf8
+
+#EXPOSE 80 443 
+CMD ["/usr/bin/bash"]
+

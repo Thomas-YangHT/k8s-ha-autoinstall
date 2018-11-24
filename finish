@@ -1,0 +1,43 @@
+[192.168.253.31] Executing task 'finish'
+[192.168.253.31] run: kubectl get svc --all-namespaces -o wide
+[192.168.253.31] out: NAMESPACE       NAME                    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE     SELECTOR
+[192.168.253.31] out: default         kubernetes              ClusterIP   10.96.0.1        <none>        443/TCP                      4d11h   <none>
+[192.168.253.31] out: default         mysql-mysql             NodePort    10.96.100.1      <none>        3306:32752/TCP               28h     app=mysql-mysql
+[192.168.253.31] out: default         student                 NodePort    10.96.100.2      <none>        8102:30131/TCP               8h      app.kubernetes.io/instance=student,app.kubernetes.io/name=student
+[192.168.253.31] out: ingress-nginx   ingress-nginx           NodePort    10.109.24.240    <none>        80:32193/TCP,443:31575/TCP   3d      app.kubernetes.io/name=ingress-nginx,app.kubernetes.io/part-of=ingress-nginx
+[192.168.253.31] out: kube-system     calico-etcd             ClusterIP   10.96.232.136    <none>        6666/TCP                     4d11h   k8s-app=calico-etcd
+[192.168.253.31] out: kube-system     elasticsearch-logging   ClusterIP   10.105.122.80    <none>        9200/TCP                     3d      k8s-app=elasticsearch-logging
+[192.168.253.31] out: kube-system     kibana-logging          ClusterIP   10.100.78.31     <none>        5601/TCP                     3d      k8s-app=kibana-logging
+[192.168.253.31] out: kube-system     kube-dns                ClusterIP   10.96.0.10       <none>        53/UDP,53/TCP                4d11h   k8s-app=kube-dns
+[192.168.253.31] out: kube-system     kubelet                 ClusterIP   None             <none>        10250/TCP                    3d      <none>
+[192.168.253.31] out: kube-system     kubernetes-dashboard    NodePort    10.105.90.76     <none>        443:30739/TCP                4d11h   k8s-app=kubernetes-dashboard
+[192.168.253.31] out: kube-system     tiller-deploy           ClusterIP   10.105.60.181    <none>        44134/TCP                    3d      app=helm,name=tiller
+[192.168.253.31] out: monitoring      alertmanager-main       ClusterIP   10.106.142.245   <none>        9093/TCP                     3d      alertmanager=main,app=alertmanager
+[192.168.253.31] out: monitoring      alertmanager-operated   ClusterIP   None             <none>        9093/TCP,6783/TCP            3d      app=alertmanager
+[192.168.253.31] out: monitoring      grafana                 ClusterIP   10.107.26.198    <none>        3000/TCP                     3d      app=grafana
+[192.168.253.31] out: monitoring      kube-state-metrics      ClusterIP   None             <none>        8443/TCP,9443/TCP            3d      app=kube-state-metrics
+[192.168.253.31] out: monitoring      node-exporter           ClusterIP   None             <none>        9100/TCP                     3d      app=node-exporter
+[192.168.253.31] out: monitoring      prometheus-k8s          ClusterIP   10.110.187.141   <none>        9090/TCP                     3d      app=prometheus,prometheus=k8s
+[192.168.253.31] out: monitoring      prometheus-operated     ClusterIP   None             <none>        9090/TCP                     3d      app=prometheus
+[192.168.253.31] out: monitoring      prometheus-operator     ClusterIP   None             <none>        8080/TCP                     3d      k8s-app=prometheus-operator
+[192.168.253.31] out: 
+
+[192.168.253.31] run: kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
+[192.168.253.31] out: Name:         admin-user-token-bnxh4
+[192.168.253.31] out: Namespace:    kube-system
+[192.168.253.31] out: Labels:       <none>
+[192.168.253.31] out: Annotations:  kubernetes.io/service-account.name: admin-user
+[192.168.253.31] out:               kubernetes.io/service-account.uid: cbe197b3-e2fd-11e8-9dde-525400d8e2cd
+[192.168.253.31] out: 
+[192.168.253.31] out: Type:  kubernetes.io/service-account-token
+[192.168.253.31] out: 
+[192.168.253.31] out: Data
+[192.168.253.31] out: ====
+[192.168.253.31] out: ca.crt:     1025 bytes
+[192.168.253.31] out: namespace:  11 bytes
+[192.168.253.31] out: token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi11c2VyLXRva2VuLWJueGg0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImFkbWluLXVzZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiJjYmUxOTdiMy1lMmZkLTExZTgtOWRkZS01MjU0MDBkOGUyY2QiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06YWRtaW4tdXNlciJ9.OldyNo8Ylo0Pv1RrouHbhqYayD6nKYt47HN-WW3DJdUf5WEhaQDWQmP2wbI1QA7OfMEZBqag7TWCyeXKO1rv_16dn0awwLA2NkYHGNSVrl1OknTyyApg1mkWWMjGWoXUTt36Hh9Oh61665b-ItS5hULKMrNnEAzbtrysN544scP7ZPmM0VIxl8Nw78eF67LW3MrE6eN48R3BhbAraUDDennumbYUa8Uv1ShqHv3E8uGzxO8nLKag3v23swrrkjlnkgg58RGe6ir26cVdaeaU9LzU3kSvKTfV4ortqkljE2UhCYIRaS_eZi7A7NlA77CGuVSKhYTLX5t77dMneR2gCw
+[192.168.253.31] out: 
+
+
+Done.
+Disconnecting from 192.168.253.31... done.

@@ -17,6 +17,11 @@ master="$CP1_IP,$CP2_IP,$CP3_IP"
 node="$NODE1_IP"  # add IP seprate by ','
 net="calico" #calico or flannel
 dashboard=true
+helm=true
+ingress=true
+prometheus=true
+efk=true
+istio=true
 
 #just for coreos machines
 KVM_NAME="master1,master2,master3,node1"

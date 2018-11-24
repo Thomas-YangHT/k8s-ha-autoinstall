@@ -28,7 +28,7 @@ def prepare():
 def prepare_ha():
     local('sh haproxy_conf.sh')
     local('sh hosts_conf.sh')
-    local('sh keepalive_conf.sh')
+   #local('sh keepalive_conf.sh')
     local('sh kubeadm_config.sh')
     local('tar zcvf config.tgz  *.master? hosts haproxy.cfg m1_ca_files docker*.sh keep.sh CONFIG etcdjoin.sh ssl kubeadm-config.yaml calico')
     put('config.tgz','')
@@ -225,3 +225,7 @@ def clusterinfo():
 def timezone8():
     run('sudo timedatectl set-timezone Asia/Shanghai')
     run('date')
+
+def route():
+    put('tools/route.sh','')
+    run('sh route.sh')

@@ -1,0 +1,16 @@
+nginx:
+  image: 192.168.254.211:5000/nginx
+
+  environment:
+    - TZ＝'Asia/Shanghai'
+
+  volumes:
+    - /opt/ngx_download:/etc/nginx
+    - /opt/nginxlog:/var/log/nginx
+    - /opt/ngx_download/hosts:/etc/hosts
+    - /export/download:/opt/download
+
+  ports:
+    - "80:80/tcp"
+    - "443:443/udp"
+  restart: always

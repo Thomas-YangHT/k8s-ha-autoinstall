@@ -175,5 +175,10 @@ func_timezone8(){
 	fab -H $master,$node -f fab_inst.py timezone8 -u core  --colorize-errors
 }
 
+#route
+func_route(){
+	fab -H $master,$node -f fab_inst.py route -u core  --colorize-errors
+}
+
 
 #END.

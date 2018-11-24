@@ -1,0 +1,17 @@
+stages:
+  - deploy
+
+
+before_script:
+  - docker info
+
+# 部署测试服务器
+deploy_dev:
+  stage: deploy
+  tags:
+  - shell
+  only:
+  - master
+  script:
+  - docker build -t 192.168.100.222:5000/python -f ./dockerfile.python .    
+  - docker push 192.168.100.222:5000/python

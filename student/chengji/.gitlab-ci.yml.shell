@@ -1,0 +1,30 @@
+stages:
+# - test
+  - deploy
+
+#variables:
+#  DEV_RSYNC_PATH: "/pytest"
+
+before_script:
+  - docker info
+
+# 代码检查
+#lint:
+#  stage: test
+#  script: python -V
+
+# 部署测试服务器
+deploy_dev:
+  stage: deploy
+  tags:
+  - shell
+  only:
+  - master
+  script:
+  - docker build -t 192.168.100.222:5000/python:v1 -f ./dockerfile.python .    
+  - docker push 192.168.100.222:5000/python:v1
+# - rsync -av --delete-after  . $DEV_RSYNC_PATH
+# - docker build -t my-image dockerfiles/
+# - docker run my-docker-image /script/to/run/tests
+# - docker tag my-image my-registry:5000/my-image
+# - docker push my-registry:5000/my-image
