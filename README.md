@@ -9,9 +9,9 @@
 
 # Prepare:
 * download:
-   * coreos-k8s.tgz        # k8s 1.12.1's docker image&kubelet/kubeadm/kubectl
-   * ha.tgz                # docker image: keepalived.tar/haproxy.tar/etcd.tar
-   * coreosbase2.tgz       # kvm's img for CoreOS 1855.4
+   * coreos-k8s.tgz        ----- k8s 1.12.1's docker image&kubelet/kubeadm/kubectl
+   * ha.tgz                ----- docker image: keepalived.tar/haproxy.tar/etcd.tar
+   * coreosbase2.tgz       ----- kvm's img for CoreOS 1855.4
 * cp [CONFIG.single-example|CONFIG.multi-example] CONFIG
 * vi CONFIG  #just need modify node&master's IP
 * clone or install CoreOS machines
