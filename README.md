@@ -66,3 +66,8 @@ usage: install.sh [prepare|p]|p1|p2|p3|p4|[1|base]|[2|addon]|[3|ha]|dashboard|ne
         timezone8      :set timezone CST-8
         route          :add route temporally
 ```
+-----
+# weixin public accunt: [LinuxMan]
+* [linux command HELP,try input some cmd, such as lsof]
+<img src="https://github.com/Thomas-YangHT/ceph-autoinstall/raw/master/pics/linuxman.png" width="500">
+
