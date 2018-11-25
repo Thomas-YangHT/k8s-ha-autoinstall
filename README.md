@@ -5,7 +5,7 @@
  | |___  | | | | | | | |_| |  >  <  | |  | | | (_| | | | | |
  |_____| |_| |_| |_|  \__,_| /_/\_\ |_|  |_|  \__,_| |_| |_|
 ```
-# To install k8s-1.12.1 on coreos                            
+# To install k8s-1.12.1 on CoreOS                            
 
 # Prepare:
 * download:
