@@ -17,14 +17,19 @@
 * CONFIG
    * cp [CONFIG.single-example|CONFIG.multi-example] CONFIG
    * vi CONFIG  -----just need modify node&master's IP
+   <img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k1.png" width="500">
+
 * clone
    * clone or install CoreOS machines
+   <img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k2.png" width="500">
 
-# Install for single master:
+# Install
+* Install for single master:
 sh -x install.sh all
 
-# Install for multi master:
+* Install for multi master:
 sh -x install.sh allha
+   <img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k3.png" width="500">
 
 #  when reinstall:
 sh -x install.sh reset
