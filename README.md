@@ -1,10 +1,5 @@
-```
-  _       _                          __  __                 
- | |     (_)  _ __    _   _  __  __ |  \/  |   __ _   _ __  
- | |     | | | '_ \  | | | | \ \/ / | |\/| |  / _` | | '_ \ 
- | |___  | | | | | | | |_| |  >  <  | |  | | | (_| | | | | |
- |_____| |_| |_| |_|  \__,_| /_/\_\ |_|  |_|  \__,_| |_| |_|
-```
+![](https://img.shields.io/badge/Dist-CoreOS-blue.svg)  ![](https://img.shields.io/badge/K8S-HA-brightgreen.svg)  ![](https://img.shields.io/badge/Proxy-IPVS-brightgreen.svg)  ![](https://img.shields.io/badge/Net-Calico-brightgreen.svg)
+
 # To install k8s-1.12.1 on CoreOS                            
 
 # Prepare:
@@ -71,3 +66,10 @@ usage: install.sh [prepare|p]|p1|p2|p3|p4|[1|base]|[2|addon]|[3|ha]|dashboard|ne
 * [linux command HELP,try input some cmd, such as lsof]
 <img src="https://github.com/Thomas-YangHT/ceph-autoinstall/raw/master/pics/linuxman.png" width="500">
 
+```
+  _       _                          __  __                 
+ | |     (_)  _ __    _   _  __  __ |  \/  |   __ _   _ __  
+ | |     | | | '_ \  | | | | \ \/ / | |\/| |  / _` | | '_ \ 
+ | |___  | | | | | | | |_| |  >  <  | |  | | | (_| | | | | |
+ |_____| |_| |_| |_|  \__,_| /_/\_\ |_|  |_|  \__,_| |_| |_|
+```
