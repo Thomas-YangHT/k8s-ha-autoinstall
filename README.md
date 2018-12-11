@@ -21,10 +21,9 @@
 # Install
 * Install for single master:
   * sh -x install.sh all
-
 * Install for multi master:
   * sh -x install.sh allha
-  [see video](https://asciinema.org/a/YWhzanooOSS5O2kZfOAMfayPL)
+[![asciicast](https://asciinema.org/a/YWhzanooOSS5O2kZfOAMfayPL.svg)](https://asciinema.org/a/YWhzanooOSS5O2kZfOAMfayPL)
    <img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k3.png" width="800">
 
 #  when reinstall:
