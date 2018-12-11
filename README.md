@@ -24,6 +24,7 @@
 
 * Install for multi master:
   * sh -x install.sh allha
+  [see video](https://asciinema.org/a/YWhzanooOSS5O2kZfOAMfayPL)
    <img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k3.png" width="500">
 
 #  when reinstall:
