@@ -11,30 +11,13 @@ Done.
 Disconnecting from 192.168.253.31... done.
 [192.168.253.31] Executing task 'calicocheck'
 [192.168.253.31] run: sudo coreos-k8s/calico/calicoctl node status
-[192.168.253.31] out: Calico process is running.
-[192.168.253.31] out: 
-[192.168.253.31] out: IPv4 BGP status
-[192.168.253.31] out: +----------------+-------------------+-------+------------+-------------+
-[192.168.253.31] out: |  PEER ADDRESS  |     PEER TYPE     | STATE |   SINCE    |    INFO     |
-[192.168.253.31] out: +----------------+-------------------+-------+------------+-------------+
-[192.168.253.31] out: | 192.168.253.32 | node-to-node mesh | up    | 2018-11-13 | Established |
-[192.168.253.31] out: | 192.168.253.33 | node-to-node mesh | up    | 2018-11-13 | Established |
-[192.168.253.31] out: | 192.168.253.34 | node-to-node mesh | up    | 2018-11-13 | Established |
-[192.168.253.31] out: +----------------+-------------------+-------+------------+-------------+
-[192.168.253.31] out: 
-[192.168.253.31] out: IPv6 BGP status
-[192.168.253.31] out: No IPv6 peers found.
-[192.168.253.31] out: 
+[192.168.253.31] out: Calico process is not running.
 [192.168.253.31] out: 
 
-
-Done.
 Disconnecting from 192.168.253.31... done.
 [192.168.253.31] Executing task 'clusterinfo'
 [192.168.253.31] run: kubectl cluster-info
 [192.168.253.31] out: [0;32mKubernetes master[0m is running at [0;33mhttps://k8s.yunwei.edu:8443[0m
-[192.168.253.31] out: [0;32mElasticsearch[0m is running at [0;33mhttps://k8s.yunwei.edu:8443/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy[0m
-[192.168.253.31] out: [0;32mKibana[0m is running at [0;33mhttps://k8s.yunwei.edu:8443/api/v1/namespaces/kube-system/services/kibana-logging/proxy[0m
 [192.168.253.31] out: [0;32mKubeDNS[0m is running at [0;33mhttps://k8s.yunwei.edu:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy[0m
 [192.168.253.31] out: 
 [192.168.253.31] out: To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.

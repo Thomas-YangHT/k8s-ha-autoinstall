@@ -17,7 +17,7 @@ which fab;[ $? -eq 1 ] && echo "install fabric" && yum install -y fabric
 #or: pip install fabric==1.14.0
 
 #import config
-[ -n "$2" ] && ([ "$2" = "-c" ] || [ "$2" = "--config" ]) && [ -f $3 ] && echo "use config file:$3" && source $3 \
+[ -n "$2" ] && ([ "$2" = "-c" ] || [ "$2" = "--config" ]) && [ -f $3 ] && echo "use config file:$3" && source ./$3 \
 || echo "use default configfile" && source ./CONFIG
 #import FUNC
 source ./FUNCTION

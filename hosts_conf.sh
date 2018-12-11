@@ -1,8 +1,8 @@
 source ./CONFIG
 cat <<EOF > hosts
-$VIP_IP k8s k8s.yunwei.edu
-$CP1_IP master1 master1.yunwei.edu
-$CP2_IP master2 master2.yunwei.edu
-$CP3_IP master3 master3.yunwei.edu
-$NODE1_IP node1 node1.yunwei.edu
+$VIP_IP k8sha   $LOAD_BALANCER_DNS
+$CP1_IP master1 $CP1_HOSTNAME
+$CP2_IP master2 $CP2_HOSTNAME
+$CP3_IP master3 $CP3_HOSTNAME
+$NODE1_IP node1 $NODE1_HOSTNAME
 EOF

@@ -1,7 +1,7 @@
 K8S_VER=v1.12.1
 CIDR_SUBNET=10.244.0.0/16
 KUBECONFIG=/etc/kubernetes/admin.conf
-LOAD_BALANCER_DNS=k8s.yunwei.edu
+LOAD_BALANCER_DNS=k8sha.yunwei.edu
 LOAD_BALANCER_PORT=8443
 CP1_HOSTNAME=master1.yunwei.edu
 CP2_HOSTNAME=master2.yunwei.edu
@@ -25,6 +25,6 @@ istio=true
 
 #just for coreos machines
 KVM_NAME="master1,master2,master3,node1"
-GATEWAY=192.168.253.3  
+GATEWAY=192.168.253.125  
 DNS1=192.168.253.110
 DNS2=114.114.114.114  

@@ -4,12 +4,12 @@
 
 #base prepare
 func_base_prepare(){
-	fab -H $CP1_IP,$node -f fab_inst.py prepare -u core -P --colorize-errors
+	fab -H $master,$node -f fab_inst.py prepare -u core -P --colorize-errors
 }
 
 #ha prepare
 func_ha_prepare(){
-	fab -H $master,$node -f fab_inst.py prepare_ha -u core -P --colorize-errors
+	fab -H $master -f fab_inst.py prepare_ha -u core -P --colorize-errors
 }
 
 #addon prepare

@@ -4,6 +4,7 @@ def reset():
    # with cd("/home/core/coreos-k8s"):
    #     run("ls")
     run('sudo kubeadm reset -f ')
+    run('sudo rm -rf /etc/kubernetes')
 
 def prepare():
   #  run('export PATH=$PATH:/opt/bin')
