@@ -31,7 +31,7 @@ def prepare_ha():
     local('sh hosts_conf.sh')
    #local('sh keepalive_conf.sh')
     local('sh kubeadm_config.sh')
-    local('tar zcvf config.tgz  *.master? hosts haproxy.cfg m1_ca_files docker*.sh keep.sh CONFIG etcdjoin.sh ssl kubeadm-config.yaml calico')
+    local('tar zcvf config.tgz   hosts haproxy.cfg m1_ca_files docker*.sh  CONFIG  ssl kubeadm-config.yaml calico')
     put('config.tgz','')
     put('ha.tgz', '')
     run('ls ha.tgz config.tgz|xargs -n 1 tar -C coreos-k8s -zxvf')

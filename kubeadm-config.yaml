@@ -4,7 +4,7 @@ kubernetesVersion: v1.12.1
 networking:
   podSubnet: 10.244.0.0/16
 apiServerCertSANs:
-- "k8s.yunwei.edu"
+- "k8sha.yunwei.edu"
 - "192.168.253.30"
 - "192.168.253.31"
 - "192.168.253.32"
@@ -13,7 +13,7 @@ apiServerCertSANs:
 - "master2.yunwei.edu"
 - "master3.yunwei.edu"
 - 127.0.0.1
-controlPlaneEndpoint: "k8s.yunwei.edu:8443"
+controlPlaneEndpoint: "k8sha.yunwei.edu:8443"
 etcd:
   external:
     endpoints:

@@ -12,9 +12,11 @@ CP2_IP=192.168.253.32
 CP3_IP=192.168.253.33
 NODE1_IP=192.168.253.34
 NODE1_HOSTNAME=node1.yunwei.edu
+REMOTE_USER=core
 #
 master="$CP1_IP,$CP2_IP,$CP3_IP"
 node="$NODE1_IP"  # add IP seprate by ','
+NODES="$CP1_IP,$CP2_IP,$CP3_IP,$NODE1_IP"
 net="calico" #calico or flannel
 dashboard=true
 helm=true
