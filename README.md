@@ -1,7 +1,6 @@
 ![](https://img.shields.io/badge/Dist-CoreOS-blue.svg)  ![](https://img.shields.io/badge/K8S-HA-brightgreen.svg)  ![](https://img.shields.io/badge/Proxy-IPVS-orange.svg)  ![](https://img.shields.io/badge/Net-Calico-yellow.svg)
 
 # To install k8s-1.13.0 on CoreOS                            
-
 # Prepare:
 * download:
    * [coreos-k8s-v1.13.0.tgz](https://pan.baidu.com/s/1IU_7YBirkM88q2QnbyfePg) ----- k8s 1.13.0's docker image&kubelet/kubeadm/kubectl&dashboard
