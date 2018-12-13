@@ -192,6 +192,7 @@ def istio():
     run('kubectl create -f istio.yaml;pwd')
 
 def finish():
+    run('kubectl version')
     run('kubectl get svc --all-namespaces -o wide')
     run('kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk \'{print $1}\')')
 
