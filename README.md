@@ -1,13 +1,17 @@
 ![](https://img.shields.io/badge/Dist-CoreOS-blue.svg)  ![](https://img.shields.io/badge/K8S-HA-brightgreen.svg)  ![](https://img.shields.io/badge/Proxy-IPVS-orange.svg)  ![](https://img.shields.io/badge/Net-Calico-yellow.svg)
 
-# To install k8s-1.13.0 on CoreOS                            
+# To install k8s_HA-1.13.0 on CoreOS
+
+<img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/external-etcd.png" width="800">
+
 # Prepare:
 * download:
    * [coreos-k8s-v1.13.0.tgz](https://pan.baidu.com/s/1IU_7YBirkM88q2QnbyfePg) ----- k8s 1.13.0's docker image&kubelet/kubeadm/kubectl&dashboard
    * [ha.tgz](https://pan.baidu.com/s/1Cj_BAiohKnZOi2MKCEX10g)  ----- docker image: keepalived.tar/haproxy.tar/etcd.tar
    * [coreosbase2.tgz](https://pan.baidu.com/s/141I6ctxuGtFfiD8tRHfz_g) ----- kvm's img for CoreOS 1855.4
-   * [1.0 istio.tgz](https://pan.baidu.com/s/1jaQbXqHP6pzeqPDGlI1t6Q)
-   * [k8s-addon.tgz](https://pan.baidu.com/s/16Ag7L_mWFyMkgoMs8tXWzA)
+   * [1.0 istio.tgz](https://pan.baidu.com/s/1jaQbXqHP6pzeqPDGlI1t6Q)---(Optional)
+   * [k8s-addon.tgz](https://pan.baidu.com/s/16Ag7L_mWFyMkgoMs8tXWzA)---(Optional)
+   * clone k8s-ha-autoinstall & mv *tgz k8s-ha0autoinstall
 * CONFIG
    * vi CONFIG  -----just need modify node&master's IP
 ```
@@ -46,18 +50,24 @@ DNS2=114.114.114.114
 ```
 * clone
    * clone or install CoreOS machines
+
+    `cd clone_coreos;sh clone_machine.sh`
+    
    <img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k2.png" width="500">
 
 # Install
 * Install for single master:
-  * sh -x install.sh all
+
+    ` sh -x install.sh all `
 * Install for multi master:
-  * sh -x install.sh allha
+
+    ` sh -x install.sh allha `
+  
 [![asciicast](https://asciinema.org/a/ESPpo0D3MQWsJo0Yo2TFG2S10.svg)](https://asciinema.org/a/ESPpo0D3MQWsJo0Yo2TFG2S10)  
-   <img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k3.png" width="800">
+<img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k3.png" width="800">
 
 #  when reinstall:
-sh -x install.sh reset
+    `sh -x install.sh reset`
 
 # HELP
 ```
@@ -95,7 +105,7 @@ usage: install.sh [prepare|p]|p1|p2|p3|p4|[1|base]|[2|addon]|[3|ha]|dashboard|ne
 -----
 # weixin public accunt: [LinuxMan]
 * [linux command HELP,try input some cmd, such as lsof]
-<img src="https://github.com/Thomas-YangHT/ceph-autoinstall/raw/master/pics/linuxman.png" width="500">
+                <img src="https://github.com/Thomas-YangHT/ceph-autoinstall/raw/master/pics/linuxman.png" width="500">
 
 ```
   _       _                          __  __                 
