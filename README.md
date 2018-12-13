@@ -4,7 +4,7 @@
 
 # Prepare:
 * download:
-   * [coreos-k8s.tgz](https://pan.baidu.com/s/1KT6ZzDic3sAfaY0QlQZbTw) ----- k8s 1.12.1's docker image&kubelet/kubeadm/kubectl
+   * [coreos-k8s-v1.13.0.tgz]() ----- k8s 1.13.0's docker image&kubelet/kubeadm/kubectl&dashboard
    * [ha.tgz](https://pan.baidu.com/s/1Cj_BAiohKnZOi2MKCEX10g)  ----- docker image: keepalived.tar/haproxy.tar/etcd.tar
    * [coreosbase2.tgz](https://pan.baidu.com/s/141I6ctxuGtFfiD8tRHfz_g) ----- kvm's img for CoreOS 1855.4
    * [1.0 istio.tgz](https://pan.baidu.com/s/1jaQbXqHP6pzeqPDGlI1t6Q)
@@ -23,8 +23,7 @@
   * sh -x install.sh all
 * Install for multi master:
   * sh -x install.sh allha
-  
-[![asciicast](https://asciinema.org/a/YWhzanooOSS5O2kZfOAMfayPL.svg)](https://asciinema.org/a/YWhzanooOSS5O2kZfOAMfayPL)
+[![asciicast](https://asciinema.org/a/ESPpo0D3MQWsJo0Yo2TFG2S10.svg)](https://asciinema.org/a/ESPpo0D3MQWsJo0Yo2TFG2S10)  
    <img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k3.png" width="800">
 
 #  when reinstall:
