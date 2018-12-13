@@ -1,4 +1,4 @@
-K8S_VER=v1.12.1
+K8S_VER=v1.13.0
 CIDR_SUBNET=10.244.0.0/16
 KUBECONFIG=/etc/kubernetes/admin.conf
 LOAD_BALANCER_DNS=k8sha.yunwei.edu
