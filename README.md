@@ -90,6 +90,7 @@ usage: install.sh [prepare|p]|p1|p2|p3|p4|[1|base]|[2|addon]|[3|ha]|dashboard|ne
         status         :get etcd&calico&pods
         timezone8      :set timezone CST-8
         route          :add route temporally
+
 ```
 -----
 # weixin public accunt: [LinuxMan]
