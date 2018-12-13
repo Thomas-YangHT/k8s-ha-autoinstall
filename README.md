@@ -53,7 +53,7 @@ DNS2=114.114.114.114
 
     `cd clone_coreos;sh clone_machine.sh`
     
-   <img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k2.png" width="500">
+<img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k2.png" width="500">
 
 # Install
 * Install for single master:
