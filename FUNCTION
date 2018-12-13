@@ -4,6 +4,7 @@
 
 #base prepare
 func_base_prepare(){
+        sh version.sh
 	fab -H $master,$node -f fab_inst.py prepare -u core -P --colorize-errors
 }
 
@@ -47,7 +48,7 @@ func_master(){
 #master1
 func_master1(){
 	fab -H $CP1_IP -f fab_inst.py master1 -u core --colorize-errors |tee log
-	scp core@$CP1_IP:coreos-k8s/master-conf.tgz . 
+#	scp core@$CP1_IP:coreos-k8s/master-conf.tgz . 
 }
 
 #master2
@@ -66,7 +67,7 @@ fab -H $CP1_IP -f fab_inst.py flannel -u core --colorize-errors
 
 #find join command
 func_nodejoin(){
-cat log |grep kubeadm|grep join |tail -1 |awk -F'out:' '{print "sudo "$2}' >join.sh
+#cat log |grep kubeadm|grep join |tail -1 |awk -F'out:' '{print "sudo "$2}' >join.sh
 fab -H $node -f fab_inst.py node -u core -P --colorize-errors 
 }
 
