@@ -30,6 +30,7 @@ def prepare():
 
 #for ha
 def prepare_ha():
+    local('sh calico.sh')
     local('sh haproxy_conf.sh')
     local('sh hosts_conf.sh')
     local('sh calico.sh')
@@ -112,7 +113,17 @@ def flannel():
 
 def calico():
     run('kubectl taint nodes --all  node-role.kubernetes.io/master-;ls')
+<<<<<<< HEAD
    # run('kubectl apply -f  coreos-k8s/calico/etcd-calico-deploy.yaml')
+=======
+    run('kubectl apply -f  coreos-k8s/calico/rbac.yaml')
+    run('kubectl apply -f  coreos-k8s/calico/calico.yaml')
+    run('kubectl delete -f coreos-k8s/kube-flannel.yml;ls')
+
+def calicoOLD():
+    run('kubectl taint nodes --all  node-role.kubernetes.io/master-;ls')
+    run('kubectl apply -f  coreos-k8s/calico/etcd-calico-deploy.yaml')
+>>>>>>> b0993d796094a28121334a112fd209befc14afcc
     run('kubectl apply -f  coreos-k8s/calico/rbac.yaml')
     run('kubectl apply -f  coreos-k8s/calico/calico.yaml')
     run('kubectl delete -f coreos-k8s/kube-flannel.yml;ls')
