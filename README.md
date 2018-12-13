@@ -53,7 +53,7 @@ DNS2=114.114.114.114
 
     `cd clone_coreos;sh clone_machine.sh`
     
-<img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k2.png" width="500">
+<img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k2.png" width="600">
 
 # Install
 * Install for single master:
@@ -64,7 +64,7 @@ DNS2=114.114.114.114
     ` sh -x install.sh allha `
   
 [![asciicast](https://asciinema.org/a/ESPpo0D3MQWsJo0Yo2TFG2S10.svg)](https://asciinema.org/a/ESPpo0D3MQWsJo0Yo2TFG2S10)  
-<img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k3.png" width="800">
+<img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k3.png" width="900">
 
 #  when reinstall:
     `sh -x install.sh reset`
