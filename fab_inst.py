@@ -27,6 +27,7 @@ def prepare():
 
 #for ha
 def prepare_ha():
+    local('sh calico.sh')
     local('sh haproxy_conf.sh')
     local('sh hosts_conf.sh')
    #local('sh keepalive_conf.sh')
@@ -108,6 +109,12 @@ def flannel():
     run('kubectl apply -f coreos-k8s/kube-flannel.yml')
 
 def calico():
+    run('kubectl taint nodes --all  node-role.kubernetes.io/master-;ls')
+    run('kubectl apply -f  coreos-k8s/calico/rbac.yaml')
+    run('kubectl apply -f  coreos-k8s/calico/calico.yaml')
+    run('kubectl delete -f coreos-k8s/kube-flannel.yml;ls')
+
+def calicoOLD():
     run('kubectl taint nodes --all  node-role.kubernetes.io/master-;ls')
     run('kubectl apply -f  coreos-k8s/calico/etcd-calico-deploy.yaml')
     run('kubectl apply -f  coreos-k8s/calico/rbac.yaml')
@@ -193,6 +200,7 @@ def istio():
     run('kubectl create -f istio.yaml;pwd')
 
 def finish():
+    run('kubectl version')
     run('kubectl get svc --all-namespaces -o wide')
     run('kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk \'{print $1}\')')
 
