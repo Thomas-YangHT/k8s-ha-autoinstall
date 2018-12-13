@@ -53,8 +53,9 @@ DNS2=114.114.114.114
   * sh -x install.sh all
 * Install for multi master:
   * sh -x install.sh allha
+  
 [![asciicast](https://asciinema.org/a/ESPpo0D3MQWsJo0Yo2TFG2S10.svg)](https://asciinema.org/a/ESPpo0D3MQWsJo0Yo2TFG2S10)  
-   <img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k3.png" width="800">
+<img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k3.png" width="800">
 
 #  when reinstall:
 sh -x install.sh reset
