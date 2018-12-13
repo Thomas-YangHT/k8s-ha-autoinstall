@@ -16,11 +16,7 @@ REMOTE_USER=core
 #
 master="$CP1_IP,$CP2_IP,$CP3_IP"
 node="$NODE1_IP"  # add IP seprate by ','
-<<<<<<< HEAD:CONFIG
-NODES="$CP1_IP,$CP2_IP,$CP3_IP,$NODE1_IP"
-=======
 NODES="$master,$node"
->>>>>>> release-1.13.0:CONFIG
 net="calico" #calico or flannel
 dashboard=true
 helm=true
