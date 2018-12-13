@@ -1,7 +1,7 @@
 source ./CONFIG
 
 cat << EOF > kubeadm-config.yaml
-apiVersion: kubeadm.k8s.io/v1alpha3
+apiVersion: kubeadm.k8s.io/v1beta1
 kind: ClusterConfiguration
 kubernetesVersion: $K8S_VER
 networking:

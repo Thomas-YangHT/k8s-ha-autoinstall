@@ -1,19 +1,65 @@
 ![](https://img.shields.io/badge/Dist-CoreOS-blue.svg)  ![](https://img.shields.io/badge/K8S-HA-brightgreen.svg)  ![](https://img.shields.io/badge/Proxy-IPVS-orange.svg)  ![](https://img.shields.io/badge/Net-Calico-yellow.svg)
 
+<<<<<<< HEAD
 # To install k8s-1.12.1 on CoreOS                            
 
 # Prepare:
 * download:
    * [coreos-k8s.tgz](https://pan.baidu.com/s/1KT6ZzDic3sAfaY0QlQZbTw) ----- k8s 1.12.1's docker image&kubelet/kubeadm/kubectl
+=======
+# To install k8s-1.13.0-alpha on CoreOS                            
+
+# Prepare:
+* download:
+   * [coreos-k8s-v1.13.0.tgz](https://pan.baidu.com/s/1IU_7YBirkM88q2QnbyfePg) ----- k8s 1.13.0's docker image&kubelet/kubeadm/kubectl&dashboard
+>>>>>>> release-1.13.0
    * [ha.tgz](https://pan.baidu.com/s/1Cj_BAiohKnZOi2MKCEX10g)  ----- docker image: keepalived.tar/haproxy.tar/etcd.tar
    * [coreosbase2.tgz](https://pan.baidu.com/s/141I6ctxuGtFfiD8tRHfz_g) ----- kvm's img for CoreOS 1855.4
    * [1.0 istio.tgz](https://pan.baidu.com/s/1jaQbXqHP6pzeqPDGlI1t6Q)
    * [k8s-addon.tgz](https://pan.baidu.com/s/16Ag7L_mWFyMkgoMs8tXWzA)
 * CONFIG
+<<<<<<< HEAD
    * cp [CONFIG.single-example|CONFIG.multi-example] CONFIG
    * vi CONFIG  -----just need modify node&master's IP
    <img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k1.png" width="500">
 
+=======
+   * vi CONFIG  -----just need modify node&master's IP
+```
+K8S_VER=v1.13.0
+CIDR_SUBNET=10.244.0.0/16
+KUBECONFIG=/etc/kubernetes/admin.conf
+LOAD_BALANCER_DNS=k8sha.yunwei.edu
+LOAD_BALANCER_PORT=8443
+CP1_HOSTNAME=master1.yunwei.edu
+CP2_HOSTNAME=master2.yunwei.edu
+CP3_HOSTNAME=master3.yunwei.edu
+VIP_IP=192.168.253.30
+CP1_IP=192.168.253.31
+CP2_IP=192.168.253.32
+CP3_IP=192.168.253.33
+NODE1_IP=192.168.253.34
+NODE1_HOSTNAME=node1.yunwei.edu
+REMOTE_USER=core
+#
+master="$CP1_IP,$CP2_IP,$CP3_IP"
+node="$NODE1_IP"  # add IP seprate by ','
+NODES="$master,$node"
+net="calico" #calico or flannel
+dashboard=true
+helm=true
+ingress=true
+prometheus=true
+efk=true
+istio=true
+
+#just for coreos machines
+KVM_NAME="master1,master2,master3,node1"
+GATEWAY=192.168.253.125
+DNS1=192.168.253.110
+DNS2=114.114.114.114
+```
+>>>>>>> release-1.13.0
 * clone
    * clone or install CoreOS machines
    <img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k2.png" width="500">
@@ -23,8 +69,12 @@
   * sh -x install.sh all
 * Install for multi master:
   * sh -x install.sh allha
+<<<<<<< HEAD
   
 [![asciicast](https://asciinema.org/a/YWhzanooOSS5O2kZfOAMfayPL.svg)](https://asciinema.org/a/YWhzanooOSS5O2kZfOAMfayPL)
+=======
+[![asciicast](https://asciinema.org/a/ESPpo0D3MQWsJo0Yo2TFG2S10.svg)](https://asciinema.org/a/ESPpo0D3MQWsJo0Yo2TFG2S10)  
+>>>>>>> release-1.13.0
    <img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k3.png" width="800">
 
 #  when reinstall:

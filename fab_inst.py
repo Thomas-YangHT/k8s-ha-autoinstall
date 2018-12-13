@@ -1,5 +1,8 @@
 from fabric.api import *
 
+def test():
+    get('coreos-k8s/master-conf.tgz','master-conf.tgz')
+
 def reset():
    # with cd("/home/core/coreos-k8s"):
    #     run("ls")
@@ -10,7 +13,7 @@ def prepare():
   #  run('export PATH=$PATH:/opt/bin')
   #  run('sudo kubeadm reset -f ')
     put('coreos-k8s.tgz', '')
-    run('tar zxvf coreos-k8s.tgz')
+    run('mkdir coreos-k8s;tar zxvf coreos-k8s.tgz -C coreos-k8s')
     run('rm coreos-k8s.tgz')
     run('ls coreos-k8s')
     run('ls coreos-k8s/*tar |awk \'{print "docker load <"$1}\'|sh')
@@ -29,9 +32,14 @@ def prepare():
 def prepare_ha():
     local('sh haproxy_conf.sh')
     local('sh hosts_conf.sh')
+    local('sh calico.sh')
    #local('sh keepalive_conf.sh')
     local('sh kubeadm_config.sh')
+<<<<<<< HEAD
     local('tar zcvf config.tgz   hosts haproxy.cfg m1_ca_files docker*.sh  CONFIG  ssl kubeadm-config.yaml calico')
+=======
+    local('tar zcvf config.tgz  hosts haproxy.cfg m1_ca_files docker*.sh  CONFIG ssl kubeadm-config.yaml calico kubeadm-init.sh')
+>>>>>>> release-1.13.0
     put('config.tgz','')
     put('ha.tgz', '')
     run('ls ha.tgz config.tgz|xargs -n 1 tar -C coreos-k8s -zxvf')
@@ -60,7 +68,8 @@ def etcd():
 def master():
     run('export PATH=$PATH:/opt/bin')
     run('sudo kubeadm reset -f ')
-    run('sudo kubeadm init --kubernetes-version=v1.12.1 --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=0.0.0.0')
+   # run('sudo kubeadm init --kubernetes-version=v1.12.1 --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=0.0.0.0')
+    run('cd coreos-k8s;sudo sh kubeadm-init.sh')
     run('mkdir -p $HOME/.kube')
     run('sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config')
     run('sudo chown $(id -u):$(id -g) $HOME/.kube/config')
@@ -74,16 +83,18 @@ def master1():
     run('mkdir -p $HOME/.kube')
     run('sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config')
     run('sudo chown $(id -u):$(id -g) $HOME/.kube/config')
+    get('coreos-k8s/master-conf.tgz','master-conf.tgz')
    # run('sudo cp -r /var/lib/etcd ./etcd`date +%s`')
 
 #for HA master2&3
 def master2():
+    local('cat log |grep kubeadm|grep join|grep token|grep -v cat |tail -1|awk -F\'out:\' \'{print "sudo "$2}\' >join.sh')
     run('export PATH=$PATH:/opt/bin')
     run('sudo kubeadm reset -f ')
     put('master-conf.tgz','')
     run('sudo rm -rf /etc/kubernetes')
     run('sudo tar zxvf master-conf.tgz -C /etc --strip-components 1')
-    run('sudo kubeadm init  --config coreos-k8s/kubeadm-config.yaml')
+    run('sudo rm -f /etc/kubernetes/pki/ca.crt')
     run('mkdir -p $HOME/.kube')
     run('sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config')
     run('sudo chown $(id -u):$(id -g) $HOME/.kube/config')
@@ -91,17 +102,9 @@ def master2():
     run('sudo cp /etc/kubernetes/admin.conf /root/.kube/config')
     run('echo "export PATH=$PATH:/opt/bin">bashrc')
     run('sudo cp bashrc /root/.bashrc')
-   # run('sudo kubeadm alpha phase certs all --config coreos-k8s/kubeadm-config.yaml.`hostname`')
-   # run('sudo kubeadm alpha phase kubelet config write-to-disk --config coreos-k8s/kubeadm-config.yaml.`hostname`')
-   # run('sudo kubeadm alpha phase kubelet write-env-file --config coreos-k8s/kubeadm-config.yaml.`hostname`')
-   # run('sudo kubeadm alpha phase kubeconfig kubelet --config coreos-k8s/kubeadm-config.yaml.`hostname`')
-   # run('sudo systemctl restart kubelet')
-   # run('sleep 30;sh coreos-k8s/etcdjoin.sh')
-   # run('sudo kubeadm alpha phase etcd local --config coreos-k8s/kubeadm-config.yaml.`hostname`')
-   # run('sudo kubeadm alpha phase kubeconfig all --config coreos-k8s/kubeadm-config.yaml.`hostname`')
-   # run('sudo kubeadm alpha phase controlplane all --config coreos-k8s/kubeadm-config.yaml.`hostname`')
-   # run('sudo kubeadm alpha phase mark-master --config coreos-k8s/kubeadm-config.yaml.`hostname`')
-   # run('sudo kubeadm alpha phase kubelet config annotate-cri --config coreos-k8s/kubeadm-config.yaml.`hostname`')
+    put('join.sh','')
+    run('sudo chmod +x ./join.sh')
+    run('./join.sh')
 
 def flannel():
     run('kubectl taint nodes --all  node-role.kubernetes.io/master-')
@@ -109,7 +112,7 @@ def flannel():
 
 def calico():
     run('kubectl taint nodes --all  node-role.kubernetes.io/master-;ls')
-    run('kubectl apply -f  coreos-k8s/calico/etcd-calico-deploy.yaml')
+   # run('kubectl apply -f  coreos-k8s/calico/etcd-calico-deploy.yaml')
     run('kubectl apply -f  coreos-k8s/calico/rbac.yaml')
     run('kubectl apply -f  coreos-k8s/calico/calico.yaml')
     run('kubectl delete -f coreos-k8s/kube-flannel.yml;ls')
@@ -193,6 +196,7 @@ def istio():
     run('kubectl create -f istio.yaml;pwd')
 
 def finish():
+    run('kubectl version')
     run('kubectl get svc --all-namespaces -o wide')
     run('kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk \'{print $1}\')')
 
