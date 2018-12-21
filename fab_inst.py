@@ -4,7 +4,7 @@ def test():
     get('coreos-k8s/master-conf.tgz','master-conf.tgz')
 
 def reset():
-   # with cd("/home/core/coreos-k8s"):
+   # with cd("$HOME/coreos-k8s"):
    #     run("ls")
     run('sudo kubeadm reset -f ')
     run('sudo rm -rf /etc/kubernetes')
@@ -20,9 +20,9 @@ def prepare():
     run('docker images')
     run('sudo mkdir -p /opt/{bin,cni/bin}')
     run('sudo tar -C /opt/cni/bin -xzvf coreos-k8s/cni-plugins-amd64-v0.6.0.tgz')
-    run('sudo cp /home/core/coreos-k8s/{kubeadm,kubelet,kubectl} /opt/bin')
+    run('sudo cp $HOME/coreos-k8s/{kubeadm,kubelet,kubectl} /opt/bin')
     run('sudo chmod +x /opt/bin/{kubeadm,kubelet,kubectl}')
-    run('ls -l /opt/*')
+    run('ls -l /opt/*;sed -i \'s#PATH=.*#PATH=$PATH:/opt/bin#g\' $HOME/.bash_profile')
     run('sudo mkdir -p /etc/systemd/system/kubelet.service.d')
     run('sudo cp  coreos-k8s/kubelet.service  /etc/systemd/system/kubelet.service')
     run('sudo cp  coreos-k8s/10-kubeadm.conf  /etc/systemd/system/kubelet.service.d/10-kubeadm.conf')

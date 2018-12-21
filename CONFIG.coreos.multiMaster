@@ -12,7 +12,7 @@ CP2_IP=192.168.253.32
 CP3_IP=192.168.253.33
 NODE1_IP=192.168.253.34
 NODE1_HOSTNAME=node1.yunwei.edu
-REMOTE_USER=root
+REMOTE_USER=core
 #
 master="$CP1_IP,$CP2_IP,$CP3_IP"
 node="$NODE1_IP"  # add IP seprate by ','
@@ -26,11 +26,10 @@ efk=true
 istio=true
 
 #just for Clone KVM machines
-OS_TYPE=centos                  #coreos or centos
-BASE_IMAGE_NAME=centosbase     #coreosbase2 or centosbase
-BASE_IP=192.168.253.11
+OS_TYPE=coreos                  #coreos or centos
+BASE_IMAGE_NAME=coreosbase2     #coreosbase2 or kvmbase
+BASE_IP=192.168.253.23
 KVM_NAME="master1,master2,master3,node1"
 GATEWAY=192.168.253.125  
 DNS1=192.168.253.110
 DNS2=114.114.114.114  
-
