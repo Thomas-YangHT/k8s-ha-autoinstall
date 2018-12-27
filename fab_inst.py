@@ -20,13 +20,14 @@ def prepare():
     run('docker images')
     run('sudo mkdir -p /opt/{bin,cni/bin}')
     run('sudo tar -C /opt/cni/bin -xzvf coreos-k8s/cni-plugins-amd64-v0.6.0.tgz')
-    run('sudo cp $HOME/coreos-k8s/{kubeadm,kubelet,kubectl} /opt/bin')
-    run('sudo chmod +x /opt/bin/{kubeadm,kubelet,kubectl}')
-    run('ls -l /opt/*;sed -i \'s#PATH=.*#PATH=$PATH:/opt/bin#g\' $HOME/.bash_profile')
-    run('sudo mkdir -p /etc/systemd/system/kubelet.service.d')
+    run('sudo cp $HOME/coreos-k8s/{kubeadm,kubelet,kubectl} /opt/bin;ls -l /opt/*')
+    run('sudo chmod +x /opt/bin/{kubeadm,kubelet,kubectl};ls -l /opt/*')
+    run('sed -i \'s#PATH=.*#PATH=$PATH:/opt/bin#g\' $HOME/.bash_profile')
+    run('sudo mkdir -p /etc/systemd/system/kubelet.service.d;pwd')
     run('sudo cp  coreos-k8s/kubelet.service  /etc/systemd/system/kubelet.service')
     run('sudo cp  coreos-k8s/10-kubeadm.conf  /etc/systemd/system/kubelet.service.d/10-kubeadm.conf')
     run('sudo systemctl enable kubelet && sudo systemctl start kubelet')
+    run('rm coreos-k8s/*tar')
 
 #for ha
 def prepare_ha():
@@ -39,10 +40,12 @@ def prepare_ha():
     put('config.tgz','')
     put('ha.tgz', '')
     run('ls ha.tgz config.tgz|xargs -n 1 tar -C coreos-k8s -zxvf')
+    run('rm ha.tgz config.tgz')
     run('echo -e "haproxy.tar\n keepalived.tar\n etcd.tar"|awk \'{print "docker load <coreos-k8s/"$1}\'|sh')
     run('[ -f hosts.bak ] || cp /etc/hosts hosts.bak;cat hosts.bak coreos-k8s/hosts >hosts.tmp;sudo cp hosts.tmp /etc/hosts')
    # run('sudo mkdir /etc/kubernetes;sudo cp -r coreos-k8s/ssl /etc/kubernetes/')
     run('sudo mkdir /etc/etcd;sudo cp -r coreos-k8s/ssl /etc/etcd/')
+    run('rm coreos-k8s/*tar')
 
 #for ha
 def keepalived():
@@ -86,7 +89,7 @@ def master1():
 def master2():
     local('cat log |grep kubeadm|grep join|grep token|grep -v cat |tail -1|awk -F\'out:\' \'{print "sudo "$2}\' >join.sh')
     run('export PATH=$PATH:/opt/bin')
-    run('sudo kubeadm reset -f ')
+   # run('sudo kubeadm reset -f ')
     put('master-conf.tgz','')
     run('sudo rm -rf /etc/kubernetes')
     run('sudo tar zxvf master-conf.tgz -C /etc --strip-components 1')
@@ -96,8 +99,8 @@ def master2():
     run('sudo chown $(id -u):$(id -g) $HOME/.kube/config')
     run('sudo mkdir /root/.kube;sudo ls /root/.kube')
     run('sudo cp /etc/kubernetes/admin.conf /root/.kube/config')
-    run('echo "export PATH=$PATH:/opt/bin">bashrc')
-    run('sudo cp bashrc /root/.bashrc')
+   # run('echo "export PATH=$PATH:/opt/bin">bashrc')
+   # run('sudo cp bashrc /root/.bashrc')
     put('join.sh','')
     run('sudo chmod +x ./join.sh')
     run('./join.sh')
@@ -137,7 +140,8 @@ def addon():
     run('tar zxvf k8s-addon.tgz')
     run('rm k8s-addon.tgz')
     run('ls k8s-addon/*tar |awk \'{print "docker load <"$1}\'|sh')
-    
+    run('rm k8s-addon/*tar')    
+
 def ingress():
     run('tar zxvf k8s-addon/ingress-nginx.tgz -C k8s-addon/')
     run('sed -i "/- --anno/a \            - --enable-ssl-passthrough" k8s-addon/ingress-nginx/deploy/mandatory.yaml ')
@@ -174,6 +178,7 @@ def istio_prepare():
     run('tar zxvf istio.tgz')
     run('rm istio.tgz')
     run('ls istio/*tar |awk \'{print "docker load <"$1}\'|sh')
+    run('rm istio/*tar')
 
 def istio():
     run('cp istio/istioctl /opt/bin/')
@@ -216,6 +221,7 @@ sudo etcdctl \
 
 def getpods():
     run('kubectl get pods --all-namespaces -o wide')
+    run('kubectl get nodes')
 
 def calicocheck():
     run('sudo coreos-k8s/calico/calicoctl node status')

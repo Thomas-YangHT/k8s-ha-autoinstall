@@ -6,16 +6,17 @@ kind: ClusterConfiguration
 kubernetesVersion: $K8S_VER
 networking:
   podSubnet: $CIDR_SUBNET
-apiServerCertSANs:
-- "$LOAD_BALANCER_DNS"
-- "$VIP_IP"
-- "$CP1_IP"
-- "$CP2_IP"
-- "$CP3_IP"
-- "$CP1_HOSTNAME"
-- "$CP2_HOSTNAME"
-- "$CP3_HOSTNAME"
-- 127.0.0.1
+apiServer:
+  certSANs:
+  - "$LOAD_BALANCER_DNS"
+  - "$VIP_IP"
+  - "$CP1_IP"
+  - "$CP2_IP"
+  - "$CP3_IP"
+  - "$CP1_HOSTNAME"
+  - "$CP2_HOSTNAME"
+  - "$CP3_HOSTNAME"
+  - 127.0.0.1
 controlPlaneEndpoint: "$LOAD_BALANCER_DNS:$LOAD_BALANCER_PORT"
 etcd:
   external:
@@ -27,6 +28,4 @@ etcd:
     certFile: /etc/etcd/ssl/etcd.pem
     keyFile: /etc/etcd/ssl/etcd-key.pem
   #  dataDir: /var/lib/etcd
-token: 547df0.182e9215291ff27f
-tokenTTL: "0"
 EOF
