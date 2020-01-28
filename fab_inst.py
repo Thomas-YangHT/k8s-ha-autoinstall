@@ -87,9 +87,11 @@ def master1():
 
 #for HA master2&3
 def master2():
-    local('cat log |grep kubeadm|grep join|grep token|grep -v cat |tail -1|awk -F\'out:\' \'{print "sudo "$2}\' >join.sh')
+    local('cat log |grep kubeadm|grep join|grep token|grep -v cat |tail -1|awk -F\'out:\' \'{print "sudo -i "$2}\' >join.sh')
+    local('cp join.sh joinMaster.sh')
+    local('sed -i '/kubeadm/a   --experimental-control-plane' joinMaster.sh')
     run('export PATH=$PATH:/opt/bin')
-   # run('sudo kubeadm reset -f ')
+    run('sudo /opt/bin/kubeadm reset -f ')
     put('master-conf.tgz','')
     run('sudo rm -rf /etc/kubernetes')
     run('sudo tar zxvf master-conf.tgz -C /etc --strip-components 1')
@@ -101,9 +103,9 @@ def master2():
     run('sudo cp /etc/kubernetes/admin.conf /root/.kube/config')
    # run('echo "export PATH=$PATH:/opt/bin">bashrc')
    # run('sudo cp bashrc /root/.bashrc')
-    put('join.sh','')
-    run('sudo chmod +x ./join.sh')
-    run('./join.sh')
+    put('joinMaster.sh','')
+    run('sudo chmod +x ./joinMaster.sh')
+    run('./joinMaster.sh')
 
 def flannel():
     run('kubectl taint nodes --all  node-role.kubernetes.io/master-')
