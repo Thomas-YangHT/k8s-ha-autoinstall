@@ -87,10 +87,8 @@ def master1():
 
 #for HA master2&3
 def master2():
-    local('cat log |grep kubeadm|grep join|grep token|grep -v cat |tail -1|awk -F\'out:\' \'{print "sudo -i "$2}\' >join.sh')
-    local('cp join.sh joinMaster.sh')
-    local('sed -i '/kubeadm/a   --experimental-control-plane' joinMaster.sh')
-    run('export PATH=$PATH:/opt/bin')
+    local('cat log |grep -Po "kubeadm join.*|--discovery-token.*|--control-plane.*"|head -n 5|tail -n 2  >join.sh')
+    local('cat log |grep -Po "kubeadm join.*|--discovery-token.*|--control-plane.*"|head -n 3  >joinMaster.sh')
     run('sudo /opt/bin/kubeadm reset -f ')
     put('master-conf.tgz','')
     run('sudo rm -rf /etc/kubernetes')
@@ -101,7 +99,7 @@ def master2():
     run('sudo chown $(id -u):$(id -g) $HOME/.kube/config')
     run('sudo mkdir /root/.kube;sudo ls /root/.kube')
     run('sudo cp /etc/kubernetes/admin.conf /root/.kube/config')
-   # run('echo "export PATH=$PATH:/opt/bin">bashrc')
+   # run('echo "export PATH=$PATH:/opt/bin">>.bashrc')
    # run('sudo cp bashrc /root/.bashrc')
     put('joinMaster.sh','')
     run('sudo chmod +x ./joinMaster.sh')
