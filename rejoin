@@ -1,0 +1,19 @@
+[192.168.31.31] Executing task 'rejoin'
+[192.168.31.31] run: kubeadm token create --print-join-command
+[192.168.31.31] out: W0131 11:05:33.900016    7577 validation.go:28] Cannot validate kube-proxy config - no validator is available
+[192.168.31.31] out: W0131 11:05:33.900052    7577 validation.go:28] Cannot validate kubelet config - no validator is available
+[192.168.31.31] out: kubeadm join k8sha.yunwei.edu:8443 --token yvy99a.gbgk7ue9wmayvaaz     --discovery-token-ca-cert-hash sha256:38bcbb830054953bc391bf4b762bff93485474867513f744bd4544bacd5f99f2 
+[192.168.31.31] out: 
+[192.168.31.31] out: 
+[192.168.31.31] out: 
+[192.168.31.31] out: kubernetes HA install: https://github.com/fanux/sealos
+[192.168.31.31] out: www.sealyun.com
+[192.168.31.31] out: QQ group: 98488045
+[192.168.31.31] out: 
+[192.168.31.31] out: 
+[192.168.31.31] out: 
+[192.168.31.31] out: 
+
+
+Done.
+Disconnecting from 192.168.31.31... done.

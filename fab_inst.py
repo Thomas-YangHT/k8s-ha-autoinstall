@@ -6,12 +6,12 @@ def test():
 def reset():
    # with cd("$HOME/coreos-k8s"):
    #     run("ls")
-    run('sudo kubeadm reset -f ')
+    run('sudo -i kubeadm reset -f ')
     run('sudo rm -rf /etc/kubernetes')
 
 def prepare():
   #  run('export PATH=$PATH:/opt/bin')
-  #  run('sudo kubeadm reset -f ')
+  #  run('sudo -i kubeadm reset -f ')
     put('coreos-k8s.tgz', '')
     run('mkdir coreos-k8s;tar zxvf coreos-k8s.tgz -C coreos-k8s')
     run('rm coreos-k8s.tgz')
@@ -23,6 +23,7 @@ def prepare():
     run('sudo cp $HOME/coreos-k8s/{kubeadm,kubelet,kubectl} /opt/bin;ls -l /opt/*')
     run('sudo chmod +x /opt/bin/{kubeadm,kubelet,kubectl};ls -l /opt/*')
     run('sed -i \'s#PATH=.*#PATH=$PATH:/opt/bin#g\' $HOME/.bash_profile')
+    run('sed -i \'$a export PATH=$PATH:/opt/bin\' $HOME/.bashrc')
     run('sudo mkdir -p /etc/systemd/system/kubelet.service.d;pwd')
     run('sudo cp  coreos-k8s/kubelet.service  /etc/systemd/system/kubelet.service')
     run('sudo cp  coreos-k8s/10-kubeadm.conf  /etc/systemd/system/kubelet.service.d/10-kubeadm.conf')
@@ -36,7 +37,7 @@ def prepare_ha():
     local('sh calico.sh')
    #local('sh keepalive_conf.sh')
     local('sh kubeadm_config.sh')
-    local('tar zcvf config.tgz  hosts haproxy.cfg m1_ca_files docker*.sh  CONFIG ssl kubeadm-config.yaml calico kubeadm-init.sh')
+    local('sleep 2;tar zcvf config.tgz  hosts haproxy.cfg m1_ca_files docker*.sh  CONFIG ssl kubeadm-config.yaml calico kubeadm-init.sh')
     put('config.tgz','')
     put('ha.tgz', '')
     run('ls ha.tgz config.tgz|xargs -n 1 tar -C coreos-k8s -zxvf')
@@ -66,8 +67,8 @@ def etcd():
 
 def master():
     run('export PATH=$PATH:/opt/bin')
-    run('sudo kubeadm reset -f ')
-   # run('sudo kubeadm init --kubernetes-version=v1.12.1 --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=0.0.0.0')
+    run('sudo -i kubeadm reset -f ')
+   # run('sudo -i kubeadm init --kubernetes-version=v1.12.1 --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=0.0.0.0')
     run('cd coreos-k8s;sudo sh kubeadm-init.sh')
     run('mkdir -p $HOME/.kube')
     run('sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config')
@@ -76,8 +77,8 @@ def master():
 #for HA master1
 def master1():
     run('export PATH=$PATH:/opt/bin')
-    run('sudo kubeadm reset -f ')
-    run('sudo kubeadm init  --config coreos-k8s/kubeadm-config.yaml')
+    run('sudo -i kubeadm reset -f ')
+    run('sudo -i kubeadm init  --config coreos-k8s/kubeadm-config.yaml --upload-certs')
     run('sudo tar zcvf coreos-k8s/master-conf.tgz -T coreos-k8s/m1_ca_files')
     run('mkdir -p $HOME/.kube')
     run('sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config')
@@ -112,23 +113,20 @@ def flannel():
 def calico():
     run('kubectl taint nodes --all  node-role.kubernetes.io/master-;ls')
    # run('kubectl apply -f  coreos-k8s/calico/etcd-calico-deploy.yaml')
-    run('kubectl apply -f  coreos-k8s/calico/rbac.yaml')
+   # run('kubectl apply -f  coreos-k8s/calico/rbac.yaml')
     run('kubectl apply -f  coreos-k8s/calico/calico.yaml')
-    run('kubectl delete -f coreos-k8s/kube-flannel.yml;ls')
+   # run('kubectl delete -f coreos-k8s/kube-flannel.yml;ls')
 
 def dashboard():
-    run('sed -i "/^\  ports:/i \  type: NodePort"  coreos-k8s/kubernetes-dashboard.yaml')
-    run('kubectl apply -f  coreos-k8s/kubernetes-dashboard.yaml')
+    #run('sed -i "/^\  ports:/i \  type: NodePort"  coreos-k8s/dashboard-recommended.yaml')
+    run('kubectl apply -f  coreos-k8s/dashboard-recommended.yaml')
     run('kubectl apply -f  coreos-k8s/dashboard-adminuser.yaml')
-    run('kubectl apply -f  coreos-k8s/dashboard-rolebonding.yaml')
-    run('kubectl taint nodes --all node-role.kubernetes.io/master- ;ls')
-  #  run('kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk \'{print $1}\')')
-  #  run('kubectl get svc --all-namespaces')
+    run('kubectl apply -f  coreos-k8s/metrics-server')
 
 def node():
     put('join.sh','')
     run('sudo chmod +x ./join.sh')
-    run('sudo kubeadm reset -f')
+    run('sudo -i kubeadm reset -f')
     run('sudo modprobe ip_vs ip_vs_rr ip_vs_wrr ip_vs_sh')
     run('./join.sh')
 
@@ -199,13 +197,14 @@ def istio():
 def finish():
     run('kubectl version')
     run('kubectl get svc --all-namespaces -o wide')
-    run('kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk \'{print $1}\')')
+    run('kubectl get cs')
+    run('kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk \'{print $1}\')')
 
 def getsvc():
     run('kubectl get svc --all-namespaces -o wide')
 
 def gettoken():
-    run('kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk \'{print $1}\')')
+    run('kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk \'{print $1}\')')
 
 def reboot():
     run('echo "reboot $HOSTNAME";sudo reboot;:')
@@ -222,6 +221,7 @@ sudo etcdctl \
 def getpods():
     run('kubectl get pods --all-namespaces -o wide')
     run('kubectl get nodes')
+    run('kubectl get cs')
 
 def calicocheck():
     run('sudo coreos-k8s/calico/calicoctl node status')

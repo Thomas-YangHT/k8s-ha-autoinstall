@@ -19,11 +19,11 @@ centos:
         ONBOOT=yes
         UUID=
         HWADDR=
-        DNS1=192.168.253.110
+        DNS1=223.5.5.5
         DNS2=114.114.114.114
-        IPADDR=192.168.253.34
+        IPADDR=192.168.31.34
         PREFIX=24
-        GATEWAY=192.168.253.125
+        GATEWAY=192.168.31.253
         PROXY_METHOD=none
         BROWSER_ONLY=no
 

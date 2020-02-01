@@ -4,7 +4,7 @@
 
 #base prepare
 func_base_prepare(){
-        sh version.sh
+       # sh version.sh
 	fab -H $master,$node -f fab_inst.py prepare -u $REMOTE_USER -P --colorize-errors
 }
 
@@ -67,14 +67,14 @@ fab -H $CP1_IP -f fab_inst.py flannel -u $REMOTE_USER --colorize-errors
 
 #find join command
 func_nodejoin(){
-#cat log |grep kubeadm|grep join |tail -1 |awk -F'out:' '{print "sudo "$2}' >join.sh
+#cat log |grep kubeadm|grep join |tail -1 |awk -F'out:' '{print "sudo -i "$2}' >join.sh
 fab -H $node -f fab_inst.py node -u $REMOTE_USER -P --colorize-errors 
 }
 
 #node rejoin
 func_noderejoin(){
 fab -H $CP1_IP -f fab_inst.py rejoin -u $REMOTE_USER --colorize-errors |tee rejoin
-cat rejoin |grep kubeadm|grep join |awk -F'out:' '{print "sudo "$2}' >join.sh
+cat rejoin |grep kubeadm|grep join |awk -F'out:' '{print "sudo -i "$2}' >join.sh
 fab -H $node -f fab_inst.py node -u $REMOTE_USER -P --colorize-errors 
 }
 
@@ -147,7 +147,7 @@ NR>1{print "<li>"$0"\t\t\t\t<a href=\"http://"$2":"$3"\">http://"$1"</a>\
 
 #etcdcheck
 func_etcdcheck(){
-	fab -H $CP1_IP -f fab_inst.py etcdcheck -u $REMOTE_USER --colorize-errors |tee check
+	fab -H $VIP_IP -f fab_inst.py etcdcheck -u $REMOTE_USER --colorize-errors |tee check
 }
 
 #reboot
@@ -157,18 +157,18 @@ func_reboot(){
 
 #getpods
 func_getpods(){
-	fab -H $CP1_IP -f fab_inst.py getpods -u $REMOTE_USER  --colorize-errors|tee runpods
+	fab -H $VIP_IP -f fab_inst.py getpods -u $REMOTE_USER  --colorize-errors|tee runpods
         PodsRun=`cat runpods|grep Running|wc -l`
 }
 
 #calico check
 func_calicocheck(){
-	fab -H $CP1_IP -f fab_inst.py calicocheck -u $REMOTE_USER  --colorize-errors|tee -a check
+	fab -H $VIP_IP -f fab_inst.py calicocheck -u $REMOTE_USER  --colorize-errors|tee -a check
 }
 
 #cluster info
 func_clusterinfo(){
-	fab -H $CP1_IP -f fab_inst.py clusterinfo -u $REMOTE_USER  --colorize-errors|tee -a check
+	fab -H $VIP_IP -f fab_inst.py clusterinfo -u $REMOTE_USER  --colorize-errors|tee -a check
 }
 
 #timezone8

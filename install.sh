@@ -195,6 +195,7 @@ status)
   func_etcdcheck
   func_calicocheck
   func_getpods
+  func_getsvc
   func_clusterinfo
 ;;
 default|all)
@@ -244,6 +245,7 @@ help|*)
         p2             :cp&load addon tgz&images.\n\
         p3             :cp&load istio tgz&images.\n\
         p4             :cp&load HA tgz&images.\n\
+        p5             :cp&load HA phek.\n\
         1|base         :install k8s base component&calico&dashboard.\n\
         2|addon        :install k8s addon component:helm,ingress,efk,prometheus.\n\
         3|ha           :install HA cluster of k8s.\n\

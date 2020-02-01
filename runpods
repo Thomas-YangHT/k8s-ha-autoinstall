@@ -1,0 +1,47 @@
+[192.168.31.30] Executing task 'getpods'
+[192.168.31.30] run: kubectl get pods --all-namespaces -o wide
+[192.168.31.30] out: NAMESPACE              NAME                                         READY   STATUS    RESTARTS   AGE     IP              NODE      NOMINATED NODE   READINESS GATES
+[192.168.31.30] out: kube-system            calico-kube-controllers-564b6667d7-cm4rq     1/1     Running   1          59m     10.244.180.0    master2   <none>           <none>
+[192.168.31.30] out: kube-system            calico-node-869qs                            1/1     Running   0          59m     192.168.31.32   master2   <none>           <none>
+[192.168.31.30] out: kube-system            calico-node-sgjmp                            1/1     Running   0          59m     192.168.31.33   master3   <none>           <none>
+[192.168.31.30] out: kube-system            calico-node-wnfcg                            1/1     Running   0          59m     192.168.31.31   master1   <none>           <none>
+[192.168.31.30] out: kube-system            calico-node-xkv9j                            1/1     Running   0          58m     192.168.31.34   node1     <none>           <none>
+[192.168.31.30] out: kube-system            coredns-6955765f44-hq4d2                     1/1     Running   0          60m     10.244.137.65   master1   <none>           <none>
+[192.168.31.30] out: kube-system            coredns-6955765f44-rbxdn                     1/1     Running   0          60m     10.244.137.64   master1   <none>           <none>
+[192.168.31.30] out: kube-system            kube-apiserver-master1                       1/1     Running   0          4h34m   192.168.31.31   master1   <none>           <none>
+[192.168.31.30] out: kube-system            kube-apiserver-master2                       1/1     Running   0          58m     192.168.31.32   master2   <none>           <none>
+[192.168.31.30] out: kube-system            kube-apiserver-master3                       1/1     Running   0          58m     192.168.31.33   master3   <none>           <none>
+[192.168.31.30] out: kube-system            kube-controller-manager-master1              1/1     Running   1          4h35m   192.168.31.31   master1   <none>           <none>
+[192.168.31.30] out: kube-system            kube-controller-manager-master2              1/1     Running   1          59m     192.168.31.32   master2   <none>           <none>
+[192.168.31.30] out: kube-system            kube-controller-manager-master3              1/1     Running   0          58m     192.168.31.33   master3   <none>           <none>
+[192.168.31.30] out: kube-system            kube-proxy-4lgpp                             1/1     Running   0          59m     192.168.31.33   master3   <none>           <none>
+[192.168.31.30] out: kube-system            kube-proxy-6vrhx                             1/1     Running   0          60m     192.168.31.31   master1   <none>           <none>
+[192.168.31.30] out: kube-system            kube-proxy-cv755                             1/1     Running   0          58m     192.168.31.34   node1     <none>           <none>
+[192.168.31.30] out: kube-system            kube-proxy-lfmkj                             1/1     Running   0          60m     192.168.31.32   master2   <none>           <none>
+[192.168.31.30] out: kube-system            kube-scheduler-master1                       1/1     Running   1          4h35m   192.168.31.31   master1   <none>           <none>
+[192.168.31.30] out: kube-system            kube-scheduler-master2                       1/1     Running   0          59m     192.168.31.32   master2   <none>           <none>
+[192.168.31.30] out: kube-system            kube-scheduler-master3                       1/1     Running   0          58m     192.168.31.33   master3   <none>           <none>
+[192.168.31.30] out: kubernetes-dashboard   dashboard-metrics-scraper-7b64584c5c-lt48q   1/1     Running   0          58m     10.244.136.2    master3   <none>           <none>
+[192.168.31.30] out: kubernetes-dashboard   kubernetes-dashboard-566f567dc7-g7mb4        1/1     Running   0          58m     10.244.136.3    master3   <none>           <none>
+[192.168.31.30] out: 
+
+[192.168.31.30] run: kubectl get nodes
+[192.168.31.30] out: NAME      STATUS   ROLES    AGE     VERSION
+[192.168.31.30] out: master1   Ready    master   4h36m   v1.17.0
+[192.168.31.30] out: master2   Ready    master   60m     v1.17.0
+[192.168.31.30] out: master3   Ready    master   59m     v1.17.0
+[192.168.31.30] out: node1     Ready    <none>   58m     v1.17.0
+[192.168.31.30] out: 
+
+[192.168.31.30] run: kubectl get cs
+[192.168.31.30] out: NAME                 STATUS    MESSAGE              ERROR
+[192.168.31.30] out: scheduler            Healthy   ok                   
+[192.168.31.30] out: controller-manager   Healthy   ok                   
+[192.168.31.30] out: etcd-1               Healthy   {"health": "true"}   
+[192.168.31.30] out: etcd-2               Healthy   {"health": "true"}   
+[192.168.31.30] out: etcd-0               Healthy   {"health": "true"}   
+[192.168.31.30] out: 
+
+
+Done.
+Disconnecting from 192.168.31.30... done.

@@ -1,7 +1,7 @@
 source ./CONFIG
 
 cat << EOF > kubeadm-config.yaml
-apiVersion: kubeadm.k8s.io/v1beta1
+apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 kubernetesVersion: $K8S_VER
 networking:
@@ -27,5 +27,4 @@ etcd:
     caFile: /etc/etcd/ssl/ca.pem
     certFile: /etc/etcd/ssl/etcd.pem
     keyFile: /etc/etcd/ssl/etcd-key.pem
-  #  dataDir: /var/lib/etcd
 EOF

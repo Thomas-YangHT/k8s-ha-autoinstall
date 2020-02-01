@@ -1,2 +1,445 @@
-[192.168.253.31] Executing task 'master1'
-[192.168.253.31] run: export PATH=$PATH:/opt/bin
+[192.168.31.31] Executing task 'master1'
+[192.168.31.31] run: export PATH=$PATH:/opt/bin
+[192.168.31.31] run: sudo -i kubeadm reset -f 
+[192.168.31.31] out: [reset] Reading configuration from the cluster...
+[192.168.31.31] out: [reset] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[192.168.31.31] out: W0131 21:08:39.092441   28548 reset.go:99] [reset] Unable to fetch the kubeadm-config ConfigMap from cluster: failed to get config map: configmaps "kubeadm-config" not found
+[192.168.31.31] out: [preflight] Running pre-flight checks
+[192.168.31.31] out: W0131 21:08:39.092809   28548 removeetcdmember.go:79] [reset] No kubeadm config, using etcd pod spec to get data directory
+[192.168.31.31] out: [reset] No etcd config found. Assuming external etcd
+[192.168.31.31] out: [reset] Please, manually reset etcd to prevent further issues
+[192.168.31.31] out: [reset] Stopping the kubelet service
+[192.168.31.31] out: [reset] Unmounting mounted directories in "/var/lib/kubelet"
+[192.168.31.31] out: [reset] Deleting contents of config directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]
+[192.168.31.31] out: [reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]
+[192.168.31.31] out: [reset] Deleting contents of stateful directories: [/var/lib/kubelet /var/lib/dockershim /var/run/kubernetes /var/lib/cni]
+[192.168.31.31] out: 
+[192.168.31.31] out: The reset process does not clean CNI configuration. To do so, you must remove /etc/cni/net.d
+[192.168.31.31] out: 
+[192.168.31.31] out: The reset process does not reset or clean up iptables rules or IPVS tables.
+[192.168.31.31] out: If you wish to reset iptables, you must do so manually by using the "iptables" command.
+[192.168.31.31] out: 
+[192.168.31.31] out: If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)
+[192.168.31.31] out: to reset your system's IPVS tables.
+[192.168.31.31] out: 
+[192.168.31.31] out: The reset process does not clean your kubeconfig files and you must remove them manually.
+[192.168.31.31] out: Please, check the contents of the $HOME/.kube/config file.
+[192.168.31.31] out: 
+[192.168.31.31] out: 
+[192.168.31.31] out: 
+[192.168.31.31] out: kubernetes HA install: https://github.com/fanux/sealos
+[192.168.31.31] out: www.sealyun.com
+[192.168.31.31] out: QQ group: 98488045
+[192.168.31.31] out: 
+[192.168.31.31] out: 
+[192.168.31.31] out: 
+[192.168.31.31] out: 
+
+[192.168.31.31] run: sudo -i kubeadm init  --config coreos-k8s/kubeadm-config.yaml --upload-certs
+[192.168.31.31] out: W0131 21:08:43.322814   28810 validation.go:28] Cannot validate kube-proxy config - no validator is available
+[192.168.31.31] out: W0131 21:08:43.322856   28810 validation.go:28] Cannot validate kubelet config - no validator is available
+[192.168.31.31] out: [init] Using Kubernetes version: v1.17.0
+[192.168.31.31] out: [preflight] Running pre-flight checks
+[192.168.31.31] out: 	[WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+[192.168.31.31] out: [preflight] Pulling images required for setting up a Kubernetes cluster
+[192.168.31.31] out: [preflight] This might take a minute or two, depending on the speed of your internet connection
+[192.168.31.31] out: [preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+[192.168.31.31] out: [kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[192.168.31.31] out: [kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[192.168.31.31] out: [kubelet-start] Starting the kubelet
+[192.168.31.31] out: [certs] Using certificateDir folder "/etc/kubernetes/pki"
+[192.168.31.31] out: [certs] Generating "ca" certificate and key
+[192.168.31.31] out: [certs] Generating "apiserver" certificate and key
+[192.168.31.31] out: [certs] apiserver serving cert is signed for DNS names [master1 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local k8sha.yunwei.edu k8sha.yunwei.edu master1.yunwei.edu master2.yunwei.edu master3.yunwei.edu] and IPs [10.96.0.1 192.168.31.31 192.168.31.30 192.168.31.31 192.168.31.32 192.168.31.33 127.0.0.1]
+[192.168.31.31] out: [certs] Generating "apiserver-kubelet-client" certificate and key
+[192.168.31.31] out: [certs] Generating "front-proxy-ca" certificate and key
+[192.168.31.31] out: [certs] Generating "front-proxy-client" certificate and key
+[192.168.31.31] out: [certs] External etcd mode: Skipping etcd/ca certificate authority generation
+[192.168.31.31] out: [certs] External etcd mode: Skipping etcd/server certificate generation
+[192.168.31.31] out: [certs] External etcd mode: Skipping etcd/peer certificate generation
+[192.168.31.31] out: [certs] External etcd mode: Skipping etcd/healthcheck-client certificate generation
+[192.168.31.31] out: [certs] External etcd mode: Skipping apiserver-etcd-client certificate generation
+[192.168.31.31] out: [certs] Generating "sa" key and public key
+[192.168.31.31] out: [kubeconfig] Using kubeconfig folder "/etc/kubernetes"
+[192.168.31.31] out: [endpoint] WARNING: port specified in controlPlaneEndpoint overrides bindPort in the controlplane address
+[192.168.31.31] out: [kubeconfig] Writing "admin.conf" kubeconfig file
+[192.168.31.31] out: [endpoint] WARNING: port specified in controlPlaneEndpoint overrides bindPort in the controlplane address
+[192.168.31.31] out: [kubeconfig] Writing "kubelet.conf" kubeconfig file
+[192.168.31.31] out: [endpoint] WARNING: port specified in controlPlaneEndpoint overrides bindPort in the controlplane address
+[192.168.31.31] out: [kubeconfig] Writing "controller-manager.conf" kubeconfig file
+[192.168.31.31] out: [endpoint] WARNING: port specified in controlPlaneEndpoint overrides bindPort in the controlplane address
+[192.168.31.31] out: [kubeconfig] Writing "scheduler.conf" kubeconfig file
+[192.168.31.31] out: [control-plane] Using manifest folder "/etc/kubernetes/manifests"
+[192.168.31.31] out: [control-plane] Creating static Pod manifest for "kube-apiserver"
+[192.168.31.31] out: [control-plane] Creating static Pod manifest for "kube-controller-manager"
+[192.168.31.31] out: W0131 21:08:45.945426   28810 manifests.go:214] the default kube-apiserver authorization-mode is "Node,RBAC"; using "Node,RBAC"
+[192.168.31.31] out: [control-plane] Creating static Pod manifest for "kube-scheduler"
+[192.168.31.31] out: W0131 21:08:45.946286   28810 manifests.go:214] the default kube-apiserver authorization-mode is "Node,RBAC"; using "Node,RBAC"
+[192.168.31.31] out: [wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory "/etc/kubernetes/manifests". This can take up to 4m0s
+[192.168.31.31] out: [apiclient] All control plane components are healthy after 23.129804 seconds
+[192.168.31.31] out: [upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[192.168.31.31] out: [kubelet] Creating a ConfigMap "kubelet-config-1.17" in namespace kube-system with the configuration for the kubelets in the cluster
+[192.168.31.31] out: [upload-certs] Storing the certificates in Secret "kubeadm-certs" in the "kube-system" Namespace
+[192.168.31.31] out: [upload-certs] Using certificate key:
+[192.168.31.31] out: 597d87e2f7de63e9a39965e4758d3d7d02530147c8c82e338505386997cddc75
+[192.168.31.31] out: [mark-control-plane] Marking the node master1 as control-plane by adding the label "node-role.kubernetes.io/master=''"
+[192.168.31.31] out: [mark-control-plane] Marking the node master1 as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+[192.168.31.31] out: [bootstrap-token] Using token: g9muus.82w1pjp7bu8euhoe
+[192.168.31.31] out: [bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
+[192.168.31.31] out: [bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+[192.168.31.31] out: [bootstrap-token] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[192.168.31.31] out: [bootstrap-token] configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
+[192.168.31.31] out: [bootstrap-token] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
+[192.168.31.31] out: [kubelet-finalize] Updating "/etc/kubernetes/kubelet.conf" to point to a rotatable kubelet client certificate and key
+[192.168.31.31] out: [addons] Applied essential addon: CoreDNS
+[192.168.31.31] out: [endpoint] WARNING: port specified in controlPlaneEndpoint overrides bindPort in the controlplane address
+[192.168.31.31] out: [addons] Applied essential addon: kube-proxy
+[192.168.31.31] out: 
+[192.168.31.31] out: Your Kubernetes control-plane has initialized successfully!
+[192.168.31.31] out: 
+[192.168.31.31] out: To start using your cluster, you need to run the following as a regular user:
+[192.168.31.31] out: 
+[192.168.31.31] out:   mkdir -p $HOME/.kube
+[192.168.31.31] out:   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+[192.168.31.31] out:   sudo chown $(id -u):$(id -g) $HOME/.kube/config
+[192.168.31.31] out: 
+[192.168.31.31] out: You should now deploy a pod network to the cluster.
+[192.168.31.31] out: Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+[192.168.31.31] out:   https://kubernetes.io/docs/concepts/cluster-administration/addons/
+[192.168.31.31] out: 
+[192.168.31.31] out: You can now join any number of the control-plane node running the following command on each as root:
+[192.168.31.31] out: 
+[192.168.31.31] out:   kubeadm join k8sha.yunwei.edu:8443 --token g9muus.82w1pjp7bu8euhoe \
+[192.168.31.31] out:     --discovery-token-ca-cert-hash sha256:0f6845be7b2e448137690d6922f6533c89f2ea80d4c7293130e8dd637ca87498 \
+[192.168.31.31] out:     --control-plane --certificate-key 597d87e2f7de63e9a39965e4758d3d7d02530147c8c82e338505386997cddc75
+[192.168.31.31] out: 
+[192.168.31.31] out: Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
+[192.168.31.31] out: As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use
+[192.168.31.31] out: "kubeadm init phase upload-certs --upload-certs" to reload certs afterward.
+[192.168.31.31] out: 
+[192.168.31.31] out: Then you can join any number of worker nodes by running the following on each as root:
+[192.168.31.31] out: 
+[192.168.31.31] out: kubeadm join k8sha.yunwei.edu:8443 --token g9muus.82w1pjp7bu8euhoe \
+[192.168.31.31] out:     --discovery-token-ca-cert-hash sha256:0f6845be7b2e448137690d6922f6533c89f2ea80d4c7293130e8dd637ca87498 
+[192.168.31.31] out: 
+[192.168.31.31] out: 
+[192.168.31.31] out: 
+[192.168.31.31] out: kubernetes HA install: https://github.com/fanux/sealos
+[192.168.31.31] out: www.sealyun.com
+[192.168.31.31] out: QQ group: 98488045
+[192.168.31.31] out: 
+[192.168.31.31] out: 
+[192.168.31.31] out: 
+[192.168.31.31] out: 
+
+[192.168.31.31] run: sudo tar zcvf coreos-k8s/master-conf.tgz -T coreos-k8s/m1_ca_files
+[192.168.31.31] out: tar: Removing leading `/' from member names
+[192.168.31.31] out: /etc/kubernetes/pki/ca.crt
+[192.168.31.31] out: /etc/kubernetes/pki/ca.key
+[192.168.31.31] out: /etc/kubernetes/pki/sa.key
+[192.168.31.31] out: /etc/kubernetes/pki/sa.pub
+[192.168.31.31] out: /etc/kubernetes/pki/front-proxy-ca.crt
+[192.168.31.31] out: /etc/kubernetes/pki/front-proxy-ca.key
+[192.168.31.31] out: /etc/kubernetes/pki/front-proxy-client.crt
+[192.168.31.31] out: /etc/kubernetes/pki/front-proxy-client.key
+[192.168.31.31] out: /etc/kubernetes/admin.conf
+[192.168.31.31] out: 
+
+[192.168.31.31] run: mkdir -p $HOME/.kube
+[192.168.31.31] run: sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config
+[192.168.31.31] run: sudo chown $(id -u):$(id -g) $HOME/.kube/config
+[192.168.31.31] download: /mnt/download/ha-cluster/hak8s1.17.0/master-conf.tgz <- /root/coreos-k8s/master-conf.tgz
+
+Done.
+Disconnecting from 192.168.31.31... done.
+[192.168.31.32] Executing task 'master2'
+[localhost] local: cat log |grep -Po "kubeadm join.*|--discovery-token.*|--control-plane.*"|head -n 5|tail -n 2  >join.sh
+[localhost] local: cat log |grep -Po "kubeadm join.*|--discovery-token.*|--control-plane.*"|head -n 3  >joinMaster.sh
+[192.168.31.32] run: sudo /opt/bin/kubeadm reset -f 
+[192.168.31.32] out: [reset] Reading configuration from the cluster...
+[192.168.31.32] out: [reset] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[192.168.31.32] out: W0131 21:09:30.732391   12295 reset.go:99] [reset] Unable to fetch the kubeadm-config ConfigMap from cluster: failed to get config map: Get https://k8sha.yunwei.edu:8443/api/v1/namespaces/kube-system/configmaps/kubeadm-config?timeout=10s: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")
+[192.168.31.32] out: [preflight] Running pre-flight checks
+[192.168.31.32] out: W0131 21:09:30.732991   12295 removeetcdmember.go:79] [reset] No kubeadm config, using etcd pod spec to get data directory
+[192.168.31.32] out: [reset] No etcd config found. Assuming external etcd
+[192.168.31.32] out: [reset] Please, manually reset etcd to prevent further issues
+[192.168.31.32] out: [reset] Stopping the kubelet service
+[192.168.31.32] out: [reset] Unmounting mounted directories in "/var/lib/kubelet"
+[192.168.31.32] out: [reset] Deleting contents of config directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]
+[192.168.31.32] out: [reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]
+[192.168.31.32] out: [reset] Deleting contents of stateful directories: [/var/lib/kubelet /var/lib/dockershim /var/run/kubernetes /var/lib/cni]
+[192.168.31.32] out: 
+[192.168.31.32] out: The reset process does not clean CNI configuration. To do so, you must remove /etc/cni/net.d
+[192.168.31.32] out: 
+[192.168.31.32] out: The reset process does not reset or clean up iptables rules or IPVS tables.
+[192.168.31.32] out: If you wish to reset iptables, you must do so manually by using the "iptables" command.
+[192.168.31.32] out: 
+[192.168.31.32] out: If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)
+[192.168.31.32] out: to reset your system's IPVS tables.
+[192.168.31.32] out: 
+[192.168.31.32] out: The reset process does not clean your kubeconfig files and you must remove them manually.
+[192.168.31.32] out: Please, check the contents of the $HOME/.kube/config file.
+[192.168.31.32] out: 
+[192.168.31.32] out: 
+[192.168.31.32] out: 
+[192.168.31.32] out: kubernetes HA install: https://github.com/fanux/sealos
+[192.168.31.32] out: www.sealyun.com
+[192.168.31.32] out: QQ group: 98488045
+[192.168.31.32] out: 
+[192.168.31.32] out: 
+[192.168.31.32] out: 
+[192.168.31.32] out: 
+
+[192.168.31.32] put: master-conf.tgz -> /root/master-conf.tgz
+[192.168.31.32] run: sudo rm -rf /etc/kubernetes
+[192.168.31.32] run: sudo tar zxvf master-conf.tgz -C /etc --strip-components 1
+[192.168.31.32] out: etc/kubernetes/pki/ca.crt
+[192.168.31.32] out: etc/kubernetes/pki/ca.key
+[192.168.31.32] out: etc/kubernetes/pki/sa.key
+[192.168.31.32] out: etc/kubernetes/pki/sa.pub
+[192.168.31.32] out: etc/kubernetes/pki/front-proxy-ca.crt
+[192.168.31.32] out: etc/kubernetes/pki/front-proxy-ca.key
+[192.168.31.32] out: etc/kubernetes/pki/front-proxy-client.crt
+[192.168.31.32] out: etc/kubernetes/pki/front-proxy-client.key
+[192.168.31.32] out: etc/kubernetes/admin.conf
+[192.168.31.32] out: 
+
+[192.168.31.32] run: sudo rm -f /etc/kubernetes/pki/ca.crt
+[192.168.31.32] run: mkdir -p $HOME/.kube
+[192.168.31.32] run: sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config
+[192.168.31.32] run: sudo chown $(id -u):$(id -g) $HOME/.kube/config
+[192.168.31.32] run: sudo mkdir /root/.kube;sudo ls /root/.kube
+[192.168.31.32] out: mkdir: cannot create directory ‘/root/.kube’: File exists
+[192.168.31.32] out: cache  config  http-cache
+[192.168.31.32] out: 
+
+[192.168.31.32] run: sudo cp /etc/kubernetes/admin.conf /root/.kube/config
+[192.168.31.32] put: joinMaster.sh -> /root/joinMaster.sh
+[192.168.31.32] run: sudo chmod +x ./joinMaster.sh
+[192.168.31.32] run: ./joinMaster.sh
+[192.168.31.32] out: This is a control plan
+[192.168.31.32] out: [preflight] Running pre-flight checks
+[192.168.31.32] out: 	[WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+[192.168.31.32] out: [preflight] Reading configuration from the cluster...
+[192.168.31.32] out: [preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[192.168.31.32] out: [preflight] Running pre-flight checks before initializing the new control plane instance
+[192.168.31.32] out: [preflight] Pulling images required for setting up a Kubernetes cluster
+[192.168.31.32] out: [preflight] This might take a minute or two, depending on the speed of your internet connection
+[192.168.31.32] out: [preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+[192.168.31.32] out: [download-certs] Downloading the certificates in Secret "kubeadm-certs" in the "kube-system" Namespace
+[192.168.31.32] out: [certs] Using certificateDir folder "/etc/kubernetes/pki"
+[192.168.31.32] out: [certs] Generating "apiserver" certificate and key
+[192.168.31.32] out: [certs] apiserver serving cert is signed for DNS names [master2 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local k8sha.yunwei.edu k8sha.yunwei.edu master1.yunwei.edu master2.yunwei.edu master3.yunwei.edu] and IPs [10.96.0.1 192.168.31.32 192.168.31.30 192.168.31.31 192.168.31.32 192.168.31.33 127.0.0.1]
+[192.168.31.32] out: [certs] Generating "apiserver-kubelet-client" certificate and key
+[192.168.31.32] out: [certs] Using the existing "front-proxy-client" certificate and key
+[192.168.31.32] out: [certs] Valid certificates and keys now exist in "/etc/kubernetes/pki"
+[192.168.31.32] out: [certs] Using the existing "sa" key
+[192.168.31.32] out: [kubeconfig] Generating kubeconfig files
+[192.168.31.32] out: [kubeconfig] Using kubeconfig folder "/etc/kubernetes"
+[192.168.31.32] out: [endpoint] WARNING: port specified in controlPlaneEndpoint overrides bindPort in the controlplane address
+[192.168.31.32] out: [kubeconfig] Using existing kubeconfig file: "/etc/kubernetes/admin.conf"
+[192.168.31.32] out: [kubeconfig] Writing "controller-manager.conf" kubeconfig file
+[192.168.31.32] out: [kubeconfig] Writing "scheduler.conf" kubeconfig file
+[192.168.31.32] out: [control-plane] Using manifest folder "/etc/kubernetes/manifests"
+[192.168.31.32] out: [control-plane] Creating static Pod manifest for "kube-apiserver"
+[192.168.31.32] out: W0131 21:09:36.963894   12612 manifests.go:214] the default kube-apiserver authorization-mode is "Node,RBAC"; using "Node,RBAC"
+[192.168.31.32] out: [control-plane] Creating static Pod manifest for "kube-controller-manager"
+[192.168.31.32] out: W0131 21:09:36.970226   12612 manifests.go:214] the default kube-apiserver authorization-mode is "Node,RBAC"; using "Node,RBAC"
+[192.168.31.32] out: [control-plane] Creating static Pod manifest for "kube-scheduler"
+[192.168.31.32] out: W0131 21:09:36.972319   12612 manifests.go:214] the default kube-apiserver authorization-mode is "Node,RBAC"; using "Node,RBAC"
+[192.168.31.32] out: [check-etcd] Skipping etcd check in external mode
+[192.168.31.32] out: [kubelet-start] Downloading configuration for the kubelet from the "kubelet-config-1.17" ConfigMap in the kube-system namespace
+[192.168.31.32] out: [kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[192.168.31.32] out: [kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[192.168.31.32] out: [kubelet-start] Starting the kubelet
+[192.168.31.32] out: [kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...
+[192.168.31.32] out: [control-plane-join] using external etcd - no local stacked instance added
+[192.168.31.32] out: [upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[192.168.31.32] out: [mark-control-plane] Marking the node master2 as control-plane by adding the label "node-role.kubernetes.io/master=''"
+[192.168.31.32] out: [mark-control-plane] Marking the node master2 as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+[192.168.31.32] out: 
+[192.168.31.32] out: This node has joined the cluster and a new control plane instance was created:
+[192.168.31.32] out: 
+[192.168.31.32] out: * Certificate signing request was sent to apiserver and approval was received.
+[192.168.31.32] out: * The Kubelet was informed of the new secure connection details.
+[192.168.31.32] out: * Control plane (master) label and taint were applied to the new node.
+[192.168.31.32] out: * The Kubernetes control plane instances scaled up.
+[192.168.31.32] out: 
+[192.168.31.32] out: 
+[192.168.31.32] out: To start administering your cluster from this node, you need to run the following as a regular user:
+[192.168.31.32] out: 
+[192.168.31.32] out: 	mkdir -p $HOME/.kube
+[192.168.31.32] out: 	sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+[192.168.31.32] out: 	sudo chown $(id -u):$(id -g) $HOME/.kube/config
+[192.168.31.32] out: 
+[192.168.31.32] out: Run 'kubectl get nodes' to see this node join the cluster.
+[192.168.31.32] out: 
+[192.168.31.32] out: 
+[192.168.31.32] out: 
+[192.168.31.32] out: 
+[192.168.31.32] out: kubernetes HA install: https://github.com/fanux/sealos
+[192.168.31.32] out: www.sealyun.com
+[192.168.31.32] out: QQ group: 98488045
+[192.168.31.32] out: 
+[192.168.31.32] out: 
+[192.168.31.32] out: 
+[192.168.31.32] out: 
+
+[192.168.31.33] Executing task 'master2'
+[localhost] local: cat log |grep -Po "kubeadm join.*|--discovery-token.*|--control-plane.*"|head -n 5|tail -n 2  >join.sh
+[localhost] local: cat log |grep -Po "kubeadm join.*|--discovery-token.*|--control-plane.*"|head -n 3  >joinMaster.sh
+[192.168.31.33] run: sudo /opt/bin/kubeadm reset -f 
+[192.168.31.33] out: [reset] Reading configuration from the cluster...
+[192.168.31.33] out: [reset] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[192.168.31.33] out: W0131 21:10:11.400353    3133 reset.go:99] [reset] Unable to fetch the kubeadm-config ConfigMap from cluster: failed to get config map: Get https://k8sha.yunwei.edu:8443/api/v1/namespaces/kube-system/configmaps/kubeadm-config?timeout=10s: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")
+[192.168.31.33] out: [preflight] Running pre-flight checks
+[192.168.31.33] out: W0131 21:10:11.402794    3133 removeetcdmember.go:79] [reset] No kubeadm config, using etcd pod spec to get data directory
+[192.168.31.33] out: [reset] No etcd config found. Assuming external etcd
+[192.168.31.33] out: [reset] Please, manually reset etcd to prevent further issues
+[192.168.31.33] out: [reset] Stopping the kubelet service
+[192.168.31.33] out: [reset] Unmounting mounted directories in "/var/lib/kubelet"
+[192.168.31.33] out: [reset] Deleting contents of config directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]
+[192.168.31.33] out: [reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]
+[192.168.31.33] out: [reset] Deleting contents of stateful directories: [/var/lib/kubelet /var/lib/dockershim /var/run/kubernetes /var/lib/cni]
+[192.168.31.33] out: 
+[192.168.31.33] out: The reset process does not clean CNI configuration. To do so, you must remove /etc/cni/net.d
+[192.168.31.33] out: 
+[192.168.31.33] out: The reset process does not reset or clean up iptables rules or IPVS tables.
+[192.168.31.33] out: If you wish to reset iptables, you must do so manually by using the "iptables" command.
+[192.168.31.33] out: 
+[192.168.31.33] out: If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)
+[192.168.31.33] out: to reset your system's IPVS tables.
+[192.168.31.33] out: 
+[192.168.31.33] out: The reset process does not clean your kubeconfig files and you must remove them manually.
+[192.168.31.33] out: Please, check the contents of the $HOME/.kube/config file.
+[192.168.31.33] out: 
+[192.168.31.33] out: 
+[192.168.31.33] out: 
+[192.168.31.33] out: kubernetes HA install: https://github.com/fanux/sealos
+[192.168.31.33] out: www.sealyun.com
+[192.168.31.33] out: QQ group: 98488045
+[192.168.31.33] out: 
+[192.168.31.33] out: 
+[192.168.31.33] out: 
+[192.168.31.33] out: 
+
+[192.168.31.33] put: master-conf.tgz -> /root/master-conf.tgz
+[192.168.31.33] run: sudo rm -rf /etc/kubernetes
+[192.168.31.33] run: sudo tar zxvf master-conf.tgz -C /etc --strip-components 1
+[192.168.31.33] out: etc/kubernetes/pki/ca.crt
+[192.168.31.33] out: etc/kubernetes/pki/ca.key
+[192.168.31.33] out: etc/kubernetes/pki/sa.key
+[192.168.31.33] out: etc/kubernetes/pki/sa.pub
+[192.168.31.33] out: etc/kubernetes/pki/front-proxy-ca.crt
+[192.168.31.33] out: etc/kubernetes/pki/front-proxy-ca.key
+[192.168.31.33] out: etc/kubernetes/pki/front-proxy-client.crt
+[192.168.31.33] out: etc/kubernetes/pki/front-proxy-client.key
+[192.168.31.33] out: etc/kubernetes/admin.conf
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo rm -f /etc/kubernetes/pki/ca.crt
+[192.168.31.33] run: mkdir -p $HOME/.kube
+[192.168.31.33] run: sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config
+[192.168.31.33] run: sudo chown $(id -u):$(id -g) $HOME/.kube/config
+[192.168.31.33] run: sudo mkdir /root/.kube;sudo ls /root/.kube
+[192.168.31.33] out: mkdir: cannot create directory ‘/root/.kube’: File exists
+[192.168.31.33] out: config
+[192.168.31.33] out: 
+
+[192.168.31.33] run: sudo cp /etc/kubernetes/admin.conf /root/.kube/config
+[192.168.31.33] put: joinMaster.sh -> /root/joinMaster.sh
+[192.168.31.33] run: sudo chmod +x ./joinMaster.sh
+[192.168.31.33] run: ./joinMaster.sh
+[192.168.31.33] out: This is a control plan
+[192.168.31.33] out: [preflight] Running pre-flight checks
+[192.168.31.33] out: 	[WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+[192.168.31.33] out: [preflight] Reading configuration from the cluster...
+[192.168.31.33] out: [preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[192.168.31.33] out: [preflight] Running pre-flight checks before initializing the new control plane instance
+[192.168.31.33] out: [preflight] Pulling images required for setting up a Kubernetes cluster
+[192.168.31.33] out: [preflight] This might take a minute or two, depending on the speed of your internet connection
+[192.168.31.33] out: [preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+[192.168.31.33] out: [download-certs] Downloading the certificates in Secret "kubeadm-certs" in the "kube-system" Namespace
+[192.168.31.33] out: [certs] Using certificateDir folder "/etc/kubernetes/pki"
+[192.168.31.33] out: [certs] Using the existing "front-proxy-client" certificate and key
+[192.168.31.33] out: [certs] Generating "apiserver" certificate and key
+[192.168.31.33] out: [certs] apiserver serving cert is signed for DNS names [master3 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local k8sha.yunwei.edu k8sha.yunwei.edu master1.yunwei.edu master2.yunwei.edu master3.yunwei.edu] and IPs [10.96.0.1 192.168.31.33 192.168.31.30 192.168.31.31 192.168.31.32 192.168.31.33 127.0.0.1]
+[192.168.31.33] out: [certs] Generating "apiserver-kubelet-client" certificate and key
+[192.168.31.33] out: [certs] Valid certificates and keys now exist in "/etc/kubernetes/pki"
+[192.168.31.33] out: [certs] Using the existing "sa" key
+[192.168.31.33] out: [kubeconfig] Generating kubeconfig files
+[192.168.31.33] out: [kubeconfig] Using kubeconfig folder "/etc/kubernetes"
+[192.168.31.33] out: [endpoint] WARNING: port specified in controlPlaneEndpoint overrides bindPort in the controlplane address
+[192.168.31.33] out: [kubeconfig] Using existing kubeconfig file: "/etc/kubernetes/admin.conf"
+[192.168.31.33] out: [kubeconfig] Writing "controller-manager.conf" kubeconfig file
+[192.168.31.33] out: [kubeconfig] Writing "scheduler.conf" kubeconfig file
+[192.168.31.33] out: [control-plane] Using manifest folder "/etc/kubernetes/manifests"
+[192.168.31.33] out: [control-plane] Creating static Pod manifest for "kube-apiserver"
+[192.168.31.33] out: W0131 21:10:17.126708    3465 manifests.go:214] the default kube-apiserver authorization-mode is "Node,RBAC"; using "Node,RBAC"
+[192.168.31.33] out: [control-plane] Creating static Pod manifest for "kube-controller-manager"
+[192.168.31.33] out: W0131 21:10:17.134043    3465 manifests.go:214] the default kube-apiserver authorization-mode is "Node,RBAC"; using "Node,RBAC"
+[192.168.31.33] out: [control-plane] Creating static Pod manifest for "kube-scheduler"
+[192.168.31.33] out: W0131 21:10:17.135529    3465 manifests.go:214] the default kube-apiserver authorization-mode is "Node,RBAC"; using "Node,RBAC"
+[192.168.31.33] out: [check-etcd] Skipping etcd check in external mode
+[192.168.31.33] out: [kubelet-start] Downloading configuration for the kubelet from the "kubelet-config-1.17" ConfigMap in the kube-system namespace
+[192.168.31.33] out: [kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[192.168.31.33] out: [kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[192.168.31.33] out: [kubelet-start] Starting the kubelet
+[192.168.31.33] out: [kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...
+[192.168.31.33] out: [control-plane-join] using external etcd - no local stacked instance added
+[192.168.31.33] out: [upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[192.168.31.33] out: [mark-control-plane] Marking the node master3 as control-plane by adding the label "node-role.kubernetes.io/master=''"
+[192.168.31.33] out: [mark-control-plane] Marking the node master3 as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+[192.168.31.33] out: 
+[192.168.31.33] out: This node has joined the cluster and a new control plane instance was created:
+[192.168.31.33] out: 
+[192.168.31.33] out: * Certificate signing request was sent to apiserver and approval was received.
+[192.168.31.33] out: * The Kubelet was informed of the new secure connection details.
+[192.168.31.33] out: * Control plane (master) label and taint were applied to the new node.
+[192.168.31.33] out: * The Kubernetes control plane instances scaled up.
+[192.168.31.33] out: 
+[192.168.31.33] out: 
+[192.168.31.33] out: To start administering your cluster from this node, you need to run the following as a regular user:
+[192.168.31.33] out: 
+[192.168.31.33] out: 	mkdir -p $HOME/.kube
+[192.168.31.33] out: 	sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+[192.168.31.33] out: 	sudo chown $(id -u):$(id -g) $HOME/.kube/config
+[192.168.31.33] out: 
+[192.168.31.33] out: Run 'kubectl get nodes' to see this node join the cluster.
+[192.168.31.33] out: 
+[192.168.31.33] out: 
+[192.168.31.33] out: 
+[192.168.31.33] out: 
+[192.168.31.33] out: kubernetes HA install: https://github.com/fanux/sealos
+[192.168.31.33] out: www.sealyun.com
+[192.168.31.33] out: QQ group: 98488045
+[192.168.31.33] out: 
+[192.168.31.33] out: 
+[192.168.31.33] out: 
+[192.168.31.33] out: 
+
+
+Done.
+Disconnecting from 192.168.31.32... done.
+Disconnecting from 192.168.31.33... done.
+[192.168.31.31] Executing task 'dashboard'
+[192.168.31.31] run: kubectl apply -f  coreos-k8s/dashboard-recommended.yaml
+[192.168.31.31] out: namespace/kubernetes-dashboard created
+[192.168.31.31] out: serviceaccount/kubernetes-dashboard created
+[192.168.31.31] out: service/kubernetes-dashboard created
+[192.168.31.31] out: secret/kubernetes-dashboard-certs created
+[192.168.31.31] out: secret/kubernetes-dashboard-csrf created
+[192.168.31.31] out: secret/kubernetes-dashboard-key-holder created
+[192.168.31.31] out: configmap/kubernetes-dashboard-settings created
+[192.168.31.31] out: role.rbac.authorization.k8s.io/kubernetes-dashboard created
+[192.168.31.31] out: clusterrole.rbac.authorization.k8s.io/kubernetes-dashboard created
+[192.168.31.31] out: rolebinding.rbac.authorization.k8s.io/kubernetes-dashboard created
+[192.168.31.31] out: clusterrolebinding.rbac.authorization.k8s.io/kubernetes-dashboard created
+[192.168.31.31] out: deployment.apps/kubernetes-dashboard created
+[192.168.31.31] out: service/dashboard-metrics-scraper created
+[192.168.31.31] out: deployment.apps/dashboard-metrics-scraper created
+[192.168.31.31] out: 
+
+
+Done.
+Disconnecting from 192.168.31.31... done.

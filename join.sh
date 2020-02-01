@@ -1,3 +1,2 @@
-sudo    kubeadm join k8s.yunwei.edu:8443 --token txzgpa.dgmwlfocaluorzvi --discovery-token-ca-cert-hash sha256:4af32fea36fe7183757defe285d3984a81dae92dfdf42d11adffbc724852464d
-sudo    kubeadm join k8s.yunwei.edu:8443 --token jrxdy5.2f5gd32abs5mc8aw --discovery-token-ca-cert-hash sha256:4af32fea36fe7183757defe285d3984a81dae92dfdf42d11adffbc724852464d
-sudo    kubeadm join k8s.yunwei.edu:8443 --token 64grod.ujag5z2gvr1az96e --discovery-token-ca-cert-hash sha256:4af32fea36fe7183757defe285d3984a81dae92dfdf42d11adffbc724852464d
+kubeadm join k8sha.yunwei.edu:8443 --token g9muus.82w1pjp7bu8euhoe \
+--discovery-token-ca-cert-hash sha256:0f6845be7b2e448137690d6922f6533c89f2ea80d4c7293130e8dd637ca87498 
