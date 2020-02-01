@@ -1,57 +1,40 @@
 [192.168.31.30] Executing task 'etcdcheck'
 [192.168.31.30] run: source coreos-k8s/CONFIG && sudo etcdctl --cert-file /etc/etcd/ssl/etcd.pem --key-file /etc/etcd/ssl/etcd-key.pem --ca-file /etc/etcd/ssl/ca.pem --endpoints https://$CP1_IP:2379 cluster-health
-[192.168.31.30] out: member 223f5bee84a6d13e is unhealthy: got unhealthy result from https://192.168.31.33:2379
-[192.168.31.30] out: member ec5bc894815a1aa6 is unhealthy: got unhealthy result from https://192.168.31.32:2379
-[192.168.31.30] out: member fc7c83f03d3c3615 is unhealthy: got unhealthy result from https://192.168.31.31:2379
-[192.168.31.30] out: cluster is unhealthy
+[192.168.31.30] out: member 223f5bee84a6d13e is healthy: got healthy result from https://192.168.31.33:2379
+[192.168.31.30] out: member ec5bc894815a1aa6 is healthy: got healthy result from https://192.168.31.32:2379
+[192.168.31.30] out: member fc7c83f03d3c3615 is healthy: got healthy result from https://192.168.31.31:2379
+[192.168.31.30] out: cluster is healthy
 [192.168.31.30] out: 
 
+
+Done.
 Disconnecting from 192.168.31.30... done.
 [192.168.31.30] Executing task 'calicocheck'
 [192.168.31.30] run: sudo coreos-k8s/calico/calicoctl node status
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.ControllerRevision
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.ControllerRevisionList
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.Deployment
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.DeploymentCondition
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.DeploymentList
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.DeploymentSpec
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.DeploymentStatus
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.DeploymentStrategy
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.RollingUpdateDeployment
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.RollingUpdateStatefulSetStrategy
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.Scale
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.ScaleSpec
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.ScaleStatus
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.StatefulSet
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.StatefulSetCondition
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.StatefulSetList
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.StatefulSetSpec
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.StatefulSetStatus
-[192.168.31.30] out: 2020/01/31 22:10:07 proto: duplicate proto type registered: k8s.io.api.apps.v1beta2.StatefulSetUpdateStrategy
-[192.168.31.30] out: panic: Double registration of different types for apps/v1beta2, Kind=Deployment: old=github.com/projectcalico/calicoctl/vendor/k8s.io/api/apps/v1beta2.Deployment, new=github.com/projectcalico/calicoctl/vendor/k8s.io/api/apps/v1beta2.Deployment
+[192.168.31.30] out: Calico process is running.
 [192.168.31.30] out: 
-[192.168.31.30] out: goroutine 1 [running]:
-[192.168.31.30] out: github.com/projectcalico/calicoctl/vendor/k8s.io/apimachinery/pkg/runtime.(*Scheme).AddKnownTypeWithName(0xc4200ca660, 0x164b23f, 0x4, 0x164f4dd, 0x7, 0x131ffbc, 0xa, 0x179cc00, 0xc420305000)
-[192.168.31.30] out: 	/go/src/github.com/projectcalico/calicoctl/vendor/k8s.io/apimachinery/pkg/runtime/scheme.go:203 +0x907
-[192.168.31.30] out: github.com/projectcalico/calicoctl/vendor/k8s.io/apimachinery/pkg/runtime.(*Scheme).AddKnownTypes(0xc4200ca660, 0x164b23f, 0x4, 0x164f4dd, 0x7, 0xc4205f7c08, 0xb, 0xb)
-[192.168.31.30] out: 	/go/src/github.com/projectcalico/calicoctl/vendor/k8s.io/apimachinery/pkg/runtime/scheme.go:180 +0x1ad
-[192.168.31.30] out: github.com/projectcalico/calicoctl/vendor/k8s.io/api/apps/v1beta2.addKnownTypes(0xc4200ca660, 0x0, 0x0)
-[192.168.31.30] out: 	/go/src/github.com/projectcalico/calicoctl/vendor/k8s.io/api/apps/v1beta2/register.go:46 +0x308
-[192.168.31.30] out: github.com/projectcalico/calicoctl/vendor/k8s.io/apimachinery/pkg/runtime.(*SchemeBuilder).AddToScheme(0x2171900, 0xc4200ca660, 0x0, 0x0)
-[192.168.31.30] out: 	/go/src/github.com/projectcalico/calicoctl/vendor/k8s.io/apimachinery/pkg/runtime/scheme_builder.go:29 +0x6d
-[192.168.31.30] out: github.com/projectcalico/calicoctl/vendor/k8s.io/apimachinery/pkg/runtime.(*SchemeBuilder).AddToScheme-fm(0xc4200ca660, 0x0, 0x0)
-[192.168.31.30] out: 	/go/src/github.com/projectcalico/calicoctl/vendor/github.com/projectcalico/libcalico-go/lib/apis/v3/register.go:27 +0x34
-[192.168.31.30] out: github.com/projectcalico/calicoctl/vendor/k8s.io/client-go/kubernetes/scheme.AddToScheme(0xc4200ca660)
-[192.168.31.30] out: 	/go/src/github.com/projectcalico/calicoctl/vendor/k8s.io/client-go/kubernetes/scheme/register.go:84 +0x75
-[192.168.31.30] out: github.com/projectcalico/calicoctl/vendor/k8s.io/client-go/kubernetes/scheme.init.0()
-[192.168.31.30] out: 	/go/src/github.com/projectcalico/calicoctl/vendor/k8s.io/client-go/kubernetes/scheme/register.go:63 +0x5a
+[192.168.31.30] out: IPv4 BGP status
+[192.168.31.30] out: +-----------------+-------------------+-------+----------+-------------+
+[192.168.31.30] out: |  PEER ADDRESS   |     PEER TYPE     | STATE |  SINCE   |    INFO     |
+[192.168.31.30] out: +-----------------+-------------------+-------+----------+-------------+
+[192.168.31.30] out: | 192.168.122.175 | node-to-node mesh | up    | 07:06:34 | Established |
+[192.168.31.30] out: | 192.168.122.178 | node-to-node mesh | up    | 07:06:34 | Established |
+[192.168.31.30] out: | 192.168.122.131 | node-to-node mesh | up    | 07:06:34 | Established |
+[192.168.31.30] out: +-----------------+-------------------+-------+----------+-------------+
+[192.168.31.30] out: 
+[192.168.31.30] out: IPv6 BGP status
+[192.168.31.30] out: No IPv6 peers found.
+[192.168.31.30] out: 
 [192.168.31.30] out: 
 
+
+Done.
 Disconnecting from 192.168.31.30... done.
 [192.168.31.30] Executing task 'clusterinfo'
 [192.168.31.30] run: kubectl cluster-info
 [192.168.31.30] out: [0;32mKubernetes master[0m is running at [0;33mhttps://k8sha.yunwei.edu:8443[0m
 [192.168.31.30] out: [0;32mKubeDNS[0m is running at [0;33mhttps://k8sha.yunwei.edu:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy[0m
+[192.168.31.30] out: [0;32mMetrics-server[0m is running at [0;33mhttps://k8sha.yunwei.edu:8443/api/v1/namespaces/kube-system/services/https:metrics-server:/proxy[0m
 [192.168.31.30] out: 
 [192.168.31.30] out: To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 [192.168.31.30] out: 

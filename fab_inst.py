@@ -149,13 +149,18 @@ def ingress():
     run('kubectl get ingress --all-namespaces')
 
 def helm():
-    run('tar zxvf k8s-addon/helm-v2.11.0-linux-amd64.tar.gz -C k8s-addon/')
-    run('sudo cp k8s-addon/linux-amd64/helm /opt/bin/helm')
-    run('helm init --upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.11.0 --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts')
+    run('tar zxvf coreos-k8s/helm-v3.0.3-linux-amd64.tar.gz -C coreos-k8s/')
+    run('sudo cp coreos-k8s/linux-amd64/helm /opt/bin/helm3')
+    run('tar zxvf coreos-k8s/helm-v2.16.1-linux-amd64.tar.gz -C coreos-k8s/')
+    run('sudo cp coreos-k8s/linux-amd64/helm /opt/bin/helm')
+    run('helm init --upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.16.1 --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts')
     run('kubectl create serviceaccount --namespace kube-system tiller')
     run('kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller')
     run('kubectl patch deploy --namespace kube-system tiller-deploy -p \'{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}\'')
     run('kubectl get pods --all-namespaces')
+    run('helm repo add apphub https://apphub.aliyuncs.com/ && \
+         helm repo add aliyun https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts && \
+         helm repo add microsoft  http://mirror.azure.cn/kubernetes/charts')
 
 def prometheus():
     run('kubectl apply -f  k8s-addon/prometheus/')
@@ -222,6 +227,7 @@ def getpods():
     run('kubectl get pods --all-namespaces -o wide')
     run('kubectl get nodes')
     run('kubectl get cs')
+    run('kubectl top node;kubectl top pod')
 
 def calicocheck():
     run('sudo coreos-k8s/calico/calicoctl node status')

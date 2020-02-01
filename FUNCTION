@@ -129,7 +129,7 @@ func_finish(){
 
 #get svc
 func_getsvc(){
-  fab -H $CP1_IP -f fab_inst.py getsvc -u $REMOTE_USER --colorize-errors  
+  fab -H $VIP_IP -f fab_inst.py getsvc -u $REMOTE_USER --colorize-errors  
 }
 
 #gen index:  svc.html

@@ -443,3 +443,40 @@ Disconnecting from 192.168.31.33... done.
 
 Done.
 Disconnecting from 192.168.31.31... done.
+[192.168.31.31] Executing task 'dashboard'
+[192.168.31.31] run: kubectl apply -f  coreos-k8s/dashboard-recommended.yaml
+[192.168.31.31] out: namespace/kubernetes-dashboard unchanged
+[192.168.31.31] out: serviceaccount/kubernetes-dashboard unchanged
+[192.168.31.31] out: service/kubernetes-dashboard unchanged
+[192.168.31.31] out: secret/kubernetes-dashboard-certs unchanged
+[192.168.31.31] out: secret/kubernetes-dashboard-csrf configured
+[192.168.31.31] out: secret/kubernetes-dashboard-key-holder unchanged
+[192.168.31.31] out: configmap/kubernetes-dashboard-settings unchanged
+[192.168.31.31] out: role.rbac.authorization.k8s.io/kubernetes-dashboard unchanged
+[192.168.31.31] out: clusterrole.rbac.authorization.k8s.io/kubernetes-dashboard unchanged
+[192.168.31.31] out: rolebinding.rbac.authorization.k8s.io/kubernetes-dashboard unchanged
+[192.168.31.31] out: clusterrolebinding.rbac.authorization.k8s.io/kubernetes-dashboard unchanged
+[192.168.31.31] out: deployment.apps/kubernetes-dashboard unchanged
+[192.168.31.31] out: service/dashboard-metrics-scraper unchanged
+[192.168.31.31] out: deployment.apps/dashboard-metrics-scraper unchanged
+[192.168.31.31] out: 
+
+[192.168.31.31] run: kubectl apply -f  coreos-k8s/dashboard-adminuser.yaml
+[192.168.31.31] out: serviceaccount/admin-user unchanged
+[192.168.31.31] out: clusterrolebinding.rbac.authorization.k8s.io/admin-user unchanged
+[192.168.31.31] out: 
+
+[192.168.31.31] run: kubectl apply -f  coreos-k8s/metrics-server
+[192.168.31.31] out: clusterrole.rbac.authorization.k8s.io/system:aggregated-metrics-reader created
+[192.168.31.31] out: clusterrolebinding.rbac.authorization.k8s.io/metrics-server:system:auth-delegator created
+[192.168.31.31] out: apiservice.apiregistration.k8s.io/v1beta1.metrics.k8s.io created
+[192.168.31.31] out: serviceaccount/metrics-server created
+[192.168.31.31] out: deployment.apps/metrics-server created
+[192.168.31.31] out: service/metrics-server created
+[192.168.31.31] out: clusterrole.rbac.authorization.k8s.io/system:metrics-server created
+[192.168.31.31] out: clusterrolebinding.rbac.authorization.k8s.io/system:metrics-server created
+[192.168.31.31] out: 
+
+
+Done.
+Disconnecting from 192.168.31.31... done.

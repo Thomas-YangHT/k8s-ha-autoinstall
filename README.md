@@ -1,12 +1,12 @@
 ![](https://img.shields.io/badge/Dist-CoreOS-blue.svg)  ![](https://img.shields.io/badge/K8S-HA-brightgreen.svg)  ![](https://img.shields.io/badge/Proxy-IPVS-orange.svg)  ![](https://img.shields.io/badge/Net-Calico-yellow.svg)
 
-# To install k8s_HA-1.13.0 on CoreOS
+# To install k8s_HA-1.17.0 on CoreOS
 
 <img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/external-etcd.png" width="800">
 
 # Prepare:
 * download:
-   * [coreos-k8s-v1.13.0.tgz](https://pan.baidu.com/s/1IU_7YBirkM88q2QnbyfePg) ----- k8s 1.13.0's docker image&kubelet/kubeadm/kubectl&dashboard
+   * [coreos-k8s-v1.17.0.tgz](https://pan.baidu.com/s/1IU_7YBirkM88q2QnbyfePg) ----- k8s 1.17.0's docker image&kubelet/kubeadm/kubectl&dashboard
    * [ha.tgz](https://pan.baidu.com/s/1Cj_BAiohKnZOi2MKCEX10g)  ----- docker image: keepalived.tar/haproxy.tar/etcd.tar
    * [coreosbase2.tgz](https://pan.baidu.com/s/141I6ctxuGtFfiD8tRHfz_g) ----- kvm's img of CoreOS 1855.4
    * [1.0 istio.tgz](https://pan.baidu.com/s/1jaQbXqHP6pzeqPDGlI1t6Q)---(Optional)
@@ -16,7 +16,7 @@
 * CONFIG
    * vi CONFIG  -----just need modify node&master's IP
 ```
-K8S_VER=v1.13.0
+K8S_VER=v1.17.0
 CIDR_SUBNET=10.244.0.0/16
 KUBECONFIG=/etc/kubernetes/admin.conf
 LOAD_BALANCER_DNS=k8sha.yunwei.edu
