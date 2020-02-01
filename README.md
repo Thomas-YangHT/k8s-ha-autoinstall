@@ -12,7 +12,7 @@
    * [1.0 istio.tgz](https://pan.baidu.com/s/1jaQbXqHP6pzeqPDGlI1t6Q)---(Optional)
    * [k8s-addon.tgz](https://pan.baidu.com/s/16Ag7L_mWFyMkgoMs8tXWzA)---(Optional)
    * [CentOSbase.tgz](https://pan.baidu.com/s/1iDm6KwZ4c4xcCAkpYe0KlQ)---kvm's image of Centos7.6 DockerMachine for k8s
-   * clone k8s-ha-autoinstall & mv *tgz k8s-ha0autoinstall
+   * clone k8s-ha-autoinstall & mv *tgz k8s-ha-autoinstall
 * CONFIG
    * vi CONFIG  -----just need modify node&master's IP
 ```
