@@ -11,7 +11,7 @@
    * [coreosbase2.tgz](https://pan.baidu.com/s/141I6ctxuGtFfiD8tRHfz_g) ----- kvm's img of CoreOS 1855.4
    * [1.0 istio.tgz](https://pan.baidu.com/s/1jaQbXqHP6pzeqPDGlI1t6Q)---(Optional)
    * [k8s-addon.tgz](https://pan.baidu.com/s/16Ag7L_mWFyMkgoMs8tXWzA)---(Optional)
-   * [CentOSbase.tgz] (https://pan.baidu.com/s/1iDm6KwZ4c4xcCAkpYe0KlQ)---kvm's image of Centos7.6 DockerMachine for k8s
+   * [CentOSbase.tgz](https://pan.baidu.com/s/1iDm6KwZ4c4xcCAkpYe0KlQ)---kvm's image of Centos7.6 DockerMachine for k8s
    * clone k8s-ha-autoinstall & mv *tgz k8s-ha0autoinstall
 * CONFIG
    * vi CONFIG  -----just need modify node&master's IP
@@ -51,25 +51,17 @@ DNS2=114.114.114.114
 ```
 * clone
    * clone or install CoreOS machines
-
     `cd clone_coreos;sh clone_machine.sh`
-    
 <img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k2.png" width="600">
-
 # Install
 * Install for single master:
-
     ` sh -x install.sh all `
 * Install for multi master:
-
     ` sh -x install.sh allha `
-  
 [![asciicast](https://asciinema.org/a/ESPpo0D3MQWsJo0Yo2TFG2S10.svg)](https://asciinema.org/a/ESPpo0D3MQWsJo0Yo2TFG2S10)  
 <img src="https://github.com/Thomas-YangHT/k8s-ha-autoinstall/raw/master/pics/k3.png" width="900">
-
 #  when reinstall:
     `sh -x install.sh reset`
-
 # HELP
 ```
 usage: install.sh [prepare|p]|p1|p2|p3|p4|[1|base]|[2|addon]|[3|ha]|dashboard|network|node|rejoin|ingress|helm|prometheus|efk|istio|finish|default|help|...   [-c|--config  /path/to/config/config.filename]
@@ -107,7 +99,6 @@ usage: install.sh [prepare|p]|p1|p2|p3|p4|[1|base]|[2|addon]|[3|ha]|dashboard|ne
 # weixin public accunt: [LinuxMan]
 * [linux command HELP,try input some cmd, such as lsof]
                 <img src="https://github.com/Thomas-YangHT/ceph-autoinstall/raw/master/pics/linuxman.png" width="500">
-
 ```
   _       _                          __  __                 
  | |     (_)  _ __    _   _  __  __ |  \/  |   __ _   _ __  
