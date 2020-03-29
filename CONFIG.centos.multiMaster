@@ -1,4 +1,4 @@
-K8S_VER=v1.13.0
+K8S_VER=v1.17.0
 CIDR_SUBNET=10.244.0.0/16
 KUBECONFIG=/etc/kubernetes/admin.conf
 LOAD_BALANCER_DNS=k8sha.yunwei.edu
@@ -6,11 +6,11 @@ LOAD_BALANCER_PORT=8443
 CP1_HOSTNAME=master1.yunwei.edu
 CP2_HOSTNAME=master2.yunwei.edu
 CP3_HOSTNAME=master3.yunwei.edu
-VIP_IP=192.168.253.30
-CP1_IP=192.168.253.31
-CP2_IP=192.168.253.32
-CP3_IP=192.168.253.33
-NODE1_IP=192.168.253.34
+VIP_IP=192.168.31.30
+CP1_IP=192.168.31.31
+CP2_IP=192.168.31.32
+CP3_IP=192.168.31.33
+NODE1_IP=192.168.31.34
 NODE1_HOSTNAME=node1.yunwei.edu
 REMOTE_USER=root
 #
@@ -28,9 +28,9 @@ istio=true
 #just for Clone KVM machines
 OS_TYPE=centos                  #coreos or centos
 BASE_IMAGE_NAME=centosbase     #coreosbase2 or centosbase
-BASE_IP=192.168.253.11
+BASE_IP=192.168.31.11
 KVM_NAME="master1,master2,master3,node1"
-GATEWAY=192.168.253.125  
-DNS1=192.168.253.110
+GATEWAY=192.168.31.253  
+DNS1=223.5.5.5
 DNS2=114.114.114.114  
 

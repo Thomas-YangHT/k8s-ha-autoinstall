@@ -1,1 +1,8 @@
 *.tgz
+*.pyc
+*.tar
+coreos-k8s/kubelet
+coreos-k8s/kubeadm
+coreos-k8s/kubectl
+calicoctl
+etcd

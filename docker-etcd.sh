@@ -1,5 +1,7 @@
 source $HOME/coreos-k8s/CONFIG
-IP=`ip a show dev eth0|grep inet|grep brd|grep -Po 'inet \K\d+.\d+.\d+.\d+'`
+#ETH=`ip link |grep ^2:|awk -F': ' '{print $2}'`
+#IP=`ip a show dev $ETH |grep inet|grep brd|grep -Po 'inet \K\d+.\d+.\d+.\d+'`
+IP=`ip a show| awk '/^2:/,/^3/'|grep -Po 'inet \K\d+.\d+.\d+.\d+'|head -n 1`
 docker run --net=host \
   -d \
   -v /var/lib/etcd:/data \

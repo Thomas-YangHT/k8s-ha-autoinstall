@@ -227,7 +227,7 @@ def getpods():
     run('kubectl get pods --all-namespaces -o wide')
     run('kubectl get nodes')
     run('kubectl get cs')
-    run('kubectl top node;kubectl top pod')
+    run('kubectl top node;kubectl top pod --all-namespaces')
 
 def calicocheck():
     run('sudo coreos-k8s/calico/calicoctl node status')
