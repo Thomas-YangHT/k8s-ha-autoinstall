@@ -54,64 +54,61 @@ func_master1(){
 #master2
 func_master2(){
 	fab -H $CP2_IP,$CP3_IP -f fab_inst.py master2 -u $REMOTE_USER  --colorize-errors |tee -a log
-#	fab -H $CP3_IP -f fab_inst.py master2 -u $REMOTE_USER  --colorize-errors |tee -a log
 }
 
 #network
 func_network(){
-[ $net = "calico" ] && echo "install calico" && \
-fab -H $CP1_IP -f fab_inst.py calico -u $REMOTE_USER --colorize-errors 
-[ $net = "flannel" ] && echo "install flannel" && \
-fab -H $CP1_IP -f fab_inst.py flannel -u $REMOTE_USER --colorize-errors 
+  [ $net = "calico" ] && echo "install calico" && \
+    fab -H $CP1_IP -f fab_inst.py calico -u $REMOTE_USER --colorize-errors 
+  [ $net = "flannel" ] && echo "install flannel" && \
+    fab -H $CP1_IP -f fab_inst.py flannel -u $REMOTE_USER --colorize-errors 
 }
 
-#find join command
+#node join 
 func_nodejoin(){
-#cat log |grep kubeadm|grep join |tail -1 |awk -F'out:' '{print "sudo -i "$2}' >join.sh
-fab -H $node -f fab_inst.py node -u $REMOTE_USER -P --colorize-errors 
+    fab -H $node -f fab_inst.py node -u $REMOTE_USER -P --colorize-errors 
 }
 
-#node rejoin
+#find node rejoin command
 func_noderejoin(){
-fab -H $CP1_IP -f fab_inst.py rejoin -u $REMOTE_USER --colorize-errors |tee rejoin
-cat rejoin |grep kubeadm|grep join |awk -F'out:' '{print "sudo -i "$2}' >join.sh
-fab -H $node -f fab_inst.py node -u $REMOTE_USER -P --colorize-errors 
+    fab -H $CP1_IP -f fab_inst.py rejoin -u $REMOTE_USER --colorize-errors |tee log
+    fab -H $NODE_TO_ADD -f fab_inst.py node -u $REMOTE_USER -P --colorize-errors 
 }
 
 #dashboard
 func_dashboard(){
 [ $dashboard = true ] && echo "install dashboard" && \
-fab -H $CP1_IP -f fab_inst.py dashboard -u $REMOTE_USER --colorize-errors|tee -a log 
+       fab -H $CP1_IP -f fab_inst.py dashboard -u $REMOTE_USER --colorize-errors|tee -a log 
 }
 
 #ingress
 func_ingress(){
-[ $ingress = true ] && echo "install ingress" && \
-fab -H $CP1_IP -f fab_inst.py ingress -u $REMOTE_USER --colorize-errors 
+    [ $ingress = true ] && echo "install ingress" && \
+      fab -H $CP1_IP -f fab_inst.py ingress -u $REMOTE_USER --colorize-errors 
 }
 
 #helm
 func_helm(){
-[ $helm = true ] && echo "install helm" && \
-fab -H $CP1_IP -f fab_inst.py helm -u $REMOTE_USER --colorize-errors
+    [ $helm = true ] && echo "install helm" && \
+      fab -H $CP1_IP -f fab_inst.py helm -u $REMOTE_USER --colorize-errors
 }
 
 #prometheus
 func_prometheus(){
-[ $prometheus = true ] && echo "install prometheus" && \
-fab -H $CP1_IP -f fab_inst.py prometheus -u $REMOTE_USER --colorize-errors
+    [ $prometheus = true ] && echo "install prometheus" && \
+      fab -H $CP1_IP -f fab_inst.py prometheus -u $REMOTE_USER --colorize-errors
 }
 
 #efk
 func_efk(){
-[ $efk = true ] && echo "install efk" && \
-fab -H $CP1_IP -f fab_inst.py efk -u $REMOTE_USER --colorize-errors
+    [ $efk = true ] && echo "install efk" && \
+      fab -H $CP1_IP -f fab_inst.py efk -u $REMOTE_USER --colorize-errors
 }
 
 #istio
 func_istio(){
-[ $istio = true ] && echo "install istio" && \
-fab -H $CP1_IP -f fab_inst.py istio -u $REMOTE_USER --colorize-errors
+    [ $istio = true ] && echo "install istio" && \
+      fab -H $CP1_IP -f fab_inst.py istio -u $REMOTE_USER --colorize-errors
 }
 
 #reset
@@ -179,6 +176,28 @@ func_timezone8(){
 #route
 func_route(){
 	fab -H $master,$node -f fab_inst.py route -u $REMOTE_USER  --colorize-errors
+}
+
+#clone 
+func_clone(){
+      (cd clone_kvm && sudo sh ./clone_machine.sh)
+}
+
+#hosts 
+func_hosts(){
+	fab -H $master,$node -f fab_inst.py hosts -u $REMOTE_USER  --colorize-errors
+}
+
+#copyfromnode1
+func_copyfromnode1(){
+  for NewNode in `echo $NODES_TO_ADD|sed 's/,/ /g'`
+  do
+    virsh destroy ${PREFIX}-${NewNode}
+    cp -p ${KVMDIR}/${PREFIX}-node1.img ${KVMDIR}/${PREFIX}-${NewNode}.img
+    cp clone_kvm/user_data.${NewNode} clone_kvm/user_data
+    virt-copy-in -d ${PREFIX}-${NewNode} clone_kvm/user_data /var/lib/coreos-install/
+    virsh start ${PREFIX}-${NewNode}
+  done
 }
 
 

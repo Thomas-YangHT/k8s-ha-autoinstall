@@ -13,10 +13,12 @@ def prepare():
   #  run('export PATH=$PATH:/opt/bin')
   #  run('sudo -i kubeadm reset -f ')
     put('coreos-k8s.tgz', '')
-    run('mkdir coreos-k8s;tar zxvf coreos-k8s.tgz -C coreos-k8s')
+    run('mkdir coreos-k8s;tar  -C coreos-k8s -zxvf coreos-k8s.tgz')
+    #run('mkdir coreos-k8s;tar --wildcards -zxvf coreos-k8s.tgz --exclude=*tar -C coreos-k8s')
     run('rm coreos-k8s.tgz')
     run('ls coreos-k8s')
     run('ls coreos-k8s/*tar |awk \'{print "docker load <"$1}\'|sh')
+    #run('tar --wildcards -zxvf coreos-k8s.tgz *tar |docker load')
     run('docker images')
     run('sudo mkdir -p /opt/{bin,cni/bin}')
     run('sudo tar -C /opt/cni/bin -xzvf coreos-k8s/cni-plugins-amd64-v0.6.0.tgz')
@@ -78,7 +80,7 @@ def master():
 def master1():
     run('export PATH=$PATH:/opt/bin')
     run('sudo -i kubeadm reset -f ')
-    run('sudo -i kubeadm init  --config coreos-k8s/kubeadm-config.yaml --upload-certs')
+    run('sudo  kubeadm init  --config ~/coreos-k8s/kubeadm-config.yaml --upload-certs')
     run('sudo tar zcvf coreos-k8s/master-conf.tgz -T coreos-k8s/m1_ca_files')
     run('mkdir -p $HOME/.kube')
     run('sudo cp  /etc/kubernetes/admin.conf $HOME/.kube/config')
@@ -104,7 +106,7 @@ def master2():
    # run('sudo cp bashrc /root/.bashrc')
     put('joinMaster.sh','')
     run('sudo chmod +x ./joinMaster.sh')
-    run('./joinMaster.sh')
+    run('sudo ./joinMaster.sh')
 
 def flannel():
     run('kubectl taint nodes --all  node-role.kubernetes.io/master-')
@@ -128,17 +130,18 @@ def node():
     run('sudo chmod +x ./join.sh')
     run('sudo -i kubeadm reset -f')
     run('sudo modprobe ip_vs ip_vs_rr ip_vs_wrr ip_vs_sh')
-    run('./join.sh')
+    run('sudo ./join.sh')
 
 def rejoin():
     run('kubeadm token create --print-join-command')
+    local('cat log |grep -Po "kubeadm join.*|--discovery-token.*|--control-plane.*"  >join.sh')
 
 def addon():
     put('k8s-addon.tgz', '')
     run('tar zxvf k8s-addon.tgz')
     run('rm k8s-addon.tgz')
     run('ls k8s-addon/*tar |awk \'{print "docker load <"$1}\'|sh')
-    run('rm k8s-addon/*tar')    
+    run('rm k8s-addon/*tar')
 
 def ingress():
     run('tar zxvf k8s-addon/ingress-nginx.tgz -C k8s-addon/')
@@ -168,7 +171,7 @@ def prometheus():
 def efk():
     run('L=`cat k8s-addon/efk/kibana-deployment.yaml |grep -n SERVER_BASEPATH|awk -F\':\' \'{print $1+1}\'` &&  \
 sed  -i "$L s/.*/#\\0/" k8s-addon/efk/kibana-deployment.yaml ')
-  #Because fluentd's pod cost plenty of system performance, 
+  #Because fluentd's pod cost plenty of system performance,
   #pods of fluentd not running by default,
   #you can uncomment follow two lines  '#' to run pods of fluentd or set nodeSelector  manually.
   #  run('L=`cat k8s-addon/efk/fluentd-es-ds.yaml |grep -n nodeSelector|awk -F\':\' \'{print $1+1}\'` && \
@@ -242,3 +245,8 @@ def timezone8():
 def route():
     put('tools/route.sh','')
     run('sh route.sh')
+
+def hosts():
+    local('sh hosts_conf.sh')
+    put('hosts','coreos-k8s/hosts')
+    run('sudo cp coreos-k8s/hosts /etc/hosts')

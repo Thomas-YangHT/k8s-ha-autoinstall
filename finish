@@ -5,28 +5,29 @@
 [192.168.31.31] out: 
 
 [192.168.31.31] run: kubectl get svc --all-namespaces -o wide
-[192.168.31.31] out: NAMESPACE              NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                  AGE     SELECTOR
-[192.168.31.31] out: default                kubernetes                  ClusterIP   10.96.0.1       <none>        443/TCP                  4h29m   <none>
-[192.168.31.31] out: kube-system            kube-dns                    ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP,9153/TCP   48m     k8s-app=kube-dns
-[192.168.31.31] out: kubernetes-dashboard   dashboard-metrics-scraper   ClusterIP   10.96.57.90     <none>        8000/TCP                 46m     k8s-app=dashboard-metrics-scraper
-[192.168.31.31] out: kubernetes-dashboard   kubernetes-dashboard        NodePort    10.96.138.140   <none>        443:30722/TCP            46m     k8s-app=kubernetes-dashboard
+[192.168.31.31] out: NAMESPACE              NAME                        TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                  AGE   SELECTOR
+[192.168.31.31] out: default                kubernetes                  ClusterIP   10.96.0.1      <none>        443/TCP                  11m   <none>
+[192.168.31.31] out: kube-system            kube-dns                    ClusterIP   10.96.0.10     <none>        53/UDP,53/TCP,9153/TCP   11m   k8s-app=kube-dns
+[192.168.31.31] out: kube-system            metrics-server              ClusterIP   10.96.59.214   <none>        443/TCP                  10m   k8s-app=metrics-server
+[192.168.31.31] out: kubernetes-dashboard   dashboard-metrics-scraper   ClusterIP   10.96.58.90    <none>        8000/TCP                 10m   k8s-app=dashboard-metrics-scraper
+[192.168.31.31] out: kubernetes-dashboard   kubernetes-dashboard        NodePort    10.96.81.73    <none>        443:31570/TCP            10m   k8s-app=kubernetes-dashboard
 [192.168.31.31] out: 
 
 [192.168.31.31] run: kubectl get cs
 [192.168.31.31] out: NAME                 STATUS    MESSAGE              ERROR
-[192.168.31.31] out: scheduler            Healthy   ok                   
 [192.168.31.31] out: controller-manager   Healthy   ok                   
-[192.168.31.31] out: etcd-2               Healthy   {"health": "true"}   
+[192.168.31.31] out: scheduler            Healthy   ok                   
 [192.168.31.31] out: etcd-0               Healthy   {"health": "true"}   
 [192.168.31.31] out: etcd-1               Healthy   {"health": "true"}   
+[192.168.31.31] out: etcd-2               Healthy   {"health": "true"}   
 [192.168.31.31] out: 
 
 [192.168.31.31] run: kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
-[192.168.31.31] out: Name:         admin-user-token-x4vld
+[192.168.31.31] out: Name:         admin-user-token-twrs9
 [192.168.31.31] out: Namespace:    kubernetes-dashboard
 [192.168.31.31] out: Labels:       <none>
 [192.168.31.31] out: Annotations:  kubernetes.io/service-account.name: admin-user
-[192.168.31.31] out:               kubernetes.io/service-account.uid: f547f3ed-a254-4bfe-b67d-2d57e2f97e6d
+[192.168.31.31] out:               kubernetes.io/service-account.uid: 200cdcca-4d73-4286-b554-cd88ed4d506d
 [192.168.31.31] out: 
 [192.168.31.31] out: Type:  kubernetes.io/service-account-token
 [192.168.31.31] out: 
@@ -34,7 +35,7 @@
 [192.168.31.31] out: ====
 [192.168.31.31] out: ca.crt:     1029 bytes
 [192.168.31.31] out: namespace:  20 bytes
-[192.168.31.31] out: token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IkRBY2w5RlVQeC1FYzFZUk43R08wdFcwS2l1N1EyRWxZUXppcE1pVE9xRmcifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlcm5ldGVzLWRhc2hib2FyZCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi11c2VyLXRva2VuLXg0dmxkIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImFkbWluLXVzZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiJmNTQ3ZjNlZC1hMjU0LTRiZmUtYjY3ZC0yZDU3ZTJmOTdlNmQiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZXJuZXRlcy1kYXNoYm9hcmQ6YWRtaW4tdXNlciJ9.fyY8RArSy_l2LpSC0A25UNGdIF0Ml6yTYCyM4nMna41gvdYLUY_xfRnmQp4TorD7z3PGzLkbWUZgaMj6GpxKBV20wKsDnJVI7jGR0KKSb3oPTncJLjuMk3Q_sBxJOZ9NgfEiu0CMpOXqew1OK_Gn9LK-d-IvR3E7qPsQjJV4cqByPoEx536NS43uXnLrXt-IqrvjkgX2Tayk3GeTMHOxvyOIaMNctdRcp4kcL4g09BFrKFRC05Dea0saosoeQRtbsJ_zHcm4NfxSvnfYYOhuWHZctaVYrwzk1pYz0GfxlTpfW-asNq520Zof9VcQo7XvcQJ9wDQt3fhdO9W1rfFDNg
+[192.168.31.31] out: token:      eyJhbGciOiJSUzI1NiIsImtpZCI6ImVaYWM0ekJybkNOaF9zNnJKazV3ZlRyYjZrOUhuVzJYaGZDZ0ZjX2J6ZEEifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlcm5ldGVzLWRhc2hib2FyZCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi11c2VyLXRva2VuLXR3cnM5Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImFkbWluLXVzZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiIyMDBjZGNjYS00ZDczLTQyODYtYjU1NC1jZDg4ZWQ0ZDUwNmQiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZXJuZXRlcy1kYXNoYm9hcmQ6YWRtaW4tdXNlciJ9.brxX0vEOnD_M3jdyrWiQoSyiYaaeGmA6mE076FzTZd2ypra1FKuW_yKPzDIIo1ipPYmPKijl27t-DKfb-f-322vOAf2yna0_BRPyxZ_jt0yCVxaERMeSL3ysi45QWoLzBqMMzKozv5ZZ48-iOUCZDBRDrWAKcuhwQFZ_XE_B_rLMQzelSR3i7g-uNTWy7JGn9wfooUt2y-i2pnzyTS98v3IDA-anDjEsIwmxK5sErKZr-vMS0cLxamcho51VpZMio55FFdQ2H1MkxpqPdvwtBiMALXTqJNJLm8tedfoAmQ_LBh1mKHDnSlumbdjhY2Bpk2X6YoyA-7-LHT36_mI1FA
 [192.168.31.31] out: 
 
 

@@ -1,8 +1,8 @@
 [192.168.31.31] Executing task 'rejoin'
 [192.168.31.31] run: kubeadm token create --print-join-command
-[192.168.31.31] out: W0131 11:05:33.900016    7577 validation.go:28] Cannot validate kube-proxy config - no validator is available
-[192.168.31.31] out: W0131 11:05:33.900052    7577 validation.go:28] Cannot validate kubelet config - no validator is available
-[192.168.31.31] out: kubeadm join k8sha.yunwei.edu:8443 --token yvy99a.gbgk7ue9wmayvaaz     --discovery-token-ca-cert-hash sha256:38bcbb830054953bc391bf4b762bff93485474867513f744bd4544bacd5f99f2 
+[192.168.31.31] out: W0401 12:54:22.762767   18574 validation.go:28] Cannot validate kube-proxy config - no validator is available
+[192.168.31.31] out: W0401 12:54:22.762857   18574 validation.go:28] Cannot validate kubelet config - no validator is available
+[192.168.31.31] out: kubeadm join k8sha.yunwei.edu:8443 --token xs7w4g.edqpzui6mb7z5hwz     --discovery-token-ca-cert-hash sha256:13d71e4f4492ef908a8c8ae4513ee3f11fef9f2362344c14fc0d5deb24d80a68 
 [192.168.31.31] out: 
 [192.168.31.31] out: 
 [192.168.31.31] out: 
@@ -14,6 +14,7 @@
 [192.168.31.31] out: 
 [192.168.31.31] out: 
 
+[localhost] local: cat log |grep -Po "kubeadm join.*|--discovery-token.*|--control-plane.*"  >join.sh
 
 Done.
 Disconnecting from 192.168.31.31... done.

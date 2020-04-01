@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 #
 #Script for install k8s1.12.1 HA on CoreOS by LinuxMan
 #  _       _                          __  __                 
@@ -190,6 +190,26 @@ route)
   echo "route:"
   func_route
 ;;
+start)
+  echo "start k8s..."
+  sh ./tools/harun.sh
+;;
+stop)
+  echo "stop k8s..."
+  sh ./tools/hastop.sh
+;;
+clone)
+  echo "clone kvm virtual host..."
+  func_clone
+;;
+hosts)
+  echo "update /etc/hosts..."
+  func_hosts
+;;
+copyfromnode1)
+  echo "copy image from Node1 & copy-in config & restart"
+  func_copyfromnode1
+;;
 status)
   echo "cluster status:"
   func_etcdcheck
@@ -197,6 +217,24 @@ status)
   func_getpods
   func_getsvc
   func_clusterinfo
+;;
+addnode)
+  echo "addnode:$NODES_TO_ADD"
+  func_clone
+  func_copyfromnode1
+  flag=0
+  while [ "$flag" = "0" ] 
+  do 
+    for NewNode in `echo $NODES_TO_ADD|sed 's/,/ /g'`
+    do
+      #ping -c 1 $BASE_IP
+      flag=1
+      echo "1" | socat tcp:$NewNode:22 stdio>/dev/null
+      [ "$?" != "0" ] && flag=0 && break  || sleep 1
+    done
+  done
+  func_hosts
+  func_noderejoin
 ;;
 default|all)
   echo "start all install k8s with single master..."
@@ -269,6 +307,9 @@ help|*)
         status         :get etcd&calico&pods\n\
         timezone8      :set timezone CST-8\n\
         route          :add route temporally\n\
+        start          :start all nodes\n\
+        stop           :stop all nodes\n\
+        clone          :clone kvm machines, see CONFIG\n\
   "
 ;;
 esac

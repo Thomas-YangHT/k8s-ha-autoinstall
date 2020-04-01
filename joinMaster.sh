@@ -1,3 +1,3 @@
-kubeadm join k8sha.yunwei.edu:8443 --token g9muus.82w1pjp7bu8euhoe \
---discovery-token-ca-cert-hash sha256:0f6845be7b2e448137690d6922f6533c89f2ea80d4c7293130e8dd637ca87498 \
---control-plane --certificate-key 597d87e2f7de63e9a39965e4758d3d7d02530147c8c82e338505386997cddc75
+kubeadm join k8sha.yunwei.edu:8443 --token 6fwhns.he0sllrnt88qa1a0 \
+--discovery-token-ca-cert-hash sha256:13d71e4f4492ef908a8c8ae4513ee3f11fef9f2362344c14fc0d5deb24d80a68 \
+--control-plane --certificate-key 76d632aa62258d00659b298571570fab5645bc66093f2f43d632bf39d3c4b7f0

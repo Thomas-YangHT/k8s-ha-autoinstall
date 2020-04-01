@@ -1,0 +1,16 @@
+127.0.0.1	localhost
+127.0.1.1	yanght-IH4DG
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+192.168.31.254  yunwei.edu
+192.168.31.30 k8sha   k8sha.yunwei.edu
+192.168.31.31 master1 master1.yunwei.edu
+192.168.31.32 master2 master2.yunwei.edu
+192.168.31.33 master3 master3.yunwei.edu
+192.168.31.34 node1 node1.yunwei.edu
+192.168.31.35 node2 node2.yunwei.edu

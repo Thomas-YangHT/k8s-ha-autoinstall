@@ -1,58 +1,78 @@
 [192.168.31.30] Executing task 'getpods'
 [192.168.31.30] run: kubectl get pods --all-namespaces -o wide
-[192.168.31.30] out: NAMESPACE              NAME                                         READY   STATUS    RESTARTS   AGE     IP               NODE      NOMINATED NODE   READINESS GATES
-[192.168.31.30] out: default                traefik-79f86c9d68-rf7qs                     1/1     Running   0          123m    10.244.166.136   node1     <none>           <none>
-[192.168.31.30] out: kube-system            calico-kube-controllers-564b6667d7-cm4rq     1/1     Running   5          26h     10.244.180.4     master2   <none>           <none>
-[192.168.31.30] out: kube-system            calico-node-869qs                            1/1     Running   3          26h     192.168.31.32    master2   <none>           <none>
-[192.168.31.30] out: kube-system            calico-node-sgjmp                            1/1     Running   2          26h     192.168.31.33    master3   <none>           <none>
-[192.168.31.30] out: kube-system            calico-node-wnfcg                            1/1     Running   2          26h     192.168.31.31    master1   <none>           <none>
-[192.168.31.30] out: kube-system            calico-node-xkv9j                            1/1     Running   1          26h     192.168.31.34    node1     <none>           <none>
-[192.168.31.30] out: kube-system            coredns-6955765f44-hq4d2                     1/1     Running   2          26h     10.244.137.70    master1   <none>           <none>
-[192.168.31.30] out: kube-system            coredns-6955765f44-rbxdn                     1/1     Running   2          26h     10.244.137.69    master1   <none>           <none>
-[192.168.31.30] out: kube-system            kube-apiserver-master1                       1/1     Running   14         30h     192.168.31.31    master1   <none>           <none>
-[192.168.31.30] out: kube-system            kube-apiserver-master2                       1/1     Running   8          26h     192.168.31.32    master2   <none>           <none>
-[192.168.31.30] out: kube-system            kube-apiserver-master3                       1/1     Running   9          26h     192.168.31.33    master3   <none>           <none>
-[192.168.31.30] out: kube-system            kube-controller-manager-master1              1/1     Running   8          30h     192.168.31.31    master1   <none>           <none>
-[192.168.31.30] out: kube-system            kube-controller-manager-master2              1/1     Running   11         26h     192.168.31.32    master2   <none>           <none>
-[192.168.31.30] out: kube-system            kube-controller-manager-master3              1/1     Running   11         26h     192.168.31.33    master3   <none>           <none>
-[192.168.31.30] out: kube-system            kube-proxy-4lgpp                             1/1     Running   2          26h     192.168.31.33    master3   <none>           <none>
-[192.168.31.30] out: kube-system            kube-proxy-6vrhx                             1/1     Running   2          26h     192.168.31.31    master1   <none>           <none>
-[192.168.31.30] out: kube-system            kube-proxy-cv755                             1/1     Running   1          26h     192.168.31.34    node1     <none>           <none>
-[192.168.31.30] out: kube-system            kube-proxy-lfmkj                             1/1     Running   3          26h     192.168.31.32    master2   <none>           <none>
-[192.168.31.30] out: kube-system            kube-scheduler-master1                       1/1     Running   11         30h     192.168.31.31    master1   <none>           <none>
-[192.168.31.30] out: kube-system            kube-scheduler-master2                       1/1     Running   12         26h     192.168.31.32    master2   <none>           <none>
-[192.168.31.30] out: kube-system            kube-scheduler-master3                       1/1     Running   9          26h     192.168.31.33    master3   <none>           <none>
-[192.168.31.30] out: kube-system            metrics-server-7dd5846d57-8lcj6              1/1     Running   0          8h      10.244.166.130   node1     <none>           <none>
-[192.168.31.30] out: kube-system            tiller-deploy-c774c87d6-btvqs                1/1     Running   0          6h18m   10.244.166.132   node1     <none>           <none>
-[192.168.31.30] out: kubernetes-dashboard   dashboard-metrics-scraper-7b64584c5c-lt48q   1/1     Running   2          26h     10.244.136.8     master3   <none>           <none>
-[192.168.31.30] out: kubernetes-dashboard   kubernetes-dashboard-74f8c88579-ntssg        1/1     Running   9          9h      10.244.166.129   node1     <none>           <none>
+[192.168.31.30] out: NAMESPACE              NAME                                         READY   STATUS    RESTARTS   AGE     IP              NODE      NOMINATED NODE   READINESS GATES
+[192.168.31.30] out: kube-system            calico-kube-controllers-564b6667d7-mxtdk     1/1     Running   1          2d21h   10.244.180.5    master2   <none>           <none>
+[192.168.31.30] out: kube-system            calico-node-9m9d9                            1/1     Running   1          2d21h   192.168.31.31   master1   <none>           <none>
+[192.168.31.30] out: kube-system            calico-node-hsfqs                            1/1     Running   1          2d21h   192.168.31.33   master3   <none>           <none>
+[192.168.31.30] out: kube-system            calico-node-lvbcc                            1/1     Running   1          2d21h   192.168.31.32   master2   <none>           <none>
+[192.168.31.30] out: kube-system            calico-node-rt45g                            1/1     Running   1          2d21h   192.168.31.34   node1     <none>           <none>
+[192.168.31.30] out: kube-system            coredns-6955765f44-dhxsw                     1/1     Running   1          2d21h   10.244.137.67   master1   <none>           <none>
+[192.168.31.30] out: kube-system            coredns-6955765f44-s86nb                     1/1     Running   1          2d21h   10.244.137.68   master1   <none>           <none>
+[192.168.31.30] out: kube-system            kube-apiserver-master1                       1/1     Running   1          2d21h   192.168.31.31   master1   <none>           <none>
+[192.168.31.30] out: kube-system            kube-apiserver-master2                       1/1     Running   1          2d21h   192.168.31.32   master2   <none>           <none>
+[192.168.31.30] out: kube-system            kube-apiserver-master3                       1/1     Running   1          2d21h   192.168.31.33   master3   <none>           <none>
+[192.168.31.30] out: kube-system            kube-controller-manager-master1              1/1     Running   1          2d21h   192.168.31.31   master1   <none>           <none>
+[192.168.31.30] out: kube-system            kube-controller-manager-master2              1/1     Running   2          2d21h   192.168.31.32   master2   <none>           <none>
+[192.168.31.30] out: kube-system            kube-controller-manager-master3              1/1     Running   1          2d21h   192.168.31.33   master3   <none>           <none>
+[192.168.31.30] out: kube-system            kube-proxy-dsdwq                             1/1     Running   1          2d21h   192.168.31.31   master1   <none>           <none>
+[192.168.31.30] out: kube-system            kube-proxy-gwnqj                             1/1     Running   1          2d21h   192.168.31.32   master2   <none>           <none>
+[192.168.31.30] out: kube-system            kube-proxy-r8tmd                             1/1     Running   1          2d21h   192.168.31.33   master3   <none>           <none>
+[192.168.31.30] out: kube-system            kube-proxy-wmsws                             1/1     Running   1          2d21h   192.168.31.34   node1     <none>           <none>
+[192.168.31.30] out: kube-system            kube-scheduler-master1                       1/1     Running   1          2d21h   192.168.31.31   master1   <none>           <none>
+[192.168.31.30] out: kube-system            kube-scheduler-master2                       1/1     Running   1          2d21h   192.168.31.32   master2   <none>           <none>
+[192.168.31.30] out: kube-system            kube-scheduler-master3                       1/1     Running   1          2d21h   192.168.31.33   master3   <none>           <none>
+[192.168.31.30] out: kube-system            metrics-server-7dd5846d57-m5qkn              1/1     Running   1          2d21h   10.244.136.2    master3   <none>           <none>
+[192.168.31.30] out: kubernetes-dashboard   dashboard-metrics-scraper-7b64584c5c-l7p7h   1/1     Running   1          2d21h   10.244.180.6    master2   <none>           <none>
+[192.168.31.30] out: kubernetes-dashboard   kubernetes-dashboard-74f8c88579-cf74j        1/1     Running   2          2d21h   10.244.180.4    master2   <none>           <none>
 [192.168.31.30] out: 
 
 [192.168.31.30] run: kubectl get nodes
-[192.168.31.30] out: NAME      STATUS   ROLES    AGE   VERSION
-[192.168.31.30] out: master1   Ready    master   30h   v1.17.0
-[192.168.31.30] out: master2   Ready    master   26h   v1.17.0
-[192.168.31.30] out: master3   Ready    master   26h   v1.17.0
-[192.168.31.30] out: node1     Ready    <none>   26h   v1.17.0
+[192.168.31.30] out: NAME      STATUS   ROLES    AGE     VERSION
+[192.168.31.30] out: master1   Ready    master   2d21h   v1.17.0
+[192.168.31.30] out: master2   Ready    master   2d21h   v1.17.0
+[192.168.31.30] out: master3   Ready    master   2d21h   v1.17.0
+[192.168.31.30] out: node1     Ready    <none>   2d21h   v1.17.0
 [192.168.31.30] out: 
 
 [192.168.31.30] run: kubectl get cs
 [192.168.31.30] out: NAME                 STATUS    MESSAGE              ERROR
-[192.168.31.30] out: scheduler            Healthy   ok                   
 [192.168.31.30] out: controller-manager   Healthy   ok                   
-[192.168.31.30] out: etcd-0               Healthy   {"health": "true"}   
+[192.168.31.30] out: scheduler            Healthy   ok                   
 [192.168.31.30] out: etcd-1               Healthy   {"health": "true"}   
+[192.168.31.30] out: etcd-0               Healthy   {"health": "true"}   
 [192.168.31.30] out: etcd-2               Healthy   {"health": "true"}   
 [192.168.31.30] out: 
 
-[192.168.31.30] run: kubectl top node;kubectl top pod
+[192.168.31.30] run: kubectl top node;kubectl top pod --all-namespaces
 [192.168.31.30] out: NAME      CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%   
-[192.168.31.30] out: master1   371m         18%    1156Mi          30%       
-[192.168.31.30] out: master2   332m         16%    975Mi           25%       
-[192.168.31.30] out: master3   287m         14%    1126Mi          29%       
-[192.168.31.30] out: node1     127m         6%     663Mi           17%       
-[192.168.31.30] out: NAME                       CPU(cores)   MEMORY(bytes)   
-[192.168.31.30] out: traefik-79f86c9d68-rf7qs   5m           17Mi            
+[192.168.31.30] out: master1   305m         10%    1070Mi          27%       
+[192.168.31.30] out: master2   359m         11%    1059Mi          27%       
+[192.168.31.30] out: master3   393m         19%    1063Mi          27%       
+[192.168.31.30] out: node1     107m         5%     505Mi           13%       
+[192.168.31.30] out: NAMESPACE              NAME                                         CPU(cores)   MEMORY(bytes)   
+[192.168.31.30] out: kube-system            calico-kube-controllers-564b6667d7-mxtdk     2m           12Mi            
+[192.168.31.30] out: kube-system            calico-node-9m9d9                            17m          65Mi            
+[192.168.31.30] out: kube-system            calico-node-hsfqs                            15m          64Mi            
+[192.168.31.30] out: kube-system            calico-node-lvbcc                            20m          64Mi            
+[192.168.31.30] out: kube-system            calico-node-rt45g                            19m          62Mi            
+[192.168.31.30] out: kube-system            coredns-6955765f44-dhxsw                     4m           9Mi             
+[192.168.31.30] out: kube-system            coredns-6955765f44-s86nb                     3m           10Mi            
+[192.168.31.30] out: kube-system            kube-apiserver-master1                       27m          284Mi           
+[192.168.31.30] out: kube-system            kube-apiserver-master2                       26m          258Mi           
+[192.168.31.30] out: kube-system            kube-apiserver-master3                       38m          337Mi           
+[192.168.31.30] out: kube-system            kube-controller-manager-master1              3m           15Mi            
+[192.168.31.30] out: kube-system            kube-controller-manager-master2              3m           15Mi            
+[192.168.31.30] out: kube-system            kube-controller-manager-master3              12m          41Mi            
+[192.168.31.30] out: kube-system            kube-proxy-dsdwq                             1m           14Mi            
+[192.168.31.30] out: kube-system            kube-proxy-gwnqj                             1m           16Mi            
+[192.168.31.30] out: kube-system            kube-proxy-r8tmd                             2m           15Mi            
+[192.168.31.30] out: kube-system            kube-proxy-wmsws                             1m           17Mi            
+[192.168.31.30] out: kube-system            kube-scheduler-master1                       3m           14Mi            
+[192.168.31.30] out: kube-system            kube-scheduler-master2                       4m           13Mi            
+[192.168.31.30] out: kube-system            kube-scheduler-master3                       4m           13Mi            
+[192.168.31.30] out: kube-system            metrics-server-7dd5846d57-m5qkn              1m           14Mi            
+[192.168.31.30] out: kubernetes-dashboard   dashboard-metrics-scraper-7b64584c5c-l7p7h   1m           9Mi             
+[192.168.31.30] out: kubernetes-dashboard   kubernetes-dashboard-74f8c88579-cf74j        1m           13Mi            
 [192.168.31.30] out: 
 
 

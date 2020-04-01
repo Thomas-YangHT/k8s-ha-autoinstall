@@ -10,12 +10,15 @@ VIP_IP=192.168.31.30
 CP1_IP=192.168.31.31
 CP2_IP=192.168.31.32
 CP3_IP=192.168.31.33
+master="$CP1_IP,$CP2_IP,$CP3_IP" 
 NODE1_IP=192.168.31.34
 NODE1_HOSTNAME=node1.yunwei.edu
-REMOTE_USER=root
+NODE2_IP=192.168.31.35
+NODE2_HOSTNAME=node2.yunwei.edu
+node="$NODE1_IP,$NODE2_IP"      # add IP seprate by ','
+NODES_TO_ADD="node2,node3"
+REMOTE_USER=core
 #
-master="$CP1_IP,$CP2_IP,$CP3_IP"
-node="$NODE1_IP"  # add IP seprate by ','
 NODES="$master,$node"
 net="calico" #calico or flannel
 dashboard=true
@@ -26,11 +29,13 @@ efk=true
 istio=true
 
 #just for Clone KVM machines
-OS_TYPE=centos                  #coreos or centos
-BASE_IMAGE_NAME=centosbase     #coreosbase2 or centosbase
-BASE_IP=192.168.31.11
-KVM_NAME="master1,master2,master3,node1"
-GATEWAY=192.168.31.253  
-DNS1=223.5.5.5
+OS_TYPE=coreos                  #coreos or centos
+BASE_IMAGE_NAME=coreosbase      #coreosbase or centosbase
+PREFIX='core' #vhost prefix
+## PREFIX='ha'
+BASE_IP=192.168.31.23
+KVM_NAME="master1,master2,master3,node1,node2"
+KVMDIR=/mnt/kvm
+GATEWAY=192.168.31.254  
+DNS1=192.168.31.140
 DNS2=114.114.114.114  
-
